@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "Yitayal Gezahegn",
+    "role": "Chief Executive Officer",
+    "education": "BSc in Information Technology",
+    "imageUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+  },
+  {
+    "id": 2,
+    "name": "Abebe Dagnaw",
+    "role": "Chief Information Security Officer",
+    "education": "BSc in Electrical and Computer Engineering",
+    "imageUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+  },
+  {
+    "id": 3,
+    "name": "Mohamed Shumet",
+    "role": "Information System Infrastructure Director",
+    "education": "BSc in Electrical and Computer Engineering",
+    "imageUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+  },
+  {
+    "id": 4,
+    "name": "Messay Nigusie",
+    "role": "Chief Consulting Officer",
+    "education": "BSc in Electrical and Computer Engineering",
+    "imageUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+  },
+  {
+    "id": 5,
+    "name": "Tesfaye Mehari",
+    "role": "Chief Architect",
+    "education": "Master's Degree in Architecture",
+    "imageUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+  },
+  {
+    "id": 6,
+    "name": "Muluken Linger",
+    "role": "Chief Training Officer",
+    "education": "BA in Management",
+    "imageUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+  },
+  {
+    "id": 7,
+    "name": "Emebet Mehari",
+    "role": "Chief Operations Officer",
+    "education": "BA in Agre Economics",
+    "imageUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+  },
+  {
+    "id": 8,
+    "name": "Frehhewot Fenta",
+    "role": "Chief Talent Officer",
+    "education": "Diploma in Management",
+    "imageUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+  },
+  {
+    "id": 9,
+    "name": "Habtamu Fres",
+    "role": "Chief Financial Officer",
+    "education": "BA in Accounting and Finance",
+    "imageUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+  },
+  {
+    "id": 10,
+    "name": "John",
+    "role": "Project Manager",
+    "education": "BA in Accounting and Finance",
+    "imageUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+  }
+]

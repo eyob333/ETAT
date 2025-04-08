@@ -1,0 +1,30 @@
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home/ethiote1/server"
+PassengerBaseURI "/"
+PassengerNodejs "/home/ethiote1/nodevenv/server/14/bin/node"
+PassengerAppType node
+PassengerStartupFile server.js
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION BEGIN
+<IfModule Litespeed>
+SetEnv ACCESS_TOKEN_SECRET 2c2d94cdd9c63e0b6175abc79cdb70f5fb2265a25ce52014fd9364374592d3b5c361db1ca4e2202c98a7206d479434ff87e0e9e5927027950c65c29a026154f2
+SetEnv BASE_URL server.ethiotechaddis.com
+SetEnv DATABASE ethiote1_ethiotechaddis
+SetEnv DB_PASSWORD C8hU@Rh;[7kS
+SetEnv DIALECT postgres
+SetEnv EMAIL_ADDRESS ethiotechaddis@ethiotechaddis.com
+SetEnv HOST 127.0.0.200
+SetEnv PASSWORD ~!yYr?iWKJ1d
+SetEnv PORT 5432
+SetEnv REFRESH_TOKEN_SECRET b4e529d699abd8c8578088b576838ec0109c5c7dfd31cff1c1bdc8c71470511d05bcf3dc8de603c77d4e01d0df07cc92dbe95abbe4995269a756e0e44ef669c1
+SetEnv USER ethiote1_user1
+SetEnv Client_URL http://localhost:3000
+</IfModule>
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION END
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php82” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php82___lsphp .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
