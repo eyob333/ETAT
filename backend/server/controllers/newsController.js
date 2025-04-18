@@ -14,7 +14,7 @@ const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
 // Create a new news
 module.exports.addNews_post = async (req, res) => {
   const { title, body, author_name, id } = req.body
-  const picture = req.file ? 'https://server.ethiotechaddis.com/' + req.file.path : ''
+  const picture = req.file ? process.env.backend + req.file.path : ''
   try {
     const user_id = id
     const news = await News.create({ title, body, picture, author_name, user_id })
@@ -100,7 +100,7 @@ module.exports.updateNews_post = async (req, res) => {
       Object.assign(news, updatedNews)
 
       if (req.file) {
-        news.picture = 'https://server.ethiotechaddis.com/' + req.file.path
+        news.picture = process.env.backend + req.file.path
       }
       news.updatedAt = new Date()
       await news.save()

@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+ 
 /* eslint-disable react/no-danger */
 /* eslint-disable import/order */
 /* eslint-disable no-unused-vars */

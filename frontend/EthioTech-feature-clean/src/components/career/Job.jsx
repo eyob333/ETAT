@@ -1,6 +1,6 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable import/no-duplicates */
-/* eslint-disable import/no-extraneous-dependencies */
+ 
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */

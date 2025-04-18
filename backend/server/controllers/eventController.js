@@ -15,7 +15,7 @@ const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
 // Create a new sevice
 module.exports.addEvent_post = async (req, res) => {
   const { title, body, location, max_enrollment, start_date, end_date, status, id } = req.body
-  const picture = req.file ? 'https://server.ethiotechaddis.com/' + req.file.path : ''
+  const picture = req.file ? process.env.backend + req.file.path : ''
   const user_id = id
   try {
     const event = await Event.create({ title, body, picture, location, max_enrollment, start_date, end_date, status, user_id })
@@ -161,7 +161,7 @@ module.exports.updateEvent_post = async (req, res) => {
     const event = await Event.findByPk(eventId)
     if (event) {
       if (req.file) {
-        event.picture = 'https://server.ethiotechaddis.com/' + req.file.path
+        event.picture = process.env.backend + req.file.path
       }
       Object.assign(event, updatedEvent)
       event.updatedAt = new Date()

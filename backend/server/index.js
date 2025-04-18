@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express')
 const cors = require('cors')
 const Pool = require('pg').Pool
@@ -20,7 +22,7 @@ const upload = require('./middleware/fileUpload')
 const limiter = require('./middleware/rateLimiter')
 
 const app = express()
-
+app.use('/image',express.static('Image'));
 app.use(credentials)
 app.use(cors(corsOptions))
 app.use(express.json())
@@ -31,8 +33,8 @@ app.set('trust proxy', 1)
 
 app.set('view engine', 'ejs')
 
-app.listen(() => {
-  console.log('Server is running on port 3001')
+app.listen(process.env.SERVER_PORT , () => {
+  console.log('Server is running on port 5000')
 })
 
 app.get('/', (req, res) => {
@@ -44,9 +46,7 @@ const pool = new Pool({
   password: configDB.PASSWORD,
   host: configDB.HOST,
   database: configDB.DATABASE,
-  ssl: {
-    rejectUnauthorized: true 
-  }
+  ssl: false
 })
 
 pool.connect()

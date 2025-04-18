@@ -66,7 +66,7 @@ const User = sequelize.define('user', {
   tableName: 'users'
 })
 
-// Before saving the user to the database
+// Before saving the user to the database we hash the password
 User.beforeCreate(async (user, options) => {
   const salt = await bcrypt.genSalt()
   user.password = await bcrypt.hash(user.password, salt)

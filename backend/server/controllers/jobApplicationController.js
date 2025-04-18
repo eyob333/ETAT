@@ -20,7 +20,7 @@ module.exports.addJobApplication_post = async (req, res) => {
     prospectus_confirmation
   } = req.body
   const { job_id } = req.params
-  const resume = req.file ? 'https://server.ethiotechaddis.com/' + req.file.path : ''
+  const resume = req.file ? process.env.backend + req.file.path : ''
 
   const job = await Job.findByPk(job_id)
   if (!job) {

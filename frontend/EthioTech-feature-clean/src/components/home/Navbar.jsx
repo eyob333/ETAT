@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
@@ -21,7 +21,7 @@ export default function Navbar() {
       label: 'Company',
       dropdownLinks: [
         { path: '/aboutUs', label: 'About Us' },
-        { path: '/team', label: 'Team' },
+        // { path: '/team', label: 'Team' },
         { path: '/services', label: 'Services' },
         { path: '/trainings', label: 'Traninigs' },
         { path: '/event', label: 'Events' },

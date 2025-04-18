@@ -16,6 +16,16 @@ module.exports = {
         customDark: 'rgba(6, 15, 21, 0.7)',
         customDarkRed: 'rgba(94, 22, 29, 0.5)',
       },
+      animation: {
+        scroll: 'scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
+      },
+      keyframes: {
+        scroll: {
+          to: {
+            transform: 'translate(calc(-50% - 0.5rem))',
+          },
+        },
+      },
     },
   },
   plugins: [

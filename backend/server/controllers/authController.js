@@ -55,6 +55,8 @@ module.exports.signup_post = async (req, res) => {
   try {
     const user = await User.create({ first_name, last_name, email, password, role, picture, department })
     res.status(201).json({ user: user._id })
+    console.log("User created successfully")
+    console.log(user)
   } catch (err) {
     console.log(err)
     const errors = handleErrors(err)

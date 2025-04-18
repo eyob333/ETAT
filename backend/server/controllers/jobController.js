@@ -14,7 +14,7 @@ const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
 module.exports.addJob_post = async (req, res) => {
   const { title, body, company, location, department, employment_type, workplace_type, salary, start_date, end_date, id } = req.body
 
-  const picture = req.file ? 'https://server.ethiotechaddis.com/' + req.file.path : ''
+  const picture = req.file ? process.env.backend + req.file.path : ''
   const user_id = id
   try {
     const job = await Job.create({
@@ -98,7 +98,7 @@ module.exports.updateJob_post = async (req, res) => {
       Object.assign(job, updatedJob)
 
       if (req.file) {
-        job.picture = 'https://server.ethiotechaddis.com/' + req.file.path
+        job.picture = process.env.backend + req.file.path
       }
       job.updatedAt = new Date()
       await job.save()

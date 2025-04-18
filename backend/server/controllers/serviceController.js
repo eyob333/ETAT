@@ -4,7 +4,7 @@ const Service = require('../models/Service')
 // Create a new sevice
 module.exports.addService_post = async (req, res) => {
   const { title, body, id } = req.body
-  const picture = req.file ? 'https://server.ethiotechaddis.com/' + req.file.path : ''
+  const picture = req.file ? 'http://localhost:5000/' + req.file.path : ''
   try {
     const user_id = id
     const service = await Service.create({ title, body, picture, user_id })
@@ -47,7 +47,7 @@ module.exports.updateService_post = async (req, res) => {
     const service = await Service.findByPk(serviceId)
     if (service) {
       if (req.file) {
-        service.picture = 'https://server.ethiotechaddis.com/' + req.file.path
+        service.picture = 'http://localhost:5000/' + req.file.path
       }
       Object.assign(service, updatedService)
 

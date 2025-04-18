@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+
 import './App.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -66,6 +66,7 @@ import TrainingForm from './components/traning/TraningForm';
 import EventAttendee from './admin/event/EventAttendee';
 import Trainees from './admin/training/Trainees';
 
+
 function App() {
   return (
     <>
@@ -76,7 +77,7 @@ function App() {
           <Route path="/" element={<Page />}>
             <Route path="/" element={<Home />} />
             <Route path="/aboutUs" element={<About />} />
-            <Route path="/team" element={<Team />} />
+            {/* <Route path="/team" element={<Team />} /> */}
             <Route path="/partner" element={<Partner />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/projects" element={<Project />} />

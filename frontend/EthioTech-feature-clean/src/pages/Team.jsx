@@ -1,16 +1,6 @@
-/* eslint-disable import/no-named-as-default-member */
-/* eslint-disable import/no-named-as-default */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-use-before-define */
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/button-has-type */
+
 import { PiShareFatFill } from 'react-icons/pi';
 import React, { useState } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import team from '../assets/team.json';
 import LeadershipCard from '../components/team/LeadershipCard';
 import 'react-responsive-modal/styles.css';

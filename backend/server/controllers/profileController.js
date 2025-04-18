@@ -10,7 +10,7 @@ require('dotenv').config()
 // Create a new profile
 module.exports.addProfile_post = async (req, res) => {
   const { first_name, last_name, email, password, role, department } = req.body
-  const picture = req.file ? 'https://server.ethiotechaddis.com/' + req.file.path : ''
+  const picture = req.file ? process.env.backend + req.file.path : ''
 
   try {
     const user = await User.create({ first_name, last_name, email, password, picture, role, department })
@@ -55,7 +55,7 @@ module.exports.updateProfile_post = async (req, res) => {
     if (profile) {
       Object.assign(profile, updatedProfile)
       if (req.file) {
-        profile.picture = 'https://server.ethiotechaddis.com/' + req.file.path
+        profile.picture = process.env.backend + req.file.path
       }
       profile.updatedAt = new Date()
       await profile.save()

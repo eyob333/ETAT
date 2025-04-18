@@ -4,7 +4,7 @@ const Partner = require('../models/Partner')
 // Create a new sevice
 module.exports.addPartner_post = async (req, res) => {
   const { name, body, key_offerings, id } = req.body
-  const logo = req.file ? 'https://server.ethiotechaddis.com/' + req.file.path : ''
+  const logo = req.file ? process.env.backend + req.file.path : ''
   try {
     const user_id = id
     const partner = await Partner.create({ name, body, key_offerings, logo, user_id })
@@ -49,7 +49,7 @@ module.exports.updatePartner_post = async (req, res) => {
       Object.assign(partner, updatedPartner)
 
       if (req.file) {
-        partner.logo = 'https://server.ethiotechaddis.com/' + req.file.path
+        partner.logo = process.env.backend + req.file.path
       }
       partner.updatedAt = new Date()
       await partner.save()

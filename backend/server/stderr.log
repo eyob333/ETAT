@@ -157,7 +157,7 @@ Error connecting to PostgreSQL database Error: getaddrinfo ENOTFOUND https://ser
   errno: -3008,
   code: 'ENOTFOUND',
   syscall: 'getaddrinfo',
-  hostname: 'https://server.ethiotechaddis.com/'
+  hostname: process.env.backend
 }
 Error connecting to PostgreSQL database Error: getaddrinfo ENOTFOUND https://server.ethiotechaddis.com
     at /home/ethiote1/nodevenv/server/14/lib/node_modules/pg-pool/index.js:45:11

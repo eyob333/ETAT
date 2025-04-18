@@ -1,28 +1,20 @@
-/* eslint-disable react/style-prop-object */
-/* eslint-disable no-console */
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/button-has-type */
+
 import React, { useState, useEffect } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { PiShareFatFill } from 'react-icons/pi';
 import ReactDOM from 'react-dom';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import ServiceCard from '../components/service/ServiceCard';
+import ServiceMovingCards from '../components/service/ServiceMovingCards';
 import { serviceSelector } from '../redux/store';
 import LoadingScreen from '../conditions/LoadingScreen';
 import { fetchService } from '../redux/service/serviceSlice';
 
 export default function Service() {
   const { services, isLoading } = useSelector(serviceSelector);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();  
   const [searchInput, setSearchInput] = useState('');
-
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
   };
@@ -38,6 +30,7 @@ export default function Service() {
     content = <LoadingScreen />;
   } else if (!isLoading && services.length > 0) {
     filteredService = services.filter((service) => service.title.toLowerCase().includes(searchInput.toLowerCase()));
+    console.log("Filtered Services : ",filteredService);
     content = (
       <div className="flex flex-wrap gap-6 md:gap-0 -mx-2 mb-10">
         {filteredService.map((item) => (
@@ -109,6 +102,9 @@ export default function Service() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
+        </div>
+        <div>
+          <ServiceMovingCards />
         </div>
         <>
           {content}

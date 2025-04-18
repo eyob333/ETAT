@@ -1,6 +1,6 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
-/* eslint-disable import/no-extraneous-dependencies */
+ 
 import React, { useEffect } from 'react';
 import { useLocation, Outlet } from 'react-router-dom';
 // import Home from '../components/home/Home';

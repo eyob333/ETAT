@@ -3,6 +3,7 @@ import React from 'react';
 
 const ServiceCard = ({ dataArray }) => (
   <div className="flex flex-wrap gap-6 md:gap-0 -mx-2 mb-10">
+    {console.log(dataArray)}
     {dataArray.map((item) => (
       <div className="w-full md:w-1/2 md:mt-4 lg:w-1/3 h-auto px-4" key={item.title}>
         <div
@@ -38,6 +39,7 @@ const ServiceCard = ({ dataArray }) => (
           <img
             className=" absolute z-0 top-0 left-0 invisible object-center object-cover group-hover:visible h-full w-full bg-black transition duration-200 ease-in-out group-hover:brightness-50 group-hover:opacity-80 group-hover:scale-110"
             src={item.picture}
+          
             alt="img"
           />
         </div>

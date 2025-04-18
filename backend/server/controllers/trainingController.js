@@ -14,7 +14,7 @@ const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
 // Create a new 
 module.exports.addTraining_post = async (req, res) => {
   const { title, body, location, max_enrollment, start_date, end_date, status, phases, id } = req.body
-  const picture = req.file ? 'https://server.ethiotechaddis.com/' + req.file.path : ''
+  const picture = req.file ? process.env.backend + req.file.path : ''
   try {
     const user_id = id
     const training = await Training.create({ title, body, picture, location, max_enrollment, start_date, end_date, phases, user_id })
@@ -160,7 +160,7 @@ module.exports.updateTraining_post = async (req, res) => {
     const training = await Training.findByPk(trainingId)
     if (training) {
       if (req.file) {
-        training.picture = 'https://server.ethiotechaddis.com/' + req.file.path
+        training.picture = process.env.backend + req.file.path
       }
       Object.assign(training, updatedTraining)
 

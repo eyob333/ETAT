@@ -1,9 +1,5 @@
-/* eslint-disable max-len */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable eqeqeq */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/no-extraneous-dependencies */
+
+ 
 import React, { useState } from 'react';
 import {
   Formik, Form, Field, ErrorMessage, useFormik,

@@ -1,2 +1,2 @@
-const baseUrl = 'https://server.ethiotechaddis.com';
+const baseUrl = 'http://localhost:5000';
 export default baseUrl;
