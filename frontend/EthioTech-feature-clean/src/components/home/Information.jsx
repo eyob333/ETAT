@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { partnerSelector, projectSelector, serviceSelector } from '../../redux/store';
@@ -53,3 +52,4 @@ export default function Information() {
     </div>
   );
 }
+

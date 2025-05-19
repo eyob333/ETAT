@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import img from '../../assets/image/ppl.jpg';
+import img from '../../assets/image/p1.jpg';
 
 export default function WorkWithUs() {
   return (
@@ -47,3 +47,4 @@ export default function WorkWithUs() {
     </div>
   );
 }
+

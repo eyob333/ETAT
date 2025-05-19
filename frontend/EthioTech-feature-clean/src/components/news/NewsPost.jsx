@@ -1,20 +1,7 @@
-/* eslint-disable react/no-danger */
-/* eslint-disable jsx-a11y/control-has-associated-label */
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/style-prop-object */
-/* eslint-disable no-console */
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
- 
-/* eslint-disable react/button-has-type */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PiShareFatThin } from 'react-icons/pi';
 import { Link, useLocation, useParams } from 'react-router-dom';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import DOMPurify from 'dompurify';
 import { FaShareSquare } from 'react-icons/fa';
 import { toast } from 'react-toastify';
@@ -213,3 +200,4 @@ export default function NewsPost() {
     );
   }
 }
+

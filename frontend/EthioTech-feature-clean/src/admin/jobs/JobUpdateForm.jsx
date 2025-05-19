@@ -1,6 +1,3 @@
-/* eslint-disable radix */
-/* eslint-disable max-len */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
@@ -373,3 +370,6 @@ export default function JobUpdateForm() {
     </>
   );
 }
+
+
+

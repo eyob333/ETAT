@@ -1,33 +1,26 @@
-/* eslint-disable max-len */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
- 
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable jsx-a11y/img-redundant-alt */
+
 import React from 'react';
 import ImageSwiper from '../components/about/ImageSwiper';
 import InfoCards from '../components/about/InfoCard';
-import img from '../assets/image/slide 02.png';
-import img2 from '../assets/image/slide 03.jpg';
-import img3 from '../assets/image/Slide 01.jpg';
-import img4 from '../assets/image/Slide automation 01.png';
+// import img1 from '../assets/image/slide 02.png';
+// import img22 from '../assets/image/slide 03.jpg';
+// import img3 from '../assets/image/Slide 01.jpg';
+// import img4 from '../assets/image/Slide automation 01.png';
 
 export default function About() {
-  // const images = [
-  //   { label: 'https://i.pinimg.com/originals/51/82/ac/5182ac536727d576c78a9320ac62de30.jpg' },
-  //   { label: 'https://wallpapercave.com/wp/wp3386769.jpg' },
-  //   { label: 'https://wallpaperaccess.com/full/809523.jpg' },
-  //   { label: 'https://getwallpapers.com/wallpaper/full/5/c/0/606489.jpg' },
-  // ];
-
   const images = [
-    { label: img },
-    { label: img2 },
-    { label: img3 },
-    { label: img4 },
+    { label: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1746007852/VOIP-PBX_dgsujc.png' },
+    { label: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1746007822/cyber_hn22r4.png' },
+    { label: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1746007831/software_if11jh.jpg' },
+    { label: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1746007783/Slide_01_dphp7w.jpg' },
   ];
+
+  // const images = [
+  //   { label: img1 },
+  //   { label: img22 },
+  //   { label: img3 },
+  //   { label: img4 },
+  // ];
 
   const infoData = [
     {
@@ -105,7 +98,7 @@ export default function About() {
               </div>
               <div className="xs:mt-6 lg:mt-0 justify-center items-center mt-5 md:my-6  shadow-xl">
                 <img
-                  src="https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg?cs=srgb&dl=pexels-marc-mueller-380769.jpg&fm=jpg"
+                  src="https://res.cloudinary.com/deqp41wyr/image/upload/v1747122392/about_2_ewvqzs.jpg"
                   alt="Our Story"
                   className="w-full h-full object-cover rounded "
                 />
@@ -124,3 +117,4 @@ export default function About() {
     </div>
   );
 }
+

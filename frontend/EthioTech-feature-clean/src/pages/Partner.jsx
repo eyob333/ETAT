@@ -1,6 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -29,7 +26,7 @@ export default function Partner() {
         className="bg-cover bg-center bg-no-repeat h-80 flex items-center"
         style={{
           backgroundImage:
-            'url(https://synaxtech.com/wp-content/uploads/2022/09/Our-Partners.jpg)',
+            'url(https://res.cloudinary.com/deqp41wyr/image/upload/v1747122384/p1_uainmw.jpg)',
         }}
       >
         <div className="container mx-auto py-12  sm:px-6 lg:px-8  w-4/5 flex items-center justify-start">
@@ -60,3 +57,4 @@ export default function Partner() {
     </div>
   );
 }
+

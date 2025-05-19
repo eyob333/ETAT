@@ -1,10 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable import/no-duplicates */
- 
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BiSolidUserCircle } from 'react-icons/bi';
@@ -593,3 +586,4 @@ export default function Job() {
     </div>
   );
 }
+

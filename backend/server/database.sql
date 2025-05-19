@@ -155,3 +155,16 @@ CREATE TABLE IF NOT EXISTS enrollment (
   FOREIGN KEY (enrolled_for_id) REFERENCES events (id),
   FOREIGN KEY (enrolled_for_id) REFERENCES trainings (id)
 );
+
+CREATE TABLE IF NOT EXISTS products (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR NOT NULL,
+  description VARCHAR NOT NULL,
+  category VARCHAR NOT NULL,
+  price DECIMAL,
+  picture VARCHAR,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  user_id INTEGER,
+  FOREIGN KEY (user_id) REFERENCES Users(id)
+);

@@ -64,3 +64,4 @@ export const {
   addUser, removeProject, updateProjectState, addProject,
 } = projectSlice.actions;
 export default projectSlice.reducer;
+

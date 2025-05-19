@@ -1,8 +1,3 @@
-/* eslint-disable radix */
-/* eslint-disable max-len */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
- 
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
@@ -60,3 +55,6 @@ function ServiceDetail() {
   );
 }
 export default ServiceDetail;
+
+
+

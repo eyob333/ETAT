@@ -1,10 +1,3 @@
-/* eslint-disable no-empty */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/iframe-has-title */
-/* eslint-disable react/button-has-type */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
 import React, { useState } from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
@@ -179,3 +172,4 @@ export default function ContactForm() {
     </div>
   );
 }
+

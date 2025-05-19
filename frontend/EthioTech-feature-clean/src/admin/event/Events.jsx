@@ -1,6 +1,3 @@
-/* eslint-disable import/order */
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -64,8 +61,7 @@ export default function Events() {
     const [dateString, timeString] = dateTimeString.split('T');
 
     const [hours, minutes] = timeString.split(':');
-    // eslint-disable-next-line radix
-    let formattedHours = parseInt(hours);
+        let formattedHours = parseInt(hours);
     const ampm = formattedHours >= 12 ? 'PM' : 'AM';
 
     if (formattedHours === 0) {
@@ -87,8 +83,7 @@ export default function Events() {
     ];
 
     const [year, month, day] = dateString.split('-');
-    // eslint-disable-next-line radix
-    const formattedMonth = months[parseInt(month) - 1];
+        const formattedMonth = months[parseInt(month) - 1];
     const formattedDate = `${formattedMonth} ${day}, ${year}`;
     return formattedDate;
   }
@@ -229,3 +224,6 @@ export default function Events() {
     </div>
   );
 }
+
+
+

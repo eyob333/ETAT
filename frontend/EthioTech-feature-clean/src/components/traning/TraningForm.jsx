@@ -1,7 +1,4 @@
-/* eslint-disable radix */
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
-/* eslint-disable jsx-a11y/label-has-associated-control */
+
 import React, { useState } from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
@@ -138,3 +135,4 @@ export default function TrainingForm() {
     </section>
   );
 }
+

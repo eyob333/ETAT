@@ -1,5 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable react/prop-types */
 import React from 'react';
 
 const InfoCards = ({ data }) => (
@@ -25,3 +23,4 @@ const InfoCards = ({ data }) => (
 );
 
 export default InfoCards;
+

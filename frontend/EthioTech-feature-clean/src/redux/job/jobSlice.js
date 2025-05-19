@@ -68,3 +68,4 @@ export const {
   addJob, removeJob, updateJobState, addService,
 } = jobSlice.actions;
 export default jobSlice.reducer;
+

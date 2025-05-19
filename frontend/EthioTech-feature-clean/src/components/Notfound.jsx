@@ -1,7 +1,5 @@
-/* eslint-disable react/button-has-type */
-
 import { Link, useNavigate } from 'react-router-dom';
-/* eslint-disable jsx-a11y/anchor-is-valid */
+   
 export default function NotFoundPage() {
   const navigate = useNavigate();
 
@@ -31,3 +29,4 @@ export default function NotFoundPage() {
     </section>
   );
 }
+

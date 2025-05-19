@@ -1,8 +1,3 @@
-/* eslint-disable import/order */
-/* eslint-disable max-len */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -193,3 +188,6 @@ export default function AddAccount() {
     </>
   );
 }
+
+
+

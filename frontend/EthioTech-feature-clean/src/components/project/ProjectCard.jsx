@@ -1,8 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable react/prop-types */
 // DataComponent.js
 
 import React from 'react';
@@ -42,3 +37,4 @@ const ProjectCard = ({ filteredData, openModal, shouldAnimate }) => (
 );
 
 export default ProjectCard;
+

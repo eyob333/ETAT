@@ -1,8 +1,4 @@
- 
-/* eslint-disable react/no-danger */
-/* eslint-disable import/order */
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -173,3 +169,6 @@ export default function Newss() {
     </div>
   );
 }
+
+
+

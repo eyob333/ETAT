@@ -38,3 +38,4 @@ export const {
   useDeleteJobMutation,
   useUpdateJobDataMutation,
 } = jobApiSlice;
+

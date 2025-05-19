@@ -68,3 +68,4 @@ export const {
   addUser, removeEvent, updateEventState, addEvent,
 } = eventSlice.actions;
 export default eventSlice.reducer;
+

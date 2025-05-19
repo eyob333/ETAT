@@ -1,9 +1,3 @@
-/* eslint-disable react/no-danger */
-/* eslint-disable react/no-danger-with-children */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/button-has-type */
 import React from 'react';
 import { PiShareFatFill } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
@@ -72,3 +66,4 @@ const NewsCard = ({ currentItems }) => {
 };
 
 export default NewsCard;
+

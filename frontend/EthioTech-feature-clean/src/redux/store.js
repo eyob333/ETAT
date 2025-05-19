@@ -14,6 +14,7 @@ import newsReducer from './news/newsSlice';
 import contactReducer from './contact/contactSlice';
 import eventAttendeeReducer from './eventAttendee/eventAttendeeSlice';
 import traineeReducer from './trainees/traineeSclice';
+import productReducer from './product/productSlice';
 
 const store = configureStore({
   reducer: {
@@ -31,6 +32,7 @@ const store = configureStore({
     training: trainingReducer,
     news: newsReducer,
     contact: contactReducer,
+    product: productReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
   devTools: true,
@@ -49,5 +51,7 @@ export const newsSelector = (state) => state.news;
 export const contactSelector = (state) => state.contact;
 export const eventAttendeeSelector = (state) => state.eventAttendee;
 export const traineeSelector = (state) => state.trainee;
+export const productSelector = (state) => state.product;
 
 export default store;
+

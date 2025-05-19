@@ -1,8 +1,4 @@
-/* eslint-disable max-len */
-/* eslint-disable no-empty */
- 
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/anchor-is-valid */
+  
 // import { useState } from 'react';
 // import { toast } from 'react-toastify';
 // import { Link } from 'react-router-dom';
@@ -108,3 +104,4 @@ export default function ChangePassword() {
     </div>
   );
 }
+

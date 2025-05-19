@@ -56,3 +56,4 @@ export const {
   addUser, removeContact, updateContactState, addContact,
 } = contactSlice.actions;
 export default contactSlice.reducer;
+

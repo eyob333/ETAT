@@ -17,12 +17,19 @@ const verifyAdmin = (req, res, next) => {
     }
 
     const decodedEmail = decoded.email
-    User.findOne({ email: decodedEmail })
+    User.findOne({ where: { email: decodedEmail } })
       .then(user => {
         if (!user) {
-          return res.json({ message: 'User not found' })
+          return res.status(404).json({ message: 'User not found' })
+        }
+        if (user.role !== 'admin') {
+          return res.status(403).json({ message: 'Access denied. Admin role required.' })
         }
         next()
+      })
+      .catch(error => {
+        console.error('Error finding user:', error)
+        return res.status(500).json({ message: 'Server error' })
       })
   })
 }

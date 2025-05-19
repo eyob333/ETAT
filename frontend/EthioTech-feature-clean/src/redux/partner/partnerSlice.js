@@ -64,3 +64,4 @@ export const {
   addUser, removePartner, updatePartnerState, addPartner,
 } = partnerSlice.actions;
 export default partnerSlice.reducer;
+

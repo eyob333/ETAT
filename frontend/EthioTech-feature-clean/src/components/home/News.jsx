@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import DOMPurify from 'dompurify';
@@ -92,3 +89,4 @@ export default function News() {
     </div>
   );
 }
+

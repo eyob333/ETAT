@@ -1,10 +1,3 @@
-/* eslint-disable eqeqeq */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable max-len */
-/* eslint-disable radix */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
- 
 import React, { useEffect, useState } from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
@@ -248,3 +241,6 @@ function NewsUpdateForm() {
   );
 }
 export default NewsUpdateForm;
+
+
+

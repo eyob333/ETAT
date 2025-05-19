@@ -1,5 +1,4 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable max-len */
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -70,3 +69,4 @@ export const {
   addJobApplication, removeJobApplication, updateJobApplicationState, addService,
 } = jobApplicationSlice.actions;
 export default jobApplicationSlice.reducer;
+

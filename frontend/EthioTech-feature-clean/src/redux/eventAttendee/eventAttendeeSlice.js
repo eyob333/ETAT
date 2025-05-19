@@ -1,5 +1,4 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable max-len */
+ 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import baseURL from '../app/api/baseApi';
@@ -57,3 +56,4 @@ export const {
   removeJobApplication,
 } = eventAttendeeSlice.actions;
 export default eventAttendeeSlice.reducer;
+

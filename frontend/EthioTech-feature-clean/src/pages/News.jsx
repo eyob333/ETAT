@@ -1,15 +1,4 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/style-prop-object */
-/* eslint-disable no-console */
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
- 
-/* eslint-disable react/button-has-type */
 import React, { useState, useEffect } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-responsive-modal/styles.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -181,3 +170,4 @@ export default function News() {
     </div>
   );
 }
+

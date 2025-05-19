@@ -1,8 +1,8 @@
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
+  
+    
  
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/anchor-is-valid */
+     
+   
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -144,3 +144,4 @@ export default function SignIn() {
     </div>
   );
 }
+

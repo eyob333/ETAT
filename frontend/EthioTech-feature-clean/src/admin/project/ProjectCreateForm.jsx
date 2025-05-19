@@ -1,8 +1,3 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable eqeqeq */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
- 
 import React, { useState } from 'react';
 import {
   Formik, Form, Field, ErrorMessage, useFormik,
@@ -314,3 +309,6 @@ export default function ProjectCreateForm() {
     </div>
   );
 }
+
+
+

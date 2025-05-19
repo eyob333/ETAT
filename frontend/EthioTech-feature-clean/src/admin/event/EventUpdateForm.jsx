@@ -1,11 +1,3 @@
-/* eslint-disable no-useless-concat */
-/* eslint-disable max-len */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable radix */
-/* eslint-disable eqeqeq */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
- 
 import React, { useEffect, useState } from 'react';
 import {
   Formik, Form, Field, ErrorMessage, useFormik,
@@ -299,3 +291,6 @@ export default function EventUpdateForm() {
     </>
   );
 }
+
+
+

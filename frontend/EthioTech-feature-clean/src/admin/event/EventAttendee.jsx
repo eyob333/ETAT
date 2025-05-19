@@ -1,10 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/order */
-/* eslint-disable max-len */
-/* eslint-disable radix */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable max-len */
+    
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 // import { useGetJobAppQuery } from '../../redux/jobApplication/JobApplicationApiSlice';
@@ -145,3 +139,6 @@ export default function EventAttendee() {
     </>
   );
 }
+
+
+

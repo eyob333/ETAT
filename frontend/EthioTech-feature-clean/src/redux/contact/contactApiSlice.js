@@ -1,4 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
 import { apiSlice } from '../app/api/apiSlice';
 
 export const contactApiSlice = apiSlice.injectEndpoints({
@@ -35,3 +34,4 @@ export const {
   useCreateContactUSMutation,
   useUpdateContactDataMutation,
 } = contactApiSlice;
+

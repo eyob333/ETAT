@@ -1,5 +1,3 @@
-/* eslint-disable import/no-named-as-default-member */
-/* eslint-disable import/no-named-as-default */
  
 import React, { useEffect } from 'react';
 import { useLocation, Outlet } from 'react-router-dom';
@@ -36,3 +34,4 @@ export default function Page() {
     </>
   );
 }
+

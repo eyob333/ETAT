@@ -68,3 +68,4 @@ export const {
   addUser, removeTraining, updateTrainingState, addTraining,
 } = trainingSlice.actions;
 export default trainingSlice.reducer;
+

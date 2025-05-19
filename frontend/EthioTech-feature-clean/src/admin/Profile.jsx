@@ -1,11 +1,3 @@
-/* eslint-disable react/jsx-indent */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable max-len */
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable jsx-a11y/img-redundant-alt */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -257,3 +249,6 @@ export default function Profile() {
     </>
   );
 }
+
+
+

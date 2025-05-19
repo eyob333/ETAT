@@ -38,3 +38,4 @@ export const {
   useDeleteTrainingMutation,
   useUpdateTrainingDataMutation,
 } = trainingApiSlice;
+

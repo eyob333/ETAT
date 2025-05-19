@@ -1,10 +1,3 @@
-/* eslint-disable radix */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable eqeqeq */
-/* eslint-disable max-len */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -232,3 +225,4 @@ export default function Events() {
     </div>
   );
 }
+

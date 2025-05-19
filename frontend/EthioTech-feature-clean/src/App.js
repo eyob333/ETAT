@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route } from 'react-router-dom';
 import SignIn from './pages/SignIn';
-// import Welcome from './redux/auth/Welcome';
+ //import Welcome from './redux/auth/Welcome';
 import Home from './components/home/Home';
 import Layout from './components/layout/Layout';
 import RequireAuth from './redux/auth/RequireAuth';
@@ -14,7 +14,9 @@ import Team from './pages/Team';
 import Partner from './pages/Partner';
 import Contact from './pages/Contact';
 import Project from './pages/Project';
+import Products from './pages/Products'
 import Service from './pages/Service';
+
 import Tranings from './pages/Tranings';
 import Events from './components/event/Events';
 import News from './pages/News';
@@ -59,6 +61,10 @@ import JobForm from './admin/jobs/JobForm';
 import JobUpdateForm from './admin/jobs/JobUpdateForm';
 import JobDetails from './admin/jobs/JobDetails';
 import JopApplication from './admin/jobs/JopApplication';
+import AdminProducts from './admin/product/Products';
+import ProductCreateForm from './admin/product/ProductCreateForm';
+import ProductUpdateForm from './admin/product/ProductUpdateForm';
+import ProductDetail from './admin/product/ProductDetail';
 import NotFoundPage from './components/Notfound';
 import ContactUpdateForm from './admin/contact/contactUpdateForm';
 import EventForm from './components/event/EventForm';
@@ -82,6 +88,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/projects" element={<Project />} />
             <Route path="/services" element={<Service />} />
+            <Route path="/products" element={<Products />} />
             <Route path="/event" element={<Events />} />
             <Route path="/trainings" element={<Tranings />} />
             <Route path="/news" element={<News />} />
@@ -104,6 +111,7 @@ function App() {
               <Route path="/admin" element={<Overview />} />
               <Route path="/admin/add" element={<AddAccount />} />
               <Route path="/admin/events" element={<AdminEvents />} />
+              <Route path="/admin/products" element={<AdminProducts />} />
               <Route path="/admin/jobs" element={<AdminJobs />} />
               <Route path="/admin/news" element={<AdminNews />} />
               <Route path="/admin/profile" element={<Profile />} />
@@ -136,6 +144,9 @@ function App() {
               <Route path="/admin/updateJob/:id" element={<JobUpdateForm />} />
               <Route path="/admin/jobs/:slug" element={<JobDetails />} />
               <Route path="/admin/jobApplicants/:id" element={<JopApplication />} />
+              <Route path="/admin/addProduct" element={<ProductCreateForm />} />
+              <Route path="/admin/updateProduct/:id" element={<ProductUpdateForm />} />
+              <Route path="/admin/productDetail/:id" element={<ProductDetail />} />
               <Route path="/admin/updateContact" element={<ContactUpdateForm />} />
               <Route path="/admin/eventAttendee/:id" element={<EventAttendee />} />
               <Route path="/admin/trainee/:id" element={<Trainees />} />
@@ -151,3 +162,4 @@ function App() {
 }
 
 export default App;
+

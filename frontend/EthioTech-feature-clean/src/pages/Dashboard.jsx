@@ -1,8 +1,4 @@
-/* eslint-disable max-len */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,7 +14,7 @@ import { userSelector } from '../redux/store';
 import { logOut, selectCurrentUser } from '../redux/auth/authSlice';
 import { fetchUser, setAdmin } from '../redux/user/userSlice';
 import logo from '../assets/image/ethiotech2.png';
-
+import { FaProductHunt } from 'react-icons/fa';
 export default function Dashboard() {
   const dispatch = useDispatch();
 
@@ -65,7 +61,13 @@ export default function Dashboard() {
       to: '/admin/events',
       text: 'Events',
       icon: <BsFillCalendarEventFill />,
-    }, {
+    },
+    {
+      to: '/admin/products',
+      text: 'Products',
+      icon: <FaProductHunt  />,
+    },
+     {
       to: '/admin/services',
       text: 'Services',
       icon: <GrServices />,
@@ -179,3 +181,4 @@ export default function Dashboard() {
     </div>
   );
 }
+

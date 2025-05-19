@@ -1,5 +1,5 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
+     
+    
  
 import React, { useState } from 'react';
 import {
@@ -197,3 +197,6 @@ export default function PartnerForm() {
     </div>
   );
 }
+
+
+

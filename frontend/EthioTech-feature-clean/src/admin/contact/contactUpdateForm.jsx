@@ -1,8 +1,4 @@
-/* eslint-disable max-len */
-/* eslint-disable dot-notation */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
- 
+  
 import React, { useState, useEffect } from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
@@ -176,3 +172,6 @@ export default function ContactUpdateForm() {
     </div>
   );
 }
+
+
+

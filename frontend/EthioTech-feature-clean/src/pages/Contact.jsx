@@ -1,9 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/iframe-has-title */
-/* eslint-disable react/button-has-type */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
+   
 import React, { useState } from 'react';
 import ContactForm from '../components/contact/ContactForm';
 import ContactInformation from '../components/contact/ContactInformation';
@@ -76,3 +71,4 @@ export default function Contact() {
     </div>
   );
 }
+

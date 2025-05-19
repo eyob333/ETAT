@@ -84,3 +84,4 @@ export const {
   addUser, removeNews, updateNewsState, addNews, updateLikes,
 } = newsSlice.actions;
 export default newsSlice.reducer;
+

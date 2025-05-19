@@ -1,10 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable radix */
-/* eslint-disable max-len */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
- 
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
@@ -14,8 +7,7 @@ function convertTimeToAMPM(dateTimeString) {
   const [dateString, timeString] = dateTimeString.split('T');
 
   const [hours, minutes] = timeString.split(':');
-  // eslint-disable-next-line radix
-  let formattedHours = parseInt(hours);
+    let formattedHours = parseInt(hours);
   const ampm = formattedHours >= 12 ? 'PM' : 'AM';
 
   if (formattedHours === 0) {
@@ -37,8 +29,7 @@ function formatDate(dateString) {
   ];
 
   const [year, month, day] = dateString.split('-');
-  // eslint-disable-next-line radix
-  const formattedMonth = months[parseInt(month) - 1];
+    const formattedMonth = months[parseInt(month) - 1];
   const formattedDate = `${formattedMonth} ${day}, ${year}`;
   return formattedDate;
 }
@@ -175,3 +166,6 @@ function EventDetail() {
   );
 }
 export default EventDetail;
+
+
+

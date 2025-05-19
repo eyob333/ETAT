@@ -53,3 +53,4 @@ const userSlice = createSlice({
 
 export const { setAdmin, removeUser } = userSlice.actions;
 export default userSlice.reducer;
+

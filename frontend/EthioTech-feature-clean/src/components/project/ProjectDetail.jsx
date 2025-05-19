@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 // ModalContent.js
 
 import React from 'react';
@@ -75,3 +74,4 @@ const ProjectDetail = ({ openModalId, dataArray, closeModal }) => {
 };
 
 export default ProjectDetail;
+

@@ -1,4 +1,4 @@
-/* eslint-disable import/prefer-default-export */
+
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { toast } from 'react-toastify';
 import { setCredentials, logOut } from '../../auth/authSlice';
@@ -38,6 +38,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
-  /* eslint-disable no-unused-vars */
+      
   endpoints: (builder) => ({}),
 });
+

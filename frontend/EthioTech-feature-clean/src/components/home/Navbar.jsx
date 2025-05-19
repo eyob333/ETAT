@@ -6,6 +6,8 @@ import { IoCloseSharp } from 'react-icons/io5';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 // import { MdArrowDropDown } from 'react-icons/md';
 
+
+
 export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to track dropdown visibility
   const [showContent, setShowContent] = useState(false);
@@ -15,21 +17,23 @@ export default function Navbar() {
   };
 
   const links = [
-    { path: '/', label: 'Home' },
+    { 
+      path: '/', label: 'Home' },
     {
       path: '',
       label: 'Company',
       dropdownLinks: [
         { path: '/aboutUs', label: 'About Us' },
         // { path: '/team', label: 'Team' },
-        { path: '/services', label: 'Services' },
         { path: '/trainings', label: 'Traninigs' },
         { path: '/event', label: 'Events' },
-        { path: '/career', label: 'Career' },
+        // { path: '/career', label: 'Career' },
       ],
     },
+      { path: '/products', label: 'Products' },
+    { path: '/services', label: 'Services' },
     { path: '/projects', label: 'Project' },
-    { path: '/partner', label: 'Partners' },
+    // { path: '/partner', label: 'Partners' },
     { path: '/news', label: 'News' },
     { path: '/contact', label: 'Contact Us' },
   ];
@@ -84,3 +88,4 @@ export default function Navbar() {
     </div>
   );
 }
+

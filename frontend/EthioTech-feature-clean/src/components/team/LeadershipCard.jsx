@@ -1,11 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable react/prop-types */
+   
+    
+  
 import React from 'react';
 import { PiShareFatFill } from 'react-icons/pi';
 
@@ -76,3 +71,4 @@ const LeadershipCard = ({ teamMember }) => {
 };
 
 export default LeadershipCard;
+
