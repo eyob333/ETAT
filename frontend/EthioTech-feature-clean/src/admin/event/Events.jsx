@@ -58,6 +58,7 @@ export default function Events() {
   };
 
   function convertTimeToAMPM(dateTimeString) {
+    console.log("foo event date::", dateTimeString)
     const [dateString, timeString] = dateTimeString.split('T');
 
     const [hours, minutes] = timeString.split(':');
@@ -91,9 +92,9 @@ export default function Events() {
   function convertDateTimeToAMPM(dateTimeString) {
     const [dateString] = dateTimeString.split('T');
     const formattedDate = formatDate(dateString);
-    const formattedTime = convertTimeToAMPM(dateTimeString);
+    // const formattedTime = convertTimeToAMPM(dateTimeString);
 
-    return `${formattedDate} ${formattedTime}`;
+    return `${formattedDate} `;//${formattedTime}
   }
 
   let content;

@@ -18,8 +18,10 @@ module.exports.addTraining_post = async (req, res) => {
   try {
     const user_id = id
     const training = await Training.create({ title, body, picture, location, max_enrollment, start_date, end_date, phases, user_id })
+    console.log("foo works very fine some siht:", training)
     res.status(201).json(training)
   } catch (error) {
+    console.log("foo huge error", error)
     res.status(500).json({ error: error.message })
   }
 }
@@ -86,24 +88,26 @@ module.exports.addTrainingEnrollment_post = async (req, res) => {
 };
 
 // get all sevices
-module.exports.allTraining_get = async (req, res) => {
+module.exports.allTraining_get = async (req, res) => { //error 
   try {
     const trainings = await Training.findAll({
-  attributes: {
-    include: [
-      [
-        sequelize.literal('(SELECT COUNT(*) FROM "enrollment" WHERE "enrollment"."enrolled_for_id" = "Training"."id" and "enrollment"."enrolled_for" = \'training\')'),
-        'enrolled_count'
-      ],
-      [
-        sequelize.literal(`CASE WHEN "end_date" > NOW() THEN true ELSE false END`),
-        'status_training'
-      ]
-    ]
-  }
-});
+      attributes: {
+        include: [
+          [
+            sequelize.literal('(SELECT COUNT(*) FROM "enrollment" WHERE "enrollment"."enrolled_for_id" = "Training"."id" and "enrollment"."enrolled_for" = \'training\')'),
+            'enrolled_count'
+          ],
+          [
+            sequelize.literal(`CASE WHEN "end_date" > NOW() THEN true ELSE false END`),
+            'status_training'
+          ]
+        ]
+      }
+    });
+    console.log("foo sucessfull::::", trainings)
     res.status(200).json({ trainings })
   } catch (error) {
+    console.log("foo error:", error)
     res.status(500).json({ error: error.message })
   }
 }

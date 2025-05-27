@@ -11,11 +11,11 @@ const router = Router()
 const cache = apicache.middleware
 
 
-router.get('/events',  eventController.allEvent_get)
+router.get('/events',  eventController.allEvent_get)//source
 router.get('/events/:slug',  eventController.event_get)
 router.get('/enrolled-event',  eventController.enrolledEvent_get)
 
-router.post('/events', verifyJWT, verifyAdmin, upload.single('logo'), eventController.addEvent_post)
+router.post('/events', verifyJWT, verifyAdmin, upload.single('logo'), eventController.addEvent_post) //source
 router.post('/enroll-event',  eventController.addEventEnrollment_post)
 router.patch('/events/:id', verifyJWT, verifyAdmin, upload.single('logo'), eventController.updateEvent_post)
 router.delete('/events/:id', verifyJWT, verifyAdmin, eventController.deleteEvent_post)

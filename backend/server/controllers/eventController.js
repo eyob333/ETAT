@@ -3,7 +3,7 @@ const Event = require('../models/Event')
 const Enrollment = require('../models/Enrollment')
 const nodemailer = require('nodemailer')
 const Sequelize = require('sequelize');
-// const User = require('../models/User')
+const User = require('../models/User')
 const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
 
 const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
@@ -19,8 +19,10 @@ module.exports.addEvent_post = async (req, res) => {
   const user_id = id
   try {
     const event = await Event.create({ title, body, picture, location, max_enrollment, start_date, end_date, status, user_id })
+    console.log("foo event sucess:::::", event)
     res.status(201).json(event)
   } catch (error) {
+    console.log("foo EEvent huge error::::", error)
     res.status(500).json({ error: error.message })
   }
 }
@@ -87,7 +89,7 @@ module.exports.addEventEnrollment_post = async (req, res) => {
 };
 
 // get all sevices
-module.exports.allEvent_get = async (req, res) => {
+module.exports.allEvent_get = async (req, res) => { //possible error sec
   try {
 const events = await Event.findAll({
   attributes: {

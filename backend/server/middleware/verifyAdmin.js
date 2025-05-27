@@ -15,8 +15,9 @@ const verifyAdmin = (req, res, next) => {
       console.error(err)
       return res.status(403).json({ message: 'Access denied. Admin role required.' })
     }
-
-    const decodedEmail = decoded.email
+    console.log("foo decode::::", decoded)
+    const decodedEmail = decoded.decodedEmail
+    console.log("foo email",decodedEmail)
     User.findOne({ where: { email: decodedEmail } })
       .then(user => {
         if (!user) {

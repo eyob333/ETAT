@@ -58,17 +58,18 @@ export default function Trainings() {
   };
 
   function convertTimeToAMPM(dateTimeString) {
-    const [dateString, timeString] = dateTimeString.split('T');
+    console.log("foo date", dateTimeString)
+    // const [dateString, timeString] = dateTimeString.split('T');
 
-    const [hours, minutes] = timeString.split(':');
-        let formattedHours = parseInt(hours);
-    const ampm = formattedHours >= 12 ? 'PM' : 'AM';
+    // const [hours, minutes] = timeString.split(':');
+    //     let formattedHours = parseInt(hours);
+    // const ampm = formattedHours >= 12 ? 'PM' : 'AM';
 
-    if (formattedHours === 0) {
-      formattedHours = 12;
-    } else if (formattedHours > 12) {
-      formattedHours -= 12;
-    }
+    // if (formattedHours === 0) {
+    //   formattedHours = 12;
+    // } else if (formattedHours > 12) {
+    //   formattedHours -= 12;
+    // }
 
     const formattedTime = `${formattedHours}:${minutes} ${ampm}`;
 
@@ -91,9 +92,9 @@ export default function Trainings() {
   function convertDateTimeToAMPM(dateTimeString) {
     const [dateString] = dateTimeString.split('T');
     const formattedDate = formatDate(dateString);
-    const formattedTime = convertTimeToAMPM(dateTimeString);
+    // const formattedTime = convertTimeToAMPM(dateTimeString);
 
-    return `${formattedDate} ${formattedTime}`;
+    return `${formattedDate}`; //${formattedTime}
   }
 
   let content;
