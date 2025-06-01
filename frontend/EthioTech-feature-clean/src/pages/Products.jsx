@@ -10,10 +10,15 @@ const Products = () => {
   const [isAutoScrolling, setIsAutoScrolling] = useState(true)
 
   const productImages = [
-    "/placeholder.svg?height=400&width=400",
-    "/placeholder.svg?height=400&width=400",
-    "/placeholder.svg?height=400&width=400",
-    "/placeholder.svg?height=400&width=400",
+    "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789975/5900142066988600122_x1oqv4.jpg?height=400&width=400",
+    "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789994/5900142066988600119_zwi6vk.jpg?height=400&width=400",
+    "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789975/5900142066988600113_uaakrs.jpg?height=400&width=400",
+    "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789976/5900142066988600124_giicd3.jpg?height=400&width=400",
+    // "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789977/5900142066988600123_skonnt.jpg?height=400&width=400",
+    // "/placeholder.svg?height=400&width=400",
+    // "/placeholder.svg?height=400&width=400",
+    // "/placeholder.svg?height=400&width=400",
+    // "/placeholder.svg?height=400&width=400",
   ]
 
   // Auto scroll images
