@@ -247,15 +247,88 @@ export default function Project() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
         <div className="text-center pb-12">
           <h1 className="font-bold text-mainColor font-railway-500 text-3xl pb-10 underline-offset-2">Our Projects</h1>
-          <h3 className="">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias voluptates praesentium possimus ex
-            quisquam placeat totam officiis atque facere deserunt sint, debitis, tempore assumenda dignissimos error!
-            Earum veniam error asperiores.
-          </h3>
+          {/* <h3 className="">
+            
+          </h3> */}
         </div>
 
-        {/* Testimonials Section */}
-        <section className="relative w-full py-16 overflow-hidden bg-gray-100 mb-12 rounded-lg">
+       
+        {/* Original Project Filtering */}
+        <div className="flex flex-wrap justify-center mb-10">
+          {categories.map((category) => (
+            <button
+              key={category}
+              className={`px-3 py-1 rounded-md mb-2 mr-2 ${selectedCategory === category ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"}`}
+              onClick={() => handleCategoryChange(category)}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap justify-center mb-10">
+          {statusArray.map((status) => (
+            <button
+              key={status}
+              className={`px-3 py-1 rounded-md mb-2 mr-2 ${
+                selectedStatus === status ? "bg-red-500 text-white" : "bg-gray-200 text-gray-700"
+              }`}
+              onClick={() => handleStatusChange(status)}
+            >
+              {status}
+            </button>
+          ))}
+        </div>
+        <div className="">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-7 px-5">
+            <ProjectCard filteredData={paginatedItems} openModal={openModal} shouldAnimate={shouldAnimate} />
+
+            {openModalId && <ProjectDetail openModalId={openModalId} dataArray={projects} closeModal={closeModal} />}
+          </div>
+        </div>
+
+        <div className="flex justify-center mt-5">
+          {currentPage !== 1 && (
+            <div className="relative group">
+              <button
+                className={`px-5 py-2 mx-1 bg-gray-200 text-gray-700 rounded-md h-full ${
+                  currentPage === 1 ? "bg-blue-700 h-full" : "hover:bg-gray-400"
+                }`}
+                onClick={handlePrevPage}
+                disabled={currentPage === 1}
+              >
+                <MdOutlineKeyboardArrowLeft color="gray" />
+              </button>
+            </div>
+          )}
+
+          {pageNumbers.map((number) => (
+            <button
+              key={number}
+              className={`px-4 py-2 mx-1 ${
+                currentPage === number ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"
+              } ${currentPage !== number ? "hover:bg-gray-400 hover:text-white" : ""} rounded-md `}
+              onClick={() => handlePageChange(number)}
+            >
+              {number}
+            </button>
+          ))}
+
+          {currentPage !== totalPages && (
+            <div className="relative group">
+              <button
+                className={`px-5 py-2 mx-1 bg-gray-200 text-gray-700 rounded-md h-full ${
+                  currentPage === totalPages ? "bg-blue-700 invisible" : "hover:bg-gray-400"
+                }`}
+                onClick={handleNextPage}
+              >
+                <MdOutlineKeyboardArrowRight color="gray" />
+              </button>
+            </div>
+          )}
+        </div>
+         {/* Testimonials Section */}
+         <section className="relative w-full py-16 overflow-hidden bg-gray-100 mb-12 rounded-lg">
           {/* Sky blue gradient elements on sides */}
           <div className="absolute bottom-0 left-0 w-1/4 h-full bg-gradient-to-r from-sky-300/40 to-transparent" />
           <div className="absolute bottom-0 right-0 w-1/4 h-full bg-gradient-to-l from-sky-300/40 to-transparent" />
@@ -343,80 +416,6 @@ export default function Project() {
           </div>
         </section>
 
-        {/* Original Project Filtering */}
-        <div className="flex flex-wrap justify-center mb-10">
-          {categories.map((category) => (
-            <button
-              key={category}
-              className={`px-3 py-1 rounded-md mb-2 mr-2 ${selectedCategory === category ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"}`}
-              onClick={() => handleCategoryChange(category)}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap justify-center mb-10">
-          {statusArray.map((status) => (
-            <button
-              key={status}
-              className={`px-3 py-1 rounded-md mb-2 mr-2 ${
-                selectedStatus === status ? "bg-red-500 text-white" : "bg-gray-200 text-gray-700"
-              }`}
-              onClick={() => handleStatusChange(status)}
-            >
-              {status}
-            </button>
-          ))}
-        </div>
-        <div className="">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-7 px-5">
-            <ProjectCard filteredData={paginatedItems} openModal={openModal} shouldAnimate={shouldAnimate} />
-
-            {openModalId && <ProjectDetail openModalId={openModalId} dataArray={projects} closeModal={closeModal} />}
-          </div>
-        </div>
-
-        <div className="flex justify-center mt-5">
-          {currentPage !== 1 && (
-            <div className="relative group">
-              <button
-                className={`px-5 py-2 mx-1 bg-gray-200 text-gray-700 rounded-md h-full ${
-                  currentPage === 1 ? "bg-blue-700 h-full" : "hover:bg-gray-400"
-                }`}
-                onClick={handlePrevPage}
-                disabled={currentPage === 1}
-              >
-                <MdOutlineKeyboardArrowLeft color="gray" />
-              </button>
-            </div>
-          )}
-
-          {pageNumbers.map((number) => (
-            <button
-              key={number}
-              className={`px-4 py-2 mx-1 ${
-                currentPage === number ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"
-              } ${currentPage !== number ? "hover:bg-gray-400 hover:text-white" : ""} rounded-md `}
-              onClick={() => handlePageChange(number)}
-            >
-              {number}
-            </button>
-          ))}
-
-          {currentPage !== totalPages && (
-            <div className="relative group">
-              <button
-                className={`px-5 py-2 mx-1 bg-gray-200 text-gray-700 rounded-md h-full ${
-                  currentPage === totalPages ? "bg-blue-700 invisible" : "hover:bg-gray-400"
-                }`}
-                onClick={handleNextPage}
-              >
-                <MdOutlineKeyboardArrowRight color="gray" />
-              </button>
-            </div>
-          )}
-        </div>
       </div>
     </div>
   )
