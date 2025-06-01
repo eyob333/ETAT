@@ -7,6 +7,7 @@ import { cn } from "../lib/utils"
 
 const Products = () => {
   const [activeImage, setActiveImage] = useState(0)
+  const [mainImg, setMainImg] = useState(0)
   const [isAutoScrolling, setIsAutoScrolling] = useState(true)
 
   const productImages = [
@@ -27,6 +28,8 @@ const Products = () => {
 
     const interval = setInterval(() => {
       setActiveImage((prev) => (prev + 1) % productImages.length)
+      console.log(activeImage)
+
     }, 3000)
 
     return () => clearInterval(interval)
@@ -52,7 +55,7 @@ const Products = () => {
         <div className="space-y-6">
           <div className="relative overflow-hidden rounded-lg border shadow-md aspect-square">
             <img
-              src={productImages[activeImage] || "/placeholder.svg"}
+              src={productImages[mainImg] || "/placeholder.svg"}
               alt="Premium Wireless Headphones"
               className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
             />
@@ -168,7 +171,7 @@ const Products = () => {
         <div className="space-y-6">
           <div className="relative overflow-hidden rounded-lg border shadow-md aspect-square">
             <img
-              src={productImages[activeImage] || "/placeholder.svg"}
+              src={productImages[mainImg+ 2] || "/placeholder.svg"}
               alt="Premium Wireless Headphones"
               className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
             />
@@ -286,7 +289,7 @@ const Products = () => {
         <div className="space-y-6">
           <div className="relative overflow-hidden rounded-lg border shadow-md aspect-square">
             <img
-              src={productImages[activeImage] || "/placeholder.svg"}
+              src={productImages[mainImg + 1] || "/placeholder.svg"}
               alt="Premium Wireless Headphones"
               className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
             />

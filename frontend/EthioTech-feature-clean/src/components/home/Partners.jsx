@@ -92,14 +92,16 @@ export default function ServicesSection() {
                                         src={service.icon}
                                         alt={service.label}
                                         className="w-16 h-16 md:w-20 lg:w-24 md:h-20 lg:h-24 object-contain text-mainColor dark:text-secondaryColor"
+                                        style={{width: '70px', height: '70px'}}
                                     />
                                 ) : (
                                     <div className="w-16 h-16 md:w-20 lg:w-24 md:h-20 lg:h-24 flex items-center justify-center text-mainColor dark:text-secondaryColor">
                                         {service.icon}
+                                    
                                     </div>
                                 )}
                             </motion.div>
-                            <p className="mt-4 text-sm md:text-base text-gray-700 dark:text-gray-300 text-center">
+                            <p className="mt-4 text-sm md:text-base text-gray-700 dark:text-gray-300 text-center" style={{fontSize: '2vh'}}>
                                 {service.label}
                             </p>
                         </motion.div>
