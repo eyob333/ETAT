@@ -191,7 +191,7 @@ export default function TrainingList() {
   return (
     <div className="relative z-20 min-h-screen bg-white flex flex-col items-center overflow-hidden">
       {/* Background Video Section (30% of viewport height) */}
-      <div className="absolute top-0 left-0 w-full h-[30vh] overflow-hidden z-0">
+      <div className="absolute top-0 left-0 w-full h-[50vh] overflow-hidden z-0">
         <video
           ref={videoRef}
           className="min-w-full min-h-full absolute object-cover"
