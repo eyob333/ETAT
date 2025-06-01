@@ -7,6 +7,10 @@ import { eventSelector } from '../../redux/store';
 import { motion } from 'framer-motion'; // Import motion from framer-motion
 // import { cn } from "@/lib/utils"
 
+function cn(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
+
 function formatDate(dateString) {
   const options = {
     month: 'short',
