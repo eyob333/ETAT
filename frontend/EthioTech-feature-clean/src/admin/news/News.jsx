@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { toast } from 'react-toastify';
-import { removeNews } from '../../redux/news/newsSlice';
-import { useDeleteNewsMutation, useGetNewsQuery } from '../../redux/news/newsApiSlice';
+import { fetchNews, removeNews } from '../../redux/news/newsSlice';
+import { newsSelector } from '../../redux/store';
+import { useDeleteNewsMutation } from '../../redux/news/newsApiSlice';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import { MdReadMore } from 'react-icons/md';
@@ -12,8 +15,9 @@ import LoadingScreen from '../../conditions/LoadingScreen';
 import ButtonLoadingScreen from '../../conditions/ButtonLoadingScreen';
 
 export default function Newss() {
+  const dispatch = useDispatch();
   const [deleteNews, { isLoading: loading }] = useDeleteNewsMutation();
-  const { data: news = [], isLoading } = useGetNewsQuery();
+  const { news, isLoading } = useSelector(newsSelector);
   const [searchInput, setSearchInput] = useState('');
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
@@ -29,6 +33,11 @@ export default function Newss() {
     setOpen(null);
   };
 
+  useEffect(() => {
+    if (news.length === 0) {
+      dispatch(fetchNews());
+    }
+  }, [dispatch, news.length]);
   const html = (value) => {
     const myHTML = value;
     const mySafeHTML = DOMPurify.sanitize(myHTML);
@@ -37,9 +46,11 @@ export default function Newss() {
 
   const handleDelete = async (id) => {
     try {
+      console.log(id);
       const res = await deleteNews(id).unwrap();
       setOpen(null);
       if (res.message === 'News deleted successfully') {
+        dispatch(removeNews(id));
         toast.success('you have successfully deleted a News');
       }
     } catch (error) {
@@ -48,6 +59,7 @@ export default function Newss() {
       } else {
         toast.error('something went wrong');
       }
+      console.log(error);
     }
   };
 
@@ -133,6 +145,7 @@ export default function Newss() {
         </div>
       </section>
     );
+    console.log(news);
   }
 
   return (

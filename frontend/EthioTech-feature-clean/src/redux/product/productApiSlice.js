@@ -3,56 +3,42 @@ import { apiSlice } from '../app/api/apiSlice';
 export const productApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: () => ({
-        url: '/products',
-        validateStatus: (response, result) => {
-          return response.status === 200 && !result.isError;
-        },
-      }),
-      transformResponse: (response) => {
-        return response;
-      },
-      providesTags: ['Product'],
+      query: () => '/products',
+      keepUnusedDataFor: 5,
     }),
     getProductsByCategory: builder.query({
-      query: (category) => ({
-        url: `/products/category/${category}`,
-        validateStatus: (response, result) => {
-          return response.status === 200 && !result.isError;
-        },
-      }),
-      transformResponse: (response) => {
-        return response;
-      },
-      providesTags: ['Product'],
+      query: (category) => `/products/category/${category}`,
+      keepUnusedDataFor: 5,
     }),
     createProduct: builder.mutation({
       query: (product) => ({
         url: '/products',
         method: 'POST',
         body: product,
-        formData: true,
       }),
-      invalidatesTags: ['Product'],
     }),
     deleteProduct: builder.mutation({
       query: (productId) => ({
         url: `/products/${productId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Product'],
     }),
     updateProductData: builder.mutation({
       query: (data) => {
+        // Extract the product ID and formData from the passed object
         const { formData, id } = data;
+        
+        // Log for debugging
+        console.log('Updating product with ID:', id);
+        
         return {
           url: `/products/${id}`,
           method: 'PATCH',
           body: formData,
+          // Ensure we're not using JSON content type for FormData
           formData: true,
         };
       },
-      invalidatesTags: ['Product'],
     }),
   }),
 });

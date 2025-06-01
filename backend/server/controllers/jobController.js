@@ -40,20 +40,7 @@ module.exports.addJob_post = async (req, res) => {
 // get all sevices
 module.exports.allJob_get = async (req, res) => {
   try {
-const jobs = await Job.findAll({
-  attributes: {
-    include: [
-      [
-        sequelize.literal('(SELECT COUNT(*) FROM "jobApplications" WHERE "jobApplications"."job_id" = "Job"."id")'),
-        'application_count'
-      ],
-      [
-        sequelize.literal(`CASE WHEN "end_date" > NOW() THEN true ELSE false END`),
-        'status'
-      ]
-    ]
-  }
-});
+const jobs = await Job.findAll();
     res.status(200).json({ jobs })
   } catch (error) {
     res.status(500).json({ error: error.message })

@@ -1,33 +1,48 @@
-import React, { useState } from 'react';
+  
+import React, { useEffect, useState } from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useGetContactsQuery } from '../../redux/contact/contactSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContact } from '../../redux/contact/contactSlice';
+import { contactSelector } from '../../redux/store';
+import { useGetContactQuery } from '../../redux/contact/contactApiSlice';
 import LoadingScreen from '../../conditions/LoadingScreen';
 
 export default function Contactorm() {
-  const { data: contacts = [{}], isLoading } = useGetContactsQuery();
+  const dispatch = useDispatch();
+  const { contacts, isLoading } = useSelector(contactSelector);
   const [searchInput, setSearchInput] = useState('');
 
+  useEffect(() => {
+    if (contacts.length === 0) {
+      dispatch(fetchContact());
+    }
+  }, [dispatch, contacts.length]);
+
   let content;
+  let filteredContact;
   if (isLoading) {
     content = <LoadingScreen />;
-  } else {
+  } else if (!isLoading) {
     content = (
       <div className="px-4 lg:pt-0  rounded-lg md:p-8 lg:mt-2 mt-5 lg:w-3/4 lg:mx-6 items-center ">
+
         <Formik
           initialValues={{
-            contactPhone: contacts[0]?.phone,
-            contactEmail: contacts[0]?.email,
-            contactAddress: contacts[0]?.address,
-            contactMapLocation: contacts[0]?.map_location,
+            contactPhone: contacts.phone,
+            contactEmail: contacts.email,
+            contactAddress: contacts.address,
+            contactMapLocation: contacts.map_location,
           }}
         >
           <Form>
+
             <div className="-mx-2 md:items-center md:flex mt-4 flex items-start justify-start  mb-5">
+
               <div className="flex-1 px-2 max-h-20 flex flex-col items-start justify-start">
                 <label className="block mb-2 text-sm text-gray-600 ">Email Address*</label>
                 <Field
@@ -38,7 +53,9 @@ export default function Contactorm() {
                   className="block w-full px-5 py-2.5 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
                 <ErrorMessage name="contactEmail" component="div" className="text-red-500  flex items-start" />
+
               </div>
+
               <div className="flex-1 px-2 md:mt-0  max-h-20 flex flex-col items-start justify-start">
                 <label className="block mb-2 text-sm text-gray-600 ">Phone</label>
                 <Field
@@ -49,9 +66,11 @@ export default function Contactorm() {
                   className="block w-full px-5 py-2.5 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
                 <ErrorMessage name="contactPhone" component="div" className="text-red-500  flex items-start" />
+
               </div>
             </div>
             <div className=" flex flex-col items-start justify-start mt-10">
+
               <label className="block text-sm text-gray-600 ">Address*</label>
               <Field
                 type="text"
@@ -61,8 +80,10 @@ export default function Contactorm() {
                 className="block w-full px-5 py-2.5 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
               />
               <ErrorMessage name="contactAddress" component="div" className="text-red-500  flex items-start" />
+
             </div>
             <div className=" flex flex-col items-start justify-start mt-5">
+
               <label className="block text-sm text-gray-600 ">Map Link*</label>
               <Field
                 type="text"
@@ -72,11 +93,13 @@ export default function Contactorm() {
                 className="block w-full px-5 py-2.5 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
               />
               <ErrorMessage name="contactMapLocation" component="div" className="text-red-500  flex items-start" />
+
             </div>
           </Form>
         </Formik>
       </div>
     );
+    console.log(contacts);
   }
 
   return (

@@ -70,7 +70,7 @@ const Event = sequelize.define('Event', {
       model: 'Users',
       key: 'id'
     }
-  }
+  },
 },
 {
   tableName: 'events',

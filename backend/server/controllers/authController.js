@@ -4,6 +4,7 @@ const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 
 const handleErrors = (err) => {
+  // console.log(err.message, err.code);
   const errors = { first_name: '', email: '', password: '' }
 
   // dupliacte email
@@ -34,10 +35,10 @@ const handleErrors = (err) => {
 
   // validation errors
   if (err.message.includes('user validation failed')) {
-    //  (err);
+    // console.log(err);
     Object.values(err.errors).forEach(({ properties }) => {
-      //  (val);
-      //  (properties);
+      // console.log(val);
+      // console.log(properties);
       errors[properties.path] = properties.message
     })
   }
@@ -54,10 +55,10 @@ module.exports.signup_post = async (req, res) => {
   try {
     const user = await User.create({ first_name, last_name, email, password, role, picture, department })
     res.status(201).json({ user: user._id })
-     ("User created successfully")
-     (user)
+    console.log("User created successfully")
+    console.log(user)
   } catch (err) {
-     (err)
+    console.log(err)
     const errors = handleErrors(err)
     res.status(400).json({ errors })
   }
@@ -71,7 +72,7 @@ module.exports.login_post = async (req, res) => {
     res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: maxAge * 1000 })
     res.status(200).json({ accessToken: `${accessToken}` })
   } catch (err) {
-     ('loginerror')
+    console.log('loginerror')
     const errors = handleErrors(err)
     res.status(401).json({ errors })
   }

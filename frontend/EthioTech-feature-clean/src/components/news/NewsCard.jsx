@@ -4,41 +4,29 @@ import { Link } from 'react-router-dom';
 import { BsPerson } from 'react-icons/bs';
 import { CiCalendar } from 'react-icons/ci';
 import DOMPurify from 'dompurify';
-import { useGetNewsQuery } from '../../redux/news/newsApiSlice';
-import LoadingScreen from '../../conditions/LoadingScreen';
 
-const NewsCard = () => {
-  const { data: news = [], isLoading } = useGetNewsQuery();
-
+const NewsCard = ({ currentItems }) => {
   const html = (value) => {
     const myHTML = value;
     const mySafeHTML = DOMPurify.sanitize(myHTML);
     return mySafeHTML;
   };
 
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
-
-  if (!news.length) {
-    return <div className="text-center py-10">No news found</div>;
-  }
-
   return (
     <>
-      {news.map((item) => (
+      {currentItems.map((item, index) => (
         <div key={item.id} className="mx-4 md:mx-auto max-w-screen-lg md:max-w-screen-md sm:max-w-screen-sm overflow-hidden rounded-sm bg-white shadow my-10">
-          <img src={item.picture} alt={item.title} />
+          <img src={item.picture} alt="" />
           <div className="p-4">
             <p className="mb-1 text-sm text-primary-500">
               By:
               {' '}
               {item.author_name}
               {' '}
-              <time>{new Date(item.createdAt).toLocaleDateString()}</time>
+              <time>{item.date}</time>
             </p>
             <Link
-              to={`/newspost/${item.slug}`}
+              to=""
               className="text-xl font-medium text-gray-900 hover:text-mainColor"
               onClick={() => {
                 window.scroll(0, 0);

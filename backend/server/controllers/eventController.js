@@ -19,10 +19,10 @@ module.exports.addEvent_post = async (req, res) => {
   const user_id = id
   try {
     const event = await Event.create({ title, body, picture, location, max_enrollment, start_date, end_date, status, user_id })
-   
+    console.log("foo event sucess:::::", event)
     res.status(201).json(event)
   } catch (error) {
-  
+    console.log("foo EEvent huge error::::", error)
     res.status(500).json({ error: error.message })
   }
 }
@@ -72,7 +72,7 @@ module.exports.addEventEnrollment_post = async (req, res) => {
 
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-           (error);
+          console.log(error);
           return res.status(500).json({ message: 'Failed to send email.' });
         } else {
           return res.status(200).json({ message: 'Email sent!' });

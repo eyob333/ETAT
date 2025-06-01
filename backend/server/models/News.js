@@ -43,9 +43,6 @@ const News = sequelize.define('News', {
   author_name: {
     type: DataTypes.STRING
   },
-  source: {
-    type: DataTypes.STRING
-  },
   createdAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
@@ -60,6 +57,9 @@ const News = sequelize.define('News', {
       model: 'Users',
       key: 'id'
     }
+  },
+  source: {
+    type: DataTypes.STRING
   }
 }, {
   tableName: 'news',

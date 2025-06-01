@@ -21,11 +21,9 @@ const verifyAdmin = (req, res, next) => {
     User.findOne({ where: { email: decodedEmail } })
       .then(user => {
         if (!user) {
-          console.log("foo user not found")
           return res.status(404).json({ message: 'User not found' })
         }
         if (user.role !== 'admin') {
-          console.log("foo user", user.role)
           return res.status(403).json({ message: 'Access denied. Admin role required.' })
         }
         next()
@@ -35,6 +33,5 @@ const verifyAdmin = (req, res, next) => {
         return res.status(500).json({ message: 'Server error' })
       })
   })
-  console.log("foo next")
 }
 module.exports = verifyAdmin

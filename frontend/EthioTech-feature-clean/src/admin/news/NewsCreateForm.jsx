@@ -48,11 +48,6 @@ export default function NewsForm() {
   };
 
   const onSubmit = async (values, { setSubmitting, setErrors }) => {
-    console.log('foo values', values)
-    console.log('foo body', content)
-    console.log('foo file', file)
-    console.log("foo id", admin)
-
     const formData = new FormData();
     formData.append('image', file);
     formData.append('title', values.newsTitle);
@@ -70,6 +65,7 @@ export default function NewsForm() {
       toast.error('Please insert a body');
     } else {
       try {
+        console.log("foo request:::", formData);
         const res = await createNews(formData).unwrap();
         console.log("foo response", res);
         dispatch(addNews(res));
@@ -79,7 +75,6 @@ export default function NewsForm() {
       } catch (error) {
         setSubmitting(false);
         setErrors(error);
-        console.error("Error creating news:", error); // Add this line
         if (error?.status === 500 && error?.data?.error) {
           toast.error(error.data.error);
         } else {

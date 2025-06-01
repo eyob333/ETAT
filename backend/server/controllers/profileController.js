@@ -136,6 +136,7 @@ module.exports.forgotPassword_post = async (req, res) => {
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
+        console.log(error)
       } else {
         return res.status(200).json({ message: 'Password reset successfully' })
       }

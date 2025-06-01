@@ -1,57 +1,64 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { productApiSlice } from './productApiSlice';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import baseURL from '../app/api/baseApi';
+
+export const fetchProducts = createAsyncThunk('products/fetchProducts', async (thunkAPI) => {
+  const url = `${baseURL}/products`;
+  try {
+    const response = await axios.get(url);
+    return response.data.products;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
 
 const initialState = {
   products: [],
   isLoading: false,
-  error: null,
+  errMsg: '',
+  error: false,
 };
 
 const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    setProducts: (state, action) => {
-      state.products = action.payload;
-    },
     addProduct: (state, action) => {
       state.products.push(action.payload);
     },
-    updateProduct: (state, action) => {
-      const index = state.products.findIndex(product => product.id === action.payload.id);
+    updateProductState: (state, action) => {
+      const updatedProduct = action.payload;
+      const index = state.products.findIndex((product) => product.id === updatedProduct.id);
       if (index !== -1) {
-        state.products[index] = action.payload;
+        state.products[index] = updatedProduct;
+      } else {
+        toast.error('Something went wrong');
       }
     },
     removeProduct: (state, action) => {
-      state.products = state.products.filter(product => product.id !== action.payload);
+      state.products = state.products.filter((product) => product.id !== action.payload);
     },
-    setError: (state, action) => {
-      state.error = action.payload;
-    },
-    clearError: (state) => {
-      state.error = null;
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchProducts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.products = action.payload;
+      })
+      .addCase(fetchProducts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = true;
+        state.errMsg = action.payload;
+      });
   },
 });
 
 export const {
-  setProducts,
-  addProduct,
-  updateProduct,
-  removeProduct,
-  setError,
-  clearError,
+  addProduct, removeProduct, updateProductState
 } = productSlice.actions;
-
 export default productSlice.reducer;
-
-// Selectors
-export const selectAllProducts = (state) => state.product.products;
-export const selectProductById = (state, productId) => 
-  state.product.products.find(product => product.id === productId);
-export const selectProductsByCategory = (state, category) =>
-  state.product.products.filter(product => product.category === category);
-export const selectProductError = (state) => state.product.error;
-export const selectProductLoading = (state) => state.product.isLoading;
 

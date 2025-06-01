@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
@@ -6,8 +6,11 @@ import * as Yup from 'yup';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useUpdateNewsDataMutation, useGetNewsQuery } from '../../redux/news/newsApiSlice';
+import { newsSelector } from '../../redux/store';
+import { useUpdateNewsDataMutation } from '../../redux/news/newsApiSlice';
+import { fetchNews, updateNewsState } from '../../redux/news/newsSlice';
 import LoadingScreen from '../../conditions/LoadingScreen';
 import ButtonLoadingScreen from '../../conditions/ButtonLoadingScreen';
 
@@ -25,14 +28,16 @@ const validationSchema = Yup.object().shape({
 function NewsUpdateForm() {
   const navigate = useNavigate();
   const [updateNews, { isLoading: loading }] = useUpdateNewsDataMutation();
+  const dispatch = useDispatch();
   const [file, setFile] = useState('');
   const { id } = useParams();
-  const { data: news = [], isLoading } = useGetNewsQuery();
+  const { news, isLoading } = useSelector(newsSelector);
   let filteredNews;
   let contents;
 
   const handleFileChanges = (e) => {
     setFile(e.target.files[0]);
+    console.log(file);
   };
 
   let contentPrev;
@@ -41,11 +46,13 @@ function NewsUpdateForm() {
 
   const handleEditorChange = (value) => {
     setContent(value);
-    value === '<p><br></p>' ? setError('Please enter body') : setError('');
+    value == '<p><br></p>' ? setError('Please enter body') : setError('');
+    // console.log(value);
   };
 
   const modules = {
     toolbar: [
+      // [{ 'font': [] }],
       [{ header: [1, 2, false] }],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
       [
@@ -55,12 +62,13 @@ function NewsUpdateForm() {
         { indent: '+1' },
       ],
       ['link'],
-      [{ align: [] }, { color: [] }, { background: [] }],
+      [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
       ['clean'],
     ],
   };
 
   const formats = [
+    // 'font',
     'header',
     'bold',
     'italic',
@@ -83,11 +91,13 @@ function NewsUpdateForm() {
     formData.append('body', content);
     formData.append('id', filteredNews[0].id);
 
-    if (content === '<p><br></p>' || content === '') {
+    if (content == '<p><br></p>' || content == '') {
       toast.error('Please insert a body');
     } else {
       try {
         const res = await updateNews(formData).unwrap();
+        console.log(res);
+        dispatch(updateNewsState(res.news));
         setSubmitting(false);
         toast.success('News Updated Successfully');
         navigate('/admin/news');
@@ -99,10 +109,16 @@ function NewsUpdateForm() {
     }
   };
 
+  useEffect(() => {
+    if (news.length === 0) {
+      dispatch(fetchNews());
+    }
+  }, [dispatch, news.length]);
+
   if (isLoading) {
     contents = <LoadingScreen />;
   } else if (!isLoading && news.length > 0) {
-    filteredNews = news.filter((n) => n.id === parseInt(id));
+    filteredNews = news.filter((news) => news.id === parseInt(id));
     contentPrev = filteredNews[0].body;
     contents = (
       <div className="">
@@ -124,7 +140,9 @@ function NewsUpdateForm() {
               newsAuthor: filteredNews[0].author_name,
             }}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}
+            onSubmit={async (values, { setSubmitting, setErrors }) => {
+              onSubmit(values, { setSubmitting, setErrors });
+            }}
           >
             <Form className="flex flex-col items-start px-8 py-10 w-full">
               <div className="flex mb-6 w-5/6 items-start">
@@ -136,9 +154,11 @@ function NewsUpdateForm() {
                     id="newsTitle"
                     name="newsTitle"
                     placeholder="Title"
+                // onSubmit={handleError}
                     className="w-full rounded-md border-2 py-1.5 border-grey-200 text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-blue-400 focus:outline-none focus:ring px-2 sm:text-sm sm:leading-6"
                   />
                   <ErrorMessage name="newsTitle" component="div" className="text-red-500  flex items-start" />
+
                 </div>
               </div>
               <div className="flex mb-6 w-5/6 items-start">
@@ -154,8 +174,10 @@ function NewsUpdateForm() {
                     className="w-full rounded-md border-2 py-1.5 border-grey-200 text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-blue-400 focus:outline-none focus:ring px-2 sm:text-sm sm:leading-6"
                   />
                   <ErrorMessage name="newsAuthor" component="div" className="text-red-500  flex items-start" />
+
                 </div>
               </div>
+
               <div className="flex mb-6 w-5/6 items-start">
                 <label htmlFor="newsImage" className="text-sm font-medium leading-6 text-gray-900 w-24 mt-2 flex items-start">
                   Image
@@ -170,35 +192,54 @@ function NewsUpdateForm() {
                   onChange={handleFileChanges}
                 />
               </div>
+
               <div className="flex mb-6 w-5/6 items-start">
                 <label htmlFor="newsBody" className="text-sm font-medium leading-6 text-gray-900 w-24 mt-2 flex items-start">
                   Body*
                 </label>
                 <div className="flex flex-col items-start justify-start lg:w-4/5 sm:5/6">
-                  <ReactQuill
-                    value={content}
-                    onChange={handleEditorChange}
-                    modules={modules}
-                    formats={formats}
-                    className="w-full h-40 mb-2"
-                  />
-                  {error && <div className="text-red-500 flex items-start">{error}</div>}
+                  <div className="lg:w-full lg:mb-20 mb-32">
+
+                    <ReactQuill
+                      style={{
+                        height: '600px', marginBottom: '10px', float: 'left',
+                      }}
+                      theme="snow"
+                      modules={modules}
+                      formats={formats}
+                      value={content}
+                      onChange={handleEditorChange}
+                      required
+                    />
+
+                  </div>
+                  {/* <ErrorMessage name="content" component="div" className="text-red-500  flex items-start " /> */}
+
+                  {/* <div className="lg:mt-16 mt-20 text-base text-red-600">{error !== '' ? <h1>{error}</h1> : ''}</div> */}
                 </div>
               </div>
-              <button type="submit" className="w-full px-6 flex gap-2 justify-center items-center py-3 mt-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                {loading ? <ButtonLoadingScreen /> : ''}
-                <span>Update News</span>
-              </button>
+
+              <div className="flex mb-6 w-5/6 items-center justify-center">
+                <button
+                  type="submit"
+                  className="bg-blue-500 flex gap-2 justify-center items-center hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  {loading ? <ButtonLoadingScreen /> : ''}
+                  <span>Update News</span>
+                </button>
+              </div>
             </Form>
           </Formik>
         </center>
       </div>
     );
   }
-
-  return contents;
+  return (
+    <>
+      {contents}
+    </>
+  );
 }
-
 export default NewsUpdateForm;
 
 

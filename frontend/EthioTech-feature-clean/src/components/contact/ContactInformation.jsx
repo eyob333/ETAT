@@ -1,9 +1,20 @@
-import React from 'react';
-import { useGetContactsQuery } from '../../redux/contact/contactSlice';
+   
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import {
+  contactSelector,
+} from '../../redux/store';
+import { fetchContact } from '../../redux/contact/contactSlice';
 
 export default function ContactInformation() {
-  const { data: contacts = [{}] } = useGetContactsQuery();
+  const dispatch = useDispatch();
+  const { contacts } = useSelector(contactSelector);
 
+  useEffect(() => {
+    if (contacts.length === 0) {
+      dispatch(fetchContact());
+    }
+  }, [dispatch, contacts.length]);
   return (
     <div className="bg-white  lg:w-3/4 mx-auto">
       <div className="container px-6 py-12 mx-auto">
@@ -26,7 +37,7 @@ export default function ContactInformation() {
 
               <h2 className="mt-4 text-base font-medium text-gray-800 ">Email</h2>
               <p className="mt-2 text-sm text-gray-500 ">Our friendly team is here to help.</p>
-              <p className="mt-2 text-sm text-blue-500 ">{contacts[0]?.email}</p>
+              <p className="mt-2 text-sm text-blue-500 ">{contacts.email}</p>
             </div>
 
             <div>
@@ -39,7 +50,7 @@ export default function ContactInformation() {
 
               <h2 className="mt-4 text-base font-medium text-gray-800 ">Office</h2>
               <p className="mt-2 text-sm text-gray-500">Come say hello at our office HQ.</p>
-              <p className="mt-2 text-sm text-blue-500 ">{contacts[0]?.address}</p>
+              <p className="mt-2 text-sm text-blue-500 ">{contacts.address}</p>
             </div>
 
             <div>
@@ -51,12 +62,12 @@ export default function ContactInformation() {
 
               <h2 className="mt-4 text-base font-medium text-gray-800 ">Phone</h2>
               <p className="mt-2 text-sm text-gray-500 ">Mon-Fri from 8am to 5pm.</p>
-              <p className="mt-2 text-sm text-blue-500 ">{contacts[0]?.phone}</p>
+              <p className="mt-2 text-sm text-blue-500 ">{contacts.phone}</p>
             </div>
           </div>
 
           <div className="overflow-hidden rounded-lg lg:col-span-2 h-96 lg:h-auto">
-            <iframe width="100%" height="100%" frameBorder="0" title="map" marginHeight="0" marginWidth="0" scrolling="no" src={contacts[0]?.map_location} />
+            <iframe width="100%" height="100%" frameBorder="0" title="map" marginHeight="0" marginWidth="0" scrolling="no" src={contacts.map_location} />
           </div>
         </div>
       </div>

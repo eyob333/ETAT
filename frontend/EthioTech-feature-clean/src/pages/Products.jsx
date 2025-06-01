@@ -1,13 +1,12 @@
-import React from 'react';
-import Products from '../components/product/Products';
+import React from 'react'
 
-const ProductsPage = () => {
+const Products = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Products />
+    <div>
+      hjhjhkhjkkjbn
     </div>
-  );
-};
+  )
+}
 
-export default ProductsPage;
+export default Products
 
