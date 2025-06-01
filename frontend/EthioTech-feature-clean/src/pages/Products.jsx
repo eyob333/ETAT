@@ -5,7 +5,7 @@ const Products = () => {
     <div>
       hjhjhkhjkkjbn
     </div>
-  )
+  )        
 }
 
 export default Products
