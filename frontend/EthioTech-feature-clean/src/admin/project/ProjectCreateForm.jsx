@@ -11,27 +11,27 @@ import { userSelector } from '../../redux/store';
 import { addProject } from '../../redux/project/projectSlice';
 import ButtonLoadingScreen from '../../conditions/ButtonLoadingScreen';
 
-const validationSchema = Yup.object().shape({
-  projectTitle: Yup.string()
-    .min(3, 'Title must be at least 3 characters')
-    .max(50, 'Title must not exceed 20 characters')
-    .required('Required'),
-  projectDescription: Yup.string()
-    .min(10, 'Description must be at least 10 characters')
-    .max(500, 'Description must not exceed 500 characters')
-    .required('Required'),
-  projectStatus: Yup.string()
-    .required('Required')
-    .oneOf(['Ongoing', 'Completed'], 'Invalid Job Type'),
-  projectStartDate: Yup.date().required('Required'),
-  projectEndDate: Yup.date()
-    .when('projectStartDate', (projectStartDate, schema) => (
-      projectStartDate
-        ? schema.min(projectStartDate, 'Must be after start date')
-        : schema
-    ))
-    .nullable(),
-});
+// const validationSchema = Yup.object().shape({
+//   projectTitle: Yup.string()
+//     .min(3, 'Title must be at least 3 characters')
+//     .max(50, 'Title must not exceed 20 characters')
+//     .required('Required'),
+//   projectDescription: Yup.string()
+//     .min(10, 'Description must be at least 10 characters')
+//     .max(500, 'Description must not exceed 500 characters')
+//     .required('Required'),
+//   projectStatus: Yup.string()
+//     .required('Required')
+//     .oneOf(['Ongoing', 'Completed'], 'Invalid Job Type'),
+//   projectStartDate: Yup.date().required('Required'),
+//   projectEndDate: Yup.date()
+//     .when('projectStartDate', (projectStartDate, schema) => (
+//       projectStartDate
+//         ? schema.min(projectStartDate, 'Must be after start date')
+//         : schema
+//     ))
+//     .nullable(),
+// });
 
 export default function ProjectCreateForm() {
   const { admin } = useSelector(userSelector);
@@ -141,7 +141,7 @@ export default function ProjectCreateForm() {
             projectStartDate: '',
             projectEndDate: '',
           }}
-          validationSchema={validationSchema}
+          // validationSchema={validationSchema}
           onSubmit={async (values, { setSubmitting, setErrors }) => {
             onSubmit(values, { setSubmitting, setErrors });
           }}

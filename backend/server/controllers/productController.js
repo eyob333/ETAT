@@ -17,8 +17,10 @@ module.exports.addProduct_post = async (req, res) => {
 // Get all products
 module.exports.allProducts_get = async (req, res) => {
   try {
-    const products = await Product.findAll()
-    res.status(200).json({ products })
+    const products = await Product.findAll({
+      order: [['createdAt', 'DESC']]
+    })
+    res.status(200).json(products)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
@@ -29,9 +31,10 @@ module.exports.productsByCategory_get = async (req, res) => {
   const { category } = req.params
   try {
     const products = await Product.findAll({
-      where: { category }
+      where: { category },
+      order: [['createdAt', 'DESC']]
     })
-    res.status(200).json({ products })
+    res.status(200).json(products)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
@@ -45,7 +48,7 @@ module.exports.product_get = async (req, res) => {
     if (!product) {
       return res.status(404).json({ error: 'Product not found' })
     }
-    res.status(200).json({ product })
+    res.status(200).json(product)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
@@ -54,14 +57,6 @@ module.exports.product_get = async (req, res) => {
 // Update a specific product
 module.exports.updateProduct_post = async (req, res) => {
   try {
-    // Log the request for debugging
-    console.log('Update Product Request:', {
-      params: req.params,
-      body: req.body,
-      file: req.file ? 'File present' : 'No file',
-      auth: req.headers.authorization ? 'Auth header present' : 'No auth header'
-    });
-
     const productId = req.params.id;
     
     // Find the product first
@@ -86,7 +81,7 @@ module.exports.updateProduct_post = async (req, res) => {
     await product.save();
     
     // Return the updated product
-    res.status(200).json({ product });
+    res.status(200).json(product);
   } catch (err) {
     console.error('Error updating product:', err);
     res.status(500).json({ error: err.message });
@@ -96,12 +91,6 @@ module.exports.updateProduct_post = async (req, res) => {
 // Delete a specific product
 module.exports.deleteProduct_post = async (req, res) => {
   try {
-    // Log the request for debugging
-    console.log('Delete Product Request:', {
-      params: req.params,
-      auth: req.headers.authorization ? 'Auth header present' : 'No auth header'
-    });
-
     const productId = req.params.id;
     
     // Find the product first

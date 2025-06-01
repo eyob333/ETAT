@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetUsersQuery } from '../redux/user/userApiSlice';
@@ -18,6 +17,7 @@ import LoadingScreen from '../conditions/LoadingScreen';
 import team from '../assets/team.json';
 import { useGetJobsAppQuery } from '../redux/jobApplication/JobApplicationApiSlice';
 import { fetchJobApp } from '../redux/jobApplication/JopApplicationSlice';
+import { useGetNewsQuery } from '../redux/news/newsApiSlice';
 
 const totalEnrollment = (array) => {
   let total = 0;
@@ -34,7 +34,7 @@ export default function Dashboard() {
   const partners = useSelector(partnerSelector);
   const events = useSelector(eventSelector);
   const trainings = useSelector(trainingSelector);
-  const news = useSelector(newsSelector);
+  const { data: news = [], isLoading: isLoadingNews } = useGetNewsQuery();
   const jobs = useSelector(jobSelector);
   const jobApplications = useSelector(jobApplicationSelector);
 
@@ -75,12 +75,6 @@ export default function Dashboard() {
   }, [dispatch, trainings.trainings.length]);
 
   useEffect(() => {
-    if (news.news.length === 0) {
-      dispatch(fetchNews());
-    }
-  }, [dispatch, news.news.length]);
-
-  useEffect(() => {
     if (jobs.jobs.length === 0) {
       dispatch(fetchJob());
     }
@@ -107,7 +101,7 @@ export default function Dashboard() {
   // }
 
   if (jobs.isLoadingJob || jobApplications.isLoading
-    || news.isLoading || trainings.isLoading
+    || isLoadingNews || trainings.isLoading
     || events.isLoading || partners.isLoading
     || projects.isLoading || services.isLoading) {
     return <LoadingScreen />;

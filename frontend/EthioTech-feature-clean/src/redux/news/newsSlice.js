@@ -1,17 +1,35 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
+import { apiSlice } from '../app/api/apiSlice';
 import { toast } from 'react-toastify';
-import baseURL from '../app/api/baseApi';
 
-export const fetchNews = createAsyncThunk('news/fetchNews', async (thunkAPI) => {
-  const url = `${baseURL}/news`;
-  try {
-    const response = await axios.get(url);
-    return response.data.news;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
-  }
+export const newsApiSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getNews: builder.query({
+      query: () => '/news',
+      transformResponse: (response) => {
+        if (!response?.news) {
+          return [];
+        }
+        return response.news.sort((a, b) => {
+          const dateA = new Date(a.createdAt);
+          const dateB = new Date(b.createdAt);
+          return dateB - dateA;
+        });
+      },
+      providesTags: ['News'],
+    }),
+    updateNewsLike: builder.mutation({
+      query: ({ id, likes }) => ({
+        url: `/news/${id}/like`,
+        method: 'PATCH',
+        body: { likes },
+      }),
+      invalidatesTags: ['News'],
+    }),
+  }),
 });
+
+export const { useGetNewsQuery, useUpdateNewsLikeMutation } = newsApiSlice;
 
 const initialState = {
   news: [],
@@ -21,7 +39,6 @@ const initialState = {
 };
 
 const newsSlice = createSlice({
-
   name: 'news',
   initialState,
   reducers: {
@@ -34,7 +51,7 @@ const newsSlice = createSlice({
       if (index !== -1) {
         state.news[index] = updatedNews;
       } else {
-        toast.error('something went wrong');
+        toast.error('Something went wrong');
       }
     },
     removeNews: (state, action) => {
@@ -57,31 +74,14 @@ const newsSlice = createSlice({
       };
     },
   },
-  extraReducers: (builder) => {
-    builder
-    // Fetch User
-      .addCase(fetchNews.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(fetchNews.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.news = action.payload.sort((a, b) => {
-          const dateA = new Date(a.createdAt); // Convert the start dates to Date objects
-          const dateB = new Date(b.createdAt);
-          return dateB - dateA; // Compare the dates
-        });
-      })
-      .addCase(fetchNews.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = true;
-        state.errMsg = action.payload;
-      });
-  },
-
 });
 
 export const {
-  addUser, removeNews, updateNewsState, addNews, updateLikes,
+  addNews,
+  removeNews,
+  updateNewsState,
+  updateLikes,
 } = newsSlice.actions;
+
 export default newsSlice.reducer;
 

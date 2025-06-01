@@ -3,13 +3,20 @@ const Project = require('../models/Project')
 
 // Create a new sevice
 module.exports.addProject_post = async (req, res) => {
-  const { title, body, start_date, end_date, status, area, id } = req.body
+  const { title, body, area, start_date, end_date, status, id } = req.body
   const picture = req.files && req.files.image ? process.env.backend + req.files.image[0].path : ''
   const doc = req.files && req.files.doc ? process.env.backend + req.files.doc[0].path : ''
   try {
     const user_id = id
-    const project = await Project.create({ title, body, picture, doc, start_date, end_date, status, area, user_id })
-    res.status(201).json(project)
+    
+    try {
+      const project = await Project.create({ title, body, area, start_date, end_date, status, user_id })
+      
+      res.status(201).json(project)
+    } catch (error) {
+      res.status(500).json({ error: error.message })
+    }
+    
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

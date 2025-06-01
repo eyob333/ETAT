@@ -13,14 +13,13 @@ const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
 
 // Create a new news
 module.exports.addNews_post = async (req, res) => {
-  const { title, body, author_name, id } = req.body
+  const { title, body, author_name, id, source } = req.body
   const picture = req.file ? process.env.backend + req.file.path : ''
   try {
     const user_id = id
-    const news = await News.create({ title, body, picture, author_name, user_id })
+    const news = await News.create({ title, body, picture, author_name, user_id, source })
     res.status(201).json(news)
   } catch (error) {
-    console.log(error)
     res.status(500).json({ error: error.message })
   }
 }
@@ -49,6 +48,10 @@ module.exports.newsLike_post = async (req, res) => {
 // Get all news
 module.exports.allNews_get = async (req, res) => {
   try {
+    // Test database connection
+    await sequelize.authenticate();
+    console.log('Database connection successful');
+
     const news = await News.findAll({
       attributes: {
         include: [
@@ -57,11 +60,43 @@ module.exports.allNews_get = async (req, res) => {
             'like_count'
           ]
         ]
-      }
+      },
+      order: [['createdAt', 'DESC']]
     });
-    res.status(200).json({news});
+    
+    console.log('News fetched successfully:', news.length, 'items found');
+    
+    if (!news) {
+      console.log('No news found, returning empty array');
+      return res.status(200).json({ news: [] });
+    }
+    
+    res.status(200).json({ news });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Detailed error in allNews_get:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
+    
+    if (error.name === 'SequelizeConnectionError') {
+      return res.status(500).json({ 
+        error: 'Database connection error',
+        details: error.message 
+      });
+    }
+    
+    if (error.name === 'SequelizeDatabaseError') {
+      return res.status(500).json({ 
+        error: 'Database error',
+        details: error.message 
+      });
+    }
+    
+    res.status(500).json({ 
+      error: 'Failed to fetch news',
+      details: error.message 
+    });
   }
 };
 

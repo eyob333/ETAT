@@ -24,7 +24,7 @@ const Product = sequelize.define('Product', {
     }
   },
   description: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
     validate: {
       notEmpty: {
@@ -38,16 +38,18 @@ const Product = sequelize.define('Product', {
     validate: {
       notEmpty: {
         msg: 'Category is required'
-      },
-      isIn: {
-        args: [['Laptop computers', 'Printing devices', 'Software licenses']],
-        msg: 'Category must be one of: Laptop computers, Printing devices, Software licenses'
       }
     }
   },
   price: {
-    type: DataTypes.DECIMAL,
-    allowNull: true
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false,
+    validate: {
+      min: {
+        args: [0],
+        msg: 'Price must be greater than or equal to 0'
+      }
+    }
   },
   picture: {
     type: DataTypes.STRING,

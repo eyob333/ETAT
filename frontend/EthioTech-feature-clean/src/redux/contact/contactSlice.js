@@ -1,16 +1,24 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import baseURL from '../app/api/baseApi';
+import { createSlice } from '@reduxjs/toolkit';
+import { apiSlice } from '../app/api/apiSlice';
 
-export const fetchContact = createAsyncThunk('contacts/fetchContacts', async (thunkAPI) => {
-  const url = `${baseURL}/contacts`;
-  try {
-    const response = await axios.get(url);
-    return response.data.contact;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
-  }
+export const contactApiSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getContacts: builder.query({
+      query: () => ({
+        url: '/contacts',
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError;
+        },
+      }),
+      transformResponse: (response) => {
+        return response.contact;
+      },
+      providesTags: ['Contact'],
+    }),
+  }),
 });
+
+export const { useGetContactsQuery } = contactApiSlice;
 
 const initialState = {
   contacts: [],
@@ -20,7 +28,6 @@ const initialState = {
 };
 
 const contactSlice = createSlice({
-
   name: 'contact',
   initialState,
   reducers: {
@@ -34,26 +41,13 @@ const contactSlice = createSlice({
       state.contacts = state.contacts.filter((contact) => contact.id !== action.payload);
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchContact.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(fetchContact.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.contacts = action.payload;
-      })
-      .addCase(fetchContact.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = true;
-        state.errMsg = action.payload;
-      });
-  },
-
 });
 
 export const {
-  addUser, removeContact, updateContactState, addContact,
+  addContact,
+  removeContact,
+  updateContactState,
 } = contactSlice.actions;
+
 export default contactSlice.reducer;
 
