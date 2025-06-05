@@ -104,7 +104,7 @@ export default function Service() {
           </div>
         </div>
         <div>
-          <ServiceMovingCards />
+          {/* <ServiceMovingCards /> */}
         </div>
         <>
           {content}
