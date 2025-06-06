@@ -7,6 +7,8 @@ import { Modal } from 'react-responsive-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import ServiceCard from '../components/service/ServiceCard';
 import ServiceMovingCards from '../components/service/ServiceMovingCards';
+import WhatWeDo from '../components/home/WhatWeDo'
+import Partner from './Partner';
 import { serviceSelector } from '../redux/store';
 import LoadingScreen from '../conditions/LoadingScreen';
 import { fetchService } from '../redux/service/serviceSlice';
@@ -105,6 +107,8 @@ export default function Service() {
         </div>
         <div>
           {/* <ServiceMovingCards /> */}
+          <  WhatWeDo />
+          < Partner />
         </div>
         <>
           {content}

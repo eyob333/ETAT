@@ -4,7 +4,8 @@ import { useEffect, useState } from "react"
 import { ChevronUp, ChevronDown, Star } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { cn } from "../lib/utils"
-
+//import PartnerMovingCards from "./Featurebrands"
+import Eyob from "../pages/Featurebrands"
 const Products = () => {
   const [activeImage, setActiveImage] = useState(0)
   const [mainImg, setMainImg] = useState(0)
@@ -401,9 +402,11 @@ const Products = () => {
               </div>
             </div>
           </div> */}
+          
         </div>
         
       </div>
+      < Eyob />
     </div>
   )        
 }

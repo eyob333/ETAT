@@ -11,24 +11,24 @@ export default function Contact() {
         className="min-h-screen bg-cover "
         style={{
           backgroundImage:
-      "url('https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')",
+      "url('https://res.cloudinary.com/deqp41wyr/image/upload/v1749156263/5913352488742930511_zhjfbv.jpg')",
         }}
       >
         <div className="flex flex-col min-h-screen bg-black/60 py-12">
           <div className="container flex flex-col flex-1 px-6 mx-auto">
             <div className="flex-1 lg:flex lg:items-center lg:-mx-6 lg:px-32 lg:py-12">
               <div className="text-white lg:w-3/4 lg:mx-6 ">
-                <h1 className="text-2xl font-semibold capitalize lg:text-3xl">Ultimate design solution</h1>
+                <h1 className="text-2xl font-semibold capitalize lg:text-3xl">Get in touch</h1>
 
-                <p className="max-w-xl mt-6">
+                {/* <p className="max-w-xl mt-6">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem quo
                   aliquid molestiae hic incidunt beatae placeat accusantium! Alias ex quisquam ab tempora. Ratione
                   autem doloremque ducimus numquam doloribus, error sed.
-                </p>
-
+                </p> */}
+{/* 
                 <button className="px-8 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50">
                   get in touch
-                </button>
+                </button> */}
 
                 <div className="mt-6 md:mt-8">
                   <h3 className="text-gray-300 ">Follow us</h3>

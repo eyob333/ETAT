@@ -15,7 +15,8 @@ import ButtonLoadingScreen from '../../conditions/ButtonLoadingScreen';
 const validationSchema = Yup.object().shape({
   contactMapLocation: Yup.string()
     .min(20, 'Map Location Link must be at least 20 characters')
-    .max(300, 'Map Location Link must not exceed 300 characters')
+    .max(1000, 'Map Location Link must not exceed 300 characters')
+    
     .required('Map Location Link is required'),
   contactAddress: Yup.string()
     .min(5, 'Address must be at least 5 characters')
