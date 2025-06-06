@@ -194,6 +194,8 @@ export default function NewsPost() {
                 <p>No news found.</p>
               )}
             </div>
+
+            
           </div>
         </div>
       </div>

@@ -77,18 +77,25 @@ export default function About() {
       </div>
       <div className="py-10">
         <div className="max-w-screen-lg mx-auto grid grid-row-3">
-          <section className="lg:mb-16 mx-6 mb-5">
+          <section className="lg:mb-20 mx-6 mb-5">
             <div className="grid grid-cols-1 md:flex-row w-full h-full md:grid-cols-1 lg:grid-cols-2">
               <div className="pr-5">
-                <h2 className="text-2xl font-semibold mb-4  text-mainColor text-bold">Our Story</h2>
+                {/* <h2 className="font-bold text-4xl font-semibold mb-5  text-mainColor text-bold">Our Story</h2> */}
+                <h1 className="font-bold text-mainColor font-railway-500 mb-5  lg:text-4xl text-2xl underline-offset-2 mx-5">
+              Our Story
+            </h1>
                 <p className="text-lg mb-4">
                   EthioTech-Addis Trading (ETAT) is a technology company that was founded on September 2013,
                   in Addis Ababa, Ethiopia. Initially, ETAT provided consultancy services and supplied various
-                  IT equipment through imports. Over the past half-decade, ETAT has expanded its scope and services to include
+                  IT equipment through imports. 
+                  
+                    <br />
+                    Over the past half-decade, ETAT has expanded its scope and services to include
                   business automation and intelligence, network installation, the construction of modern data centers, surveillance systems,
                   software licensing, and maintenance services. As a result of driving digital transformation and technological advancement,
                   ETAT has become one of the most valuable technology companies in Ethiopia and beyond.
                 </p>
+
                 <p className="text-lg">
                   ETAT provides various Information Technology Enabled services mainly
                   on Technology Consulting, Cyber security, Modern DC and Networking,
@@ -106,7 +113,7 @@ export default function About() {
             </div>
           </section>
           <div className="text-center  ">
-            <h1 className="font-bold text-mainColor font-railway-500 lg:text-5xl text-2xl underline-offset-2 mx-5">
+            <h1 className="font-bold text-mainColor font-railway-500 lg:text-4xl text-2xl underline-offset-2 mx-5">
               Our Mission, Vision & Objectives
             </h1>
           </div>
