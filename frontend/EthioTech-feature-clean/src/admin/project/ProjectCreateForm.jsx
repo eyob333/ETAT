@@ -23,14 +23,19 @@ const validationSchema = Yup.object().shape({
   projectStatus: Yup.string()
     .required('Required')
     .oneOf(['Ongoing', 'Completed'], 'Invalid Job Type'),
-  projectStartDate: Yup.date().required('Required'),
+  projectStartDate: Yup.date()
+    .nullable()
+    .typeError('Invalid date')
+    .required('Required'),
   projectEndDate: Yup.date()
     .when('projectStartDate', (projectStartDate, schema) => (
       projectStartDate
         ? schema.min(projectStartDate, 'Must be after start date')
         : schema
     ))
-    .nullable(),
+    .nullable()
+    .typeError('Invalid date')
+    .required('Required')
 });
 
 export default function ProjectCreateForm() {
@@ -138,8 +143,8 @@ export default function ProjectCreateForm() {
             projectTitle: '',
             projectDescription: '',
             projectStatus,
-            projectStartDate: '',
-            projectEndDate: '',
+            projectStartDate: new Date(),
+            projectEndDate: new Date(),
           }}
           validationSchema={validationSchema}
           onSubmit={async (values, { setSubmitting, setErrors }) => {

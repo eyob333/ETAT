@@ -5,10 +5,7 @@ import { useSelector } from 'react-redux';
 import logo from '../../assets/image/ethiotech2.png';
 import { eventSelector } from '../../redux/store';
 import { motion } from 'framer-motion'; // Import motion from framer-motion
-// import { cn } from "@/lib/utils"
-function cn(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
+
 
 function cn(...classes) {
   return classes.filter(Boolean).join(' ');

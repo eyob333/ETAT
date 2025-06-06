@@ -91,6 +91,11 @@ export default function Dashboard() {
       icon: <BiSolidContact />,
     },
     {
+      to: '/admin/testimonials',
+      text: 'Testimonial',
+      icon: <BiSolidContact />,
+    },
+    {
       to: '/admin/add',
       text: 'Users',
       icon: <FaUsersCog />,

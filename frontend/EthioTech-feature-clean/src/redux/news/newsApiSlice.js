@@ -21,7 +21,7 @@ export const newsApiSlice = apiSlice.injectEndpoints({
     }),
     updateNewsLike: builder.mutation({
       query: (data) => {
-        const likes = { total_likes: data.total_likes };
+        const likes = { total_likes: data.total_likes, id: data.id, total_dislikes: data.total_dislikes };
         return {
           url: `/news-like/${data.id}`,
           method: 'POST',

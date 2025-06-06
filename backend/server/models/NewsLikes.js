@@ -17,6 +17,14 @@ const NewsLikes = sequelize.define('NewsLikes', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
+    total_likes: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+    total_dislikes: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   createdAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
