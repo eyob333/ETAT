@@ -40,13 +40,13 @@ export default function Partner() {
           {isLoading ? <LoadingScreen />
             : partners.map((item, index) => (
               <div className="w-auto group px-5 overflow-hidden flex flex-col justify-start items-center" key={index}>
-                <div className="w-21 h-14">
+                <div className="w-20 h-20" style={{width: '100px', height: 'auto'}}>
                   <img className="object-center object-fill w-full h-full" src={item.logo} alt="logo" />
                 </div>
-                <p className="pt-5 text-poppins tracking-wider object-center text-justify leading-7">{item.body}</p>
+                <p className="pt-5 text-poppins tracking-wider object-center leading-7 font-bold">{item.body}</p>
                 <div className="pt-5">
-                  <p className="font-poppins-400 tracking-wider object-center text-justify leading-7">
-                    <span className="text-mainColor font-poppins font-bold">Key offerings: </span>
+                  <p className="font-poppins-400 tracking-wider object-center leading-7">
+                    <span className="text-mainColor font-poppins">Key offerings: </span>
                     {item.key_offerings}
                   </p>
                 </div>

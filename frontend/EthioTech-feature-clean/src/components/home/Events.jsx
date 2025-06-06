@@ -222,7 +222,7 @@ export default function Events() {
                       </p>
                       <div className="flex flex-row items-center mt-4 text-gray-700">
                         <div className="w-1/2 pb-10 md:pb-0">
-                            <AnimatedLink to="/events" className="md:bg-red-600 hover:bg-secondColor md:text-white font-semibold md:py-2 md:px-9 bg-transparent text-md">
+                            <AnimatedLink to="/event" className="md:bg-red-600 hover:bg-secondColor md:text-white font-semibold md:py-2 md:px-9 bg-transparent text-md">
                               LEARN MORE
                             </AnimatedLink>
                         </div>

@@ -60,14 +60,15 @@ const addTestimonial_post = async (req, res) => {
         });
 
         // Clear cache for testimonials after a new one is added
-        apicache.clear('/api/testimonials');
+        // apicache.clear('/api/testimonials');
+        console.log("some path")
 
         res.status(201).json({
             success: true,
             data: newTestimonial
         });
     } catch (error) {
-        console.error(error);
+        console.error("foo testimonial erorr::",error);
         if (error.name === 'SequelizeValidationError') {
             const messages = error.errors.map(err => err.message);
             return res.status(400).json({ success: false, errors: messages });
