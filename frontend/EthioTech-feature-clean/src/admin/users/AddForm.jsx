@@ -13,7 +13,7 @@ export default function AddForm() {
     first_name: '',
     last_name: '',
     email: '',
-    password: 'abc123',
+    password: '',
     department: '',
     role: '',
   });
@@ -34,6 +34,7 @@ export default function AddForm() {
       || data.department === ''
       || data.role === ''
       || data.email === ''
+      || data.password === ''
     ) {
       toast.error('Please fill all the fields');
     } else {
@@ -45,7 +46,7 @@ export default function AddForm() {
           first_name: '',
           last_name: '',
           email: '',
-          password: 'abc123',
+          password: '',
           department: '',
           role: '',
         });
@@ -100,6 +101,14 @@ export default function AddForm() {
                       Email address
                     </label>
                     <input type="email" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="email" value={data.email} onChange={handleChange} />
+                  </div>
+                </div>
+                <div className="w-full lg:w-6/12 px-4">
+                  <div className="relative w-full mb-3">
+                    <label className="block uppercase text-gray-600 text-xs font-bold mb-2" htmlFor="grid-password">
+                      Password
+                    </label>
+                    <input type="password" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="password" value={data.password} onChange={handleChange} />
                   </div>
                 </div>
                 <div className="w-full lg:w-6/12 px-4">
