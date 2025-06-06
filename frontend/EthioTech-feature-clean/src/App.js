@@ -1,10 +1,9 @@
-
 import './App.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route } from 'react-router-dom';
 import SignIn from './pages/SignIn';
- //import Welcome from './redux/auth/Welcome';
+//import Welcome from './redux/auth/Welcome';
 import Home from './components/home/Home';
 import Layout from './components/layout/Layout';
 import RequireAuth from './redux/auth/RequireAuth';
@@ -72,6 +71,11 @@ import TrainingForm from './components/traning/TraningForm';
 import EventAttendee from './admin/event/EventAttendee';
 import Trainees from './admin/training/Trainees';
 
+// Import testimonial components
+import Testimonials from './admin/testimonial/Testimonial'; // Assuming path to Admin Testimonials List
+import TestimonialForm from './admin/testimonial/TestimonialCreateForm';
+import TestimonialUpdateForm from './admin/testimonial/TestimonialUpdateForm'; // Placeholder: You'll need to create this
+import TestimonialDetail from './admin/testimonial/TestimonialDetail'; // Assuming path to Testimonial Detail
 
 function App() {
   return (
@@ -79,7 +83,7 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Layout />}>
-          {/* {public routes} */}
+          {/* Public routes */}
           <Route path="/" element={<Page />}>
             <Route path="/" element={<Home />} />
             <Route path="/aboutUs" element={<About />} />
@@ -97,15 +101,15 @@ function App() {
             <Route path="/job/:slug" element={<Job />} />
             <Route path="/attendEvent/:id" element={<EventForm />} />
             <Route path="/enroll/:id" element={<TrainingForm />} />
-
           </Route>
+
           <Route path="/signin" element={<SignIn />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="reset-Password/:id/:token" element={<ResetPassword />} />
           <Route path="/admin/changePassword" element={<ChangePassword />} />
           <Route path="*" element={<NotFoundPage />} />
 
-          {/* {protected routws} */}
+          {/* Protected routes */}
           <Route element={<RequireAuth />}>
             <Route path="/admin" element={<Dashboard />}>
               <Route path="/admin" element={<Overview />} />
@@ -141,7 +145,7 @@ function App() {
               <Route path="/admin/updateNews/:id" element={<NewsUpdateForm />} />
               <Route path="/admin/NewsDetail/:id" element={<NewsDetail />} />
               <Route path="/admin/updateJob/:id" element={<JobUpdateForm />} />
-              <Route path="/admin/updateJob/:id" element={<JobUpdateForm />} />
+              {/* Note: The following route for updateJob is a duplicate, you might want to review it */}
               <Route path="/admin/jobs/:slug" element={<JobDetails />} />
               <Route path="/admin/jobApplicants/:id" element={<JopApplication />} />
               <Route path="/admin/addProduct" element={<ProductCreateForm />} />
@@ -150,16 +154,20 @@ function App() {
               <Route path="/admin/updateContact" element={<ContactUpdateForm />} />
               <Route path="/admin/eventAttendee/:id" element={<EventAttendee />} />
               <Route path="/admin/trainee/:id" element={<Trainees />} />
+
+              {/* Testimonial Routes */}
+              <Route path="/admin/testimonials" element={<Testimonials />} />
+              <Route path="/admin/addTestimonial" element={<TestimonialForm />} />
+              <Route path="/admin/updateTestimonial/:id" element={<TestimonialUpdateForm />} />
+              <Route path="/admin/testimonialDetail/:id" element={<TestimonialDetail />} />
             </Route>
 
             {/* <Route path="/welcome" element={<Welcome />} /> */}
           </Route>
         </Route>
       </Routes>
-
     </>
   );
 }
 
 export default App;
-

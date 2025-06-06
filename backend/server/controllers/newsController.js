@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 const News = require('../models/News')
 const Sequelize = require('sequelize');
-// const User = require('../models/User')
 const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
 const NewsLikes = require('../models/NewsLikes');
 
@@ -27,25 +26,32 @@ module.exports.addNews_post = async (req, res) => {
 
 module.exports.newsLike_post = async (req, res) => {
   const { id } = req.params;
-  const { total_likes } = req.body
+  const { total_likes } = req.body;
+  const { total_dislikes } = req.body;
+  console.log("sldkjflskfjslkf")
+
+  if (!total_likes && total_likes !== 0) {
+    return res.status(400).json({ error: "total_likes is required" });
+  }
 
   try {
-    // Check if the id exists in the newsLikes table
     const existingLike = await NewsLikes.findOne({ where: { news_id: id } });
 
     if (existingLike) {
-      // Update the existing record
       await existingLike.update({ total_likes });
     } else {
-      // Create a new record
       await NewsLikes.create({ news_id: id, total_likes });
     }
 
     res.status(200).json({ message: 'News like updated successfully' });
   } catch (error) {
+    console.log("news likes error::", error);
     res.status(500).json({ error: error.message });
   }
 };
+
+
+
 // Get all news
 module.exports.allNews_get = async (req, res) => {
   try {
@@ -120,3 +126,26 @@ module.exports.deleteNews_post = async (req, res) => {
     res.status(400).json({ error: err.message })
   }
 }
+
+// controllers/newsController.js
+
+module.exports.getNewsLikes = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const newsLike = await NewsLikes.findOne({ where: { news_id: id } });
+
+    if (!newsLike) {
+      return res.status(404).json({ error: 'Likes not found for this news item' });
+    }
+
+    res.status(200).json({
+      news_id: newsLike.news_id,
+      total_likes: newsLike.total_likes,
+      total_dislikes: newsLike.total_dislikes,
+    });
+  } catch (error) {
+    console.error('Get likes error:', error);
+    res.status(500).json({ error: 'Server error while fetching likes' });
+  }
+};

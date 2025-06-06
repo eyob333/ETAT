@@ -1,4 +1,3 @@
-
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from './app/api/apiSlice';
 import authReducer from './auth/authSlice';
@@ -15,6 +14,7 @@ import contactReducer from './contact/contactSlice';
 import eventAttendeeReducer from './eventAttendee/eventAttendeeSlice';
 import traineeReducer from './trainees/traineeSclice';
 import productReducer from './product/productSlice';
+import testimonialReducer from './testimonial/testimonialSlice'; // Import the new testimonial reducer
 
 const store = configureStore({
   reducer: {
@@ -33,6 +33,7 @@ const store = configureStore({
     news: newsReducer,
     contact: contactReducer,
     product: productReducer,
+    testimonial: testimonialReducer, // Add the testimonial reducer to the store
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
   devTools: true,
@@ -52,6 +53,6 @@ export const contactSelector = (state) => state.contact;
 export const eventAttendeeSelector = (state) => state.eventAttendee;
 export const traineeSelector = (state) => state.trainee;
 export const productSelector = (state) => state.product;
+export const testimonialSelector = (state) => state.testimonial; // Export the new testimonial selector
 
 export default store;
-

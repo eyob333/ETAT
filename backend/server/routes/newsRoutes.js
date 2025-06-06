@@ -12,6 +12,7 @@ const cache = apicache.middleware
 
 router.get('/news',  newsController.allNews_get)
 router.get('/news/:slug',  newsController.news_get)
+router.get('/news/:id/likes', newsController.getNewsLikes);
 
 router.post('/news-like/:id',  newsController.newsLike_post)
 router.post('/news', verifyJWT, verifyAdmin, upload.single('image'), newsController.addNews_post)
