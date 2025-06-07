@@ -43,9 +43,9 @@ export default function Partner() {
                 <div className="w-20 h-20" style={{width: '100px', height: 'auto'}}>
                   <img className="object-center object-fill w-full h-full" src={item.logo} alt="logo" />
                 </div>
-                <p className="pt-5 text-poppins tracking-wider object-center leading-7 font-bold">{item.body}</p>
+                <p className="pt-5 text-poppins tracking-wider object-center leading-7 font-bold" style={{fontSize: "1.4rem"}} >{item.body}</p>
                 <div className="pt-5">
-                  <p className="font-poppins-400 tracking-wider object-center leading-7">
+                  <p className="font-poppins-400 tracking-wider object-center leading-7 ">
                     <span className="text-mainColor font-poppins">Key offerings: </span>
                     {item.key_offerings}
                   </p>
