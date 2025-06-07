@@ -129,8 +129,11 @@ export default function ProductCreateForm() {
                 >
                   <option value="">Select a category</option>
                   <option value="Laptop computers">Laptop computers</option>
-                  <option value="Printing devices">Printing devices</option>
+                  <option value="Monitors & Displays">Monitors & Displays</option>
+                  <option value="Networking Devices">Networking Devices</option>
+                  <option value="Office Equipments">Office Equipments</option>
                   <option value="Software licenses">Software licenses</option>
+                  <option value="Others">Others</option>
                 </Field>
                 <ErrorMessage name="productCategory" component="div" className="text-red-500 flex items-start" />
               </div>
