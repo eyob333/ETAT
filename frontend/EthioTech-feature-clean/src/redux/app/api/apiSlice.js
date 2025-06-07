@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { setCredentials, logOut } from '../../auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.REACT_APP_BASE_URL,
+  baseUrl: import.meta.env.VITE_BASE_URL,
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const { token } = getState().auth;

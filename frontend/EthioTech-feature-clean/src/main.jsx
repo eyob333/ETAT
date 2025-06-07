@@ -5,6 +5,7 @@ import './index.css';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from './App';
+import './index.css';
 
 import store from './redux/store';
 
