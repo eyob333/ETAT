@@ -1,414 +1,113 @@
-"use client"
-
-import { useEffect, useState } from "react"
-import { ChevronUp, ChevronDown, Star } from "lucide-react"
+import React, { useState } from "react"
+import { Card, CardContent } from "../components/ui/card"
+import { Badge } from "../components/ui/badge"
 import { Button } from "../components/ui/button"
-import { cn } from "../lib/utils"
-//import PartnerMovingCards from "./Featurebrands"
-import Eyob from "../pages/Featurebrands"
-const Products = () => {
-  const [activeImage, setActiveImage] = useState(0)
-  const [mainImg, setMainImg] = useState(0)
-  const [isAutoScrolling, setIsAutoScrolling] = useState(true)
+import { Separator } from "../components/ui/separator"
+import { Laptop, Printer, FileText, Package, Calendar } from 'lucide-react'
 
-  const productImages = [
-    "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789975/5900142066988600122_x1oqv4.jpg?height=400&width=400",
-    "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789994/5900142066988600119_zwi6vk.jpg?height=400&width=400",
-    "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789975/5900142066988600113_uaakrs.jpg?height=400&width=400",
-    "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789976/5900142066988600124_giicd3.jpg?height=400&width=400",
-    // "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789977/5900142066988600123_skonnt.jpg?height=400&width=400",
-    // "/placeholder.svg?height=400&width=400",
-    // "/placeholder.svg?height=400&width=400",
-    // "/placeholder.svg?height=400&width=400",
-    // "/placeholder.svg?height=400&width=400",
+const Products = () => {
+  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [selectedProduct, setSelectedProduct] = useState(null)
+
+  // Categories
+  const categories = [
+    "Laptop computers", 
+    "Printing devices", 
+    "Software licenses", 
+    "Others"
   ]
 
-  // Auto scroll images
-  useEffect(() => {
-    if (!isAutoScrolling) return
+  // Sample products data
+  const products = [
+    {
+      id: 1,
+      name: "MacBook Pro 16-inch",
+      description: "Powerful laptop with M2 Pro chip, perfect for professional work and creative tasks.",
+      category: "Laptop computers",
+      picture: "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789975/5900142066988600122_x1oqv4.jpg",
+      createdAt: "2024-01-15T10:30:00Z"
+    },
+    {
+      id: 2,
+      name: "Dell XPS 15",
+      description: "Premium Windows laptop with 4K OLED display and Intel Core i9 processor.",
+      category: "Laptop computers",
+      picture: "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789994/5900142066988600119_zwi6vk.jpg",
+      createdAt: "2024-01-16T11:45:00Z"
+    },
+    {
+      id: 3,
+      name: "HP LaserJet Pro",
+      description: "High-quality laser printer for office and home use with wireless connectivity.",
+      category: "Printing devices",
+      picture: "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789975/5900142066988600113_uaakrs.jpg",
+      createdAt: "2024-01-16T14:20:00Z"
+    },
+    {
+      id: 4,
+      name: "Epson EcoTank",
+      description: "Eco-friendly inkjet printer with refillable ink tanks for low-cost printing.",
+      category: "Printing devices",
+      picture: "https://res.cloudinary.com/deqp41wyr/image/upload/v1748789976/5900142066988600124.jpg",
+      createdAt: "2024-01-17T09:15:00Z"
+    }
+  ]
 
-    const interval = setInterval(() => {
-      setActiveImage((prev) => (prev + 1) % productImages.length)
-      console.log(activeImage)
-
-    }, 3000)
-
-    return () => clearInterval(interval)
-  }, [isAutoScrolling, productImages.length])
-
-  const handleImageHover = () => {
-    setIsAutoScrolling(false)
-  }
-
-  const handleImageLeave = () => {
-    setIsAutoScrolling(true)
-  }
-
-  const handleImageClick = (index) => {
-    setActiveImage(index)
-    setIsAutoScrolling(false)
-  }
+  const filteredProducts = selectedCategory
+    ? products.filter(product => product.category === selectedCategory)
+    : products
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-        {/* Left Column - Main Product Image and Name */}
-        <div className="space-y-6">
-          <div className="relative overflow-hidden rounded-lg border shadow-md aspect-square">
-            <img
-              src={productImages[mainImg] || "/placeholder.svg"}
-              alt="Premium Wireless Headphones"
-              className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
-            />
-          </div>
-          <div className="text-center md:text-left">
-            <h1 className="text-3xl font-bold tracking-tight">Premium Wireless Headphones</h1>
-            <div className="flex items-center justify-center md:justify-start mt-2 space-x-1">
-            </div>
-          
-          </div>
+      <div className="flex flex-col space-y-6">
+        {/* Category Selection */}
+        <div className="flex flex-wrap gap-4">
+          {categories.map((category) => (
+            <Button
+              key={category}
+              variant={selectedCategory === category ? "default" : "outline"}
+              onClick={() => setSelectedCategory(category)}
+              className="flex items-center gap-2"
+            >
+              {category === "Laptop computers" && <Laptop className="w-4 h-4" />}
+              {category === "Printing devices" && <Printer className="w-4 h-4" />}
+              {category === "Software licenses" && <FileText className="w-4 h-4" />}
+              {category === "Others" && <Package className="w-4 h-4" />}
+              {category}
+            </Button>
+          ))}
         </div>
 
-        {/* Right Column - Sliding Images and Description */}
-        <div className="space-y-8">
-          <div className="relative h-[400px] overflow-hidden rounded-lg border shadow-md">
-            <div
-              className="absolute inset-0 transition-transform duration-1000 ease-in-out"
-              style={{ transform: `translateY(-${activeImage * 100}%)` }}
-            >
-              {productImages.map((image, index) => (
-                <div key={index} className="relative h-[400px] w-full">
-                  <img
-                    src={image || "/placeholder.svg"}
-                    alt={`Product view ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 text-white">
-                    <h3 className="text-xl font-bold">Feature {index + 1}</h3>
-                    <p className="mt-2">
-                      {index === 0 && "Premium sound quality with noise cancellation technology."}
-                      {index === 1 && "Comfortable design for all-day wear with premium materials."}
-                      {index === 2 && "Long-lasting battery life up to 30 hours of playback."}
-                      {index === 3 && "Seamless connectivity with all your devices via Bluetooth 5.0."}
-                    </p>
+        <Separator className="my-4" />
+
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProducts.map((product) => (
+            <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <CardContent className="p-0">
+                <img
+                  src={product.picture}
+                  alt={product.name}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-lg font-semibold">{product.name}</h3>
+                    <Badge variant="secondary">{product.category}</Badge>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-4">{product.description}</p>
+                  <div className="flex items-center text-sm text-gray-500">
+                    <Calendar className="w-4 h-4 mr-2" />
+                    {new Date(product.createdAt).toLocaleDateString()}
                   </div>
                 </div>
-              ))}
-            </div>
-
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col space-y-2 bg-white/80 rounded-full p-1 shadow-md">
-              <button
-                onClick={() => setActiveImage((prev) => (prev - 1 + productImages.length) % productImages.length)}
-                className="p-1 rounded-full hover:bg-gray-200 transition-colors"
-                aria-label="Previous image"
-              >
-                <ChevronUp className="h-5 w-5" />
-              </button>
-              <button
-                onClick={() => setActiveImage((prev) => (prev + 1) % productImages.length)}
-                className="p-1 rounded-full hover:bg-gray-200 transition-colors"
-                aria-label="Next image"
-              >
-                <ChevronDown className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-4 gap-2">
-            {productImages.map((image, index) => (
-              <div
-                key={index}
-                className={cn(
-                  "relative aspect-square cursor-pointer overflow-hidden rounded-md border",
-                  activeImage === index ? "ring-2 ring-offset-2 ring-black" : "",
-                )}
-                onClick={() => handleImageClick(index)}
-                onMouseEnter={handleImageHover}
-                onMouseLeave={handleImageLeave}
-              >
-                <img
-                  src={image || "/placeholder.svg"}
-                  alt={`Thumbnail ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Product Description</h2>
-            <p>
-              Experience premium sound quality with our wireless headphones. Designed for comfort and style, these
-              headphones deliver exceptional audio performance with deep bass and crystal-clear highs.
-            </p>
-            <p>
-              The advanced noise cancellation technology blocks out ambient noise, allowing you to focus on your music
-              or calls. With up to 30 hours of battery life, you can enjoy your favorite tunes all day long.
-            </p>
-            <div className="grid grid-cols-2 gap-4 mt-6">
-              <div className="space-y-2">
-                <h3 className="font-semibold">Key Features</h3>
-                <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li>Active Noise Cancellation</li>
-                  <li>30-hour battery life</li>
-                  <li>Premium sound quality</li>
-                  <li>Bluetooth 5.0 connectivity</li>
-                </ul>
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold">What's in the box</h3>
-                <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li>Wireless Headphones</li>
-                  <li>Carrying Case</li>
-                  <li>USB-C Charging Cable</li>
-                  <li>User Manual</li>
-                </ul>
-              </div>
-            </div>
-          </div> */}
+              </CardContent>
+            </Card>
+          ))}
         </div>
-
-        {/* 2nd left oloumn */}
-        <div className="space-y-6">
-          <div className="relative overflow-hidden rounded-lg border shadow-md aspect-square">
-            <img
-              src={productImages[mainImg+ 2] || "/placeholder.svg"}
-              alt="Premium Wireless Headphones"
-              className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
-            />
-          </div>
-          <div className="text-center md:text-left">
-            <h1 className="text-3xl font-bold tracking-tight">Premium Wireless Headphones</h1>
-            <div className="flex items-center justify-center md:justify-start mt-2 space-x-1">
-              
-            </div>
-           
-          </div>
-        </div>
-
-        {/* 2nd right column */}
-        
-        <div className="space-y-8">
-          <div className="relative h-[400px] overflow-hidden rounded-lg border shadow-md">
-            <div
-              className="absolute inset-0 transition-transform duration-1000 ease-in-out"
-              style={{ transform: `translateY(-${activeImage * 100}%)` }}
-            >
-              {productImages.map((image, index) => (
-                <div key={index} className="relative h-[400px] w-full">
-                  <img
-                    src={image || "/placeholder.svg"}
-                    alt={`Product view ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 text-white">
-                    <h3 className="text-xl font-bold">Feature {index + 1}</h3>
-                    <p className="mt-2">
-                      {index === 0 && "Premium sound quality with noise cancellation technology."}
-                      {index === 1 && "Comfortable design for all-day wear with premium materials."}
-                      {index === 2 && "Long-lasting battery life up to 30 hours of playback."}
-                      {index === 3 && "Seamless connectivity with all your devices via Bluetooth 5.0."}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col space-y-2 bg-white/80 rounded-full p-1 shadow-md">
-              <button
-                onClick={() => setActiveImage((prev) => (prev - 1 + productImages.length) % productImages.length)}
-                className="p-1 rounded-full hover:bg-gray-200 transition-colors"
-                aria-label="Previous image"
-              >
-                <ChevronUp className="h-5 w-5" />
-              </button>
-              <button
-                onClick={() => setActiveImage((prev) => (prev + 1) % productImages.length)}
-                className="p-1 rounded-full hover:bg-gray-200 transition-colors"
-                aria-label="Next image"
-              >
-                <ChevronDown className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-4 gap-2">
-            {productImages.map((image, index) => (
-              <div
-                key={index}
-                className={cn(
-                  "relative aspect-square cursor-pointer overflow-hidden rounded-md border",
-                  activeImage === index ? "ring-2 ring-offset-2 ring-black" : "",
-                )}
-                onClick={() => handleImageClick(index)}
-                onMouseEnter={handleImageHover}
-                onMouseLeave={handleImageLeave}
-              >
-                <img
-                  src={image || "/placeholder.svg"}
-                  alt={`Thumbnail ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Product Description</h2>
-            <p>
-              Experience premium sound quality with our wireless headphones. Designed for comfort and style, these
-              headphones deliver exceptional audio performance with deep bass and crystal-clear highs.
-            </p>
-            <p>
-              The advanced noise cancellation technology blocks out ambient noise, allowing you to focus on your music
-              or calls. With up to 30 hours of battery life, you can enjoy your favorite tunes all day long.
-            </p>
-            <div className="grid grid-cols-2 gap-4 mt-6">
-              <div className="space-y-2">
-                <h3 className="font-semibold">Key Features</h3>
-                <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li>Active Noise Cancellation</li>
-                  <li>30-hour battery life</li>
-                  <li>Premium sound quality</li>
-                  <li>Bluetooth 5.0 connectivity</li>
-                </ul>
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold">What's in the box</h3>
-                <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li>Wireless Headphones</li>
-                  <li>Carrying Case</li>
-                  <li>USB-C Charging Cable</li>
-                  <li>User Manual</li>
-                </ul>
-              </div>
-            </div>
-          </div> */}
-        </div>
-
-        {/* 3rd left column */}
-        <div className="space-y-6">
-          <div className="relative overflow-hidden rounded-lg border shadow-md aspect-square">
-            <img
-              src={productImages[mainImg + 1] || "/placeholder.svg"}
-              alt="Premium Wireless Headphones"
-              className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
-            />
-          </div>
-          <div className="text-center md:text-left">
-            <h1 className="text-3xl font-bold tracking-tight">Premium Wireless Headphones</h1>
-            <div className="flex items-center justify-center md:justify-start mt-2 space-x-1">
-
-            </div>
-      
-          </div>
-        </div>
-
-        {/* 3rd right column */}
-
-        <div className="space-y-8">
-          <div className="relative h-[400px] overflow-hidden rounded-lg border shadow-md">
-            <div
-              className="absolute inset-0 transition-transform duration-1000 ease-in-out"
-              style={{ transform: `translateY(-${activeImage * 100}%)` }}
-            >
-              {productImages.map((image, index) => (
-                <div key={index} className="relative h-[400px] w-full">
-                  <img
-                    src={image || "/placeholder.svg"}
-                    alt={`Product view ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 text-white">
-                    <h3 className="text-xl font-bold">Feature {index + 1}</h3>
-                    <p className="mt-2">
-                      {index === 0 && "Premium sound quality with noise cancellation technology."}
-                      {index === 1 && "Comfortable design for all-day wear with premium materials."}
-                      {index === 2 && "Long-lasting battery life up to 30 hours of playback."}
-                      {index === 3 && "Seamless connectivity with all your devices via Bluetooth 5.0."}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col space-y-2 bg-white/80 rounded-full p-1 shadow-md">
-              <button
-                onClick={() => setActiveImage((prev) => (prev - 1 + productImages.length) % productImages.length)}
-                className="p-1 rounded-full hover:bg-gray-200 transition-colors"
-                aria-label="Previous image"
-              >
-                <ChevronUp className="h-5 w-5" />
-              </button>
-              <button
-                onClick={() => setActiveImage((prev) => (prev + 1) % productImages.length)}
-                className="p-1 rounded-full hover:bg-gray-200 transition-colors"
-                aria-label="Next image"
-              >
-                <ChevronDown className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-4 gap-2">
-            {productImages.map((image, index) => (
-              <div
-                key={index}
-                className={cn(
-                  "relative aspect-square cursor-pointer overflow-hidden rounded-md border",
-                  activeImage === index ? "ring-2 ring-offset-2 ring-black" : "",
-                )}
-                onClick={() => handleImageClick(index)}
-                onMouseEnter={handleImageHover}
-                onMouseLeave={handleImageLeave}
-              >
-                <img
-                  src={image || "/placeholder.svg"}
-                  alt={`Thumbnail ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Product Description</h2>
-            <p>
-              Experience premium sound quality with our wireless headphones. Designed for comfort and style, these
-              headphones deliver exceptional audio performance with deep bass and crystal-clear highs.
-            </p>
-            <p>
-              The advanced noise cancellation technology blocks out ambient noise, allowing you to focus on your music
-              or calls. With up to 30 hours of battery life, you can enjoy your favorite tunes all day long.
-            </p>
-            <div className="grid grid-cols-2 gap-4 mt-6">
-              <div className="space-y-2">
-                <h3 className="font-semibold">Key Features</h3>
-                <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li>Active Noise Cancellation</li>
-                  <li>30-hour battery life</li>
-                  <li>Premium sound quality</li>
-                  <li>Bluetooth 5.0 connectivity</li>
-                </ul>
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold">What's in the box</h3>
-                <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li>Wireless Headphones</li>
-                  <li>Carrying Case</li>
-                  <li>USB-C Charging Cable</li>
-                  <li>User Manual</li>
-                </ul>
-              </div>
-            </div>
-          </div> */}
-          
-        </div>
-        
       </div>
-      < Eyob />
     </div>
-  )        
+  )
 }
 
 export default Products
