@@ -23,7 +23,7 @@ const validationSchema = Yup.object().shape({
     .required('Description is required'),
   productCategory: Yup.string()
     .required('Category is required')
-    .oneOf(['Laptop computers', 'Printing devices', 'Software licenses'], 'Invalid category'),
+    .oneOf(['Laptop computers', 'Monitors & Displays', 'Networking Devices', 'Office Equipments', 'Software licenses', 'Others'], 'Invalid category'),
   productPrice: Yup.number()
     .typeError('Price must be a number')
     .min(0, 'Price cannot be negative')

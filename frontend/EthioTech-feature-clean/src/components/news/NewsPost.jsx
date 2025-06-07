@@ -139,7 +139,7 @@ export default function NewsPost() {
                 <br />
                 {timeIn12HourFormat}
               </div>
-
+              
               <div className="flex justify-center items-center gap-3 pr-6">
                 <div className="flex justify-center text-2xl items-center gap-2">
                   <span className="text-gray-600 text-sm">
@@ -152,6 +152,7 @@ export default function NewsPost() {
                     {!dislikes ? <AiOutlineDislike /> : <AiFillDislike />}
                   </button>
                 </div>
+                
                 <button
                   className="flex gap-2 justify-between text-white px-3 py-1 rounded-md hover:shadow-lg bg-mainColor items-center"
                   type="button"
@@ -160,11 +161,14 @@ export default function NewsPost() {
                   <FaShareSquare />
                   <span>share</span>
                 </button>
+                
               </div>
             </div>
 
             <div className="px-5 w-full mx-auto py-5" dangerouslySetInnerHTML={{ __html: html(`${filteredNews[0].body}`) }} />
-
+            <h1 className='px-5 w-full mx-auto py-5 text-sky-500'>
+  <Link to={filteredNews[0].source}>source: {filteredNews[0].source}</Link>
+</h1>
             <div className="flex mb-4 px-4 lg:px-0 items-center justify-between mx-5">
               <h2 className="font-semibold text-3xl font-railway">Latest news</h2>
               <Link

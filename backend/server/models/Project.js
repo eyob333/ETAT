@@ -32,10 +32,12 @@ const Project = sequelize.define('Project', {
     }
   },
   picture: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   doc: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   area: {
     type: DataTypes.STRING,

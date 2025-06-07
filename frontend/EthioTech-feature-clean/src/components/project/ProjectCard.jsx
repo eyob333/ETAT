@@ -18,8 +18,9 @@ const ProjectCard = ({ filteredData, openModal, shouldAnimate }) => (
           <img
             className="object-center object-cover h-36 w-full opacity-1 transition duration-300 ease-in-out group-hover:opacity-50 transform group-hover:scale-105"
             src={data.picture}
+            
             alt=""
-          />
+          />{console.log(data)}
           <div className="invisible group-hover:visible duration-100 ease-in-out absolute text-5xl text-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <button className="inline-flex items-center justify-center opacity-70 w-10 h-10 p-2 mr-2 text-pink-100 transition-colors duration-150 bg-red-500 rounded-full focus:shadow-outline">
               <PiShareFatFill color="white" fontSize="0.3em" className="opacity-2" />
