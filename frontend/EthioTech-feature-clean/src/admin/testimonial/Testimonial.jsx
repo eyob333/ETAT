@@ -165,7 +165,7 @@ export default function Testimonials() {
                               src={item.image}
                               alt={item.name}
                               className="w-16 h-16 object-cover rounded-full mx-auto mb-2"
-                              onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/150x150/000000/FFFFFF?text=No+Image'; }} // Fallback image
+                              // onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/150x150/000000/FFFFFF?text=No+Image'; }} // Fallback image
                             />
                           )}
                           <h2 className="font-semibold text-xl text-gray-800 group-hover:text-blue-600 break-words line-clamp-1 text-center">

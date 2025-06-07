@@ -60,14 +60,15 @@ const addTestimonial_post = async (req, res) => {
         });
 
         // Clear cache for testimonials after a new one is added
-        apicache.clear('/api/testimonials');
+        // apicache.clear('/api/testimonials');
+        console.log("some path")
 
         res.status(201).json({
             success: true,
             data: newTestimonial
         });
     } catch (error) {
-        console.error(error);
+        console.error("foo testimonial erorr::",error);
         if (error.name === 'SequelizeValidationError') {
             const messages = error.errors.map(err => err.message);
             return res.status(400).json({ success: false, errors: messages });
@@ -127,23 +128,24 @@ const updateTestimonial_post = async (req, res) => {
 const deleteTestimonial_post = async (req, res) => {
     try {
         const testimonial = await Testimonial.findByPk(req.params.id);
-
-        if (!testimonial) {
-            return res.status(404).json({ success: false, error: 'Testimonial not found' });
-        }
-
+        
+        // if (!testimonial) {
+        //     return res.status(404).json({ success: false, error: 'Testimonial not found' });
+        // }
         // TODO: Optionally, delete the associated image file from storage
 
+        console.log("some::", testimonial);
         await testimonial.destroy();
 
         // Clear cache for testimonials after a deletion
-        apicache.clear('/api/testimonials');
-        apicache.clear(`/api/testimonials/${req.params.id}`);
+        // apicache.clear('/api/testimonials');
+        // apicache.clear(`/api/testimonials/${req.params.id}`);
 
+        console.log('the things some destryed!!')
         res.status(200).json({
             success: true,
             data: {} // Return empty object for successful deletion
-        });
+        });     
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, error: 'Server Error' });

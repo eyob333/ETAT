@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { BiSolidDashboard, BiSolidContact } from 'react-icons/bi';
+import { BiSolidDashboard, BiSolidContact, BiArchive } from 'react-icons/bi';
 import { AiFillDatabase, AiFillProject } from 'react-icons/ai';
 import { BsFillCalendarEventFill } from 'react-icons/bs';
 import { FaNewspaper, FaUserFriends, FaUsersCog } from 'react-icons/fa';
@@ -93,7 +93,7 @@ export default function Dashboard() {
     {
       to: '/admin/testimonials',
       text: 'Testimonial',
-      icon: <BiSolidContact />,
+      icon: <BiArchive />,
     },
     {
       to: '/admin/add',

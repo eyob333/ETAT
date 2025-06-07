@@ -39,27 +39,27 @@ export default function Service() {
           <div className="w-full md:w-1/2 md:mt-4 lg:w-1/3 h-auto px-4" key={item.title}>
             <div
               className="
-          p-4
-          pt-9
-          h-full
-          md:px-7
-          xl:px-10
-          bg-white
-          shadow-md
-          border
-          border-secondColor
-          hover:shadow-lg
-          hover:bg-customDark
-          hover:text-white
-          transition duration-300 ease-in-out
-          flex
-          flex-col
-          justify-start
-          relative
-          group
-          overflow-hidden
-        "
-            >
+                          p-4
+                          pt-9
+                          h-full
+                          md:px-7
+                          xl:px-10
+                          bg-white
+                          shadow-md
+                          border
+                          border-secondColor
+                          hover:shadow-lg
+                          hover:bg-customDark
+                          hover:text-white
+                          transition duration-300 ease-in-out
+                          flex
+                          flex-col
+                          justify-start
+                          relative
+                          group
+                          overflow-hidden
+                        "
+                          >
               <h4 className="relative z-10 font-semibold font-raleway text-2xl text-dark mb-3">
                 {item.title}
               </h4>
