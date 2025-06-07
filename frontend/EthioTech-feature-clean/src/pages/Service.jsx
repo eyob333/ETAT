@@ -5,8 +5,8 @@ import ReactDOM from 'react-dom';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import ServiceCard from '../components/service/ServiceCard';
-import ServiceMovingCards from '../components/service/ServiceMovingCards';
+// import ServiceCard from '../components/service/ServiceCard';
+// import ServiceMovingCards from '../components/service/ServiceMovingCards';
 import WhatWeDo from '../components/home/WhatWeDo'
 import Partner from './Partner';
 import { serviceSelector } from '../redux/store';
