@@ -40,7 +40,7 @@ const Product = sequelize.define('Product', {
         msg: 'Category is required'
       },
       isIn: {
-        args: [['Laptop computers', 'Printing devices', 'Software licenses']],
+        args: [['Laptop computers', 'Monitors & Displays', 'Networking Devices', 'Office Equipments', 'Software licenses', 'Others']],
         msg: 'Category must be one of: Laptop computers, Printing devices, Software licenses'
       }
     }
