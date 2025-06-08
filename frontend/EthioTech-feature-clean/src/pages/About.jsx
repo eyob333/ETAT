@@ -2,10 +2,6 @@
 import React from 'react';
 import ImageSwiper from '../components/about/ImageSwiper';
 import InfoCards from '../components/about/InfoCard';
-// import img1 from '../assets/image/slide 02.png';
-// import img22 from '../assets/image/slide 03.jpg';
-// import img3 from '../assets/image/Slide 01.jpg';
-// import img4 from '../assets/image/Slide automation 01.png';
 
 export default function About() {
   const images = [
@@ -14,13 +10,6 @@ export default function About() {
     { label: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1746007831/software_if11jh.jpg' },
     { label: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1746007783/Slide_01_dphp7w.jpg' },
   ];
-
-  // const images = [
-  //   { label: img1 },
-  //   { label: img22 },
-  //   { label: img3 },
-  //   { label: img4 },
-  // ];
 
   const infoData = [
     {
@@ -66,7 +55,7 @@ export default function About() {
         className="bg-cover bg-center bg-no-repeat h-44 flex items-center font-poppins"
         style={{
           backgroundImage:
-            'url(https://synaxtech.com/wp-content/uploads/2021/08/header-bg-aboutus.png)',
+            'url(https://res.cloudinary.com/deqp41wyr/image/upload/v1749349547/about_eader_dv2r3m.png)',
         }}
       >
         <div className="container mx-auto py-12 px-7 sm:px-6 lg:px-8 flex items-center justify-center">

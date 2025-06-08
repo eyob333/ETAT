@@ -198,7 +198,7 @@ export default function Events() {
                   <div
                     className="w-full h-64 bg-top bg-cover rounded-t"
                     style={{
-                      backgroundImage: `url(${item.picture})`,
+                      backgroundImage: `url(${item.picture.replace(/\\/g, '/')})`,
                       backgroundSize: 'contain',
                       backgroundPosition: 'contain',
                       backgroundRepeat: 'no-repeat',
@@ -227,7 +227,6 @@ export default function Events() {
                             </AnimatedLink>
                         </div>
                         <div className="w-1/2 flex justify-end">
-                          <img src={logo} alt="" className="w-20" />
                         </div>
                       </div>
                     </div>

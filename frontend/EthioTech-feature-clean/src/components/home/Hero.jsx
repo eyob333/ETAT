@@ -7,28 +7,19 @@ import {
   Autoplay, Pagination, Navigation, EffectFade,
 } from 'swiper/modules';
 import { Link } from 'react-router-dom';
-import img1 from '../../assets/image/sketch1710090663589.png';
-import image2 from "../../assets/image/cyber.png";
-import image3 from "../../assets/image/modernDC.jpg";
-import image4 from "../../assets/image/business.jpg"
-import image5 from "../../assets/image/software.jpg"
-import image6 from "../../assets/image/tech.jpg"
-import image7 from '../../assets/image/surveillance.jpg';
-import image8 from '../../assets/image/VOIP-PBX.png';
-import image9 from '../../assets/image/modernDC.jpg';
 import WhatWeDo from './WhatWeDo';
 
 const images = [
-  { title: ' Consulting: Strategic Guidance for Success', src: img1 },
-  { title: 'Cybersecurity Unleashed: Expert Services for Digital Fortification', src: image2 },
-  { title: 'Modern DC and Networking: Experience Next-Level Modern DC Services', src: image3 },
-  { title: 'Power Your Online Presence: Elevate with Exceptional Hosting Services', src: img1 },
-  { title: 'Business Automation and Intelligence: treamline Operations, Amplify Insights', src: image4 },
-  { title: 'Software Licensing: Unlock the Full Potential of Your Software', src: image5 },
-  { title: 'Tech Supply: Source Your Tech Needs with Confidence', src: image6 },
-  { title: 'Surveillance: Monitoring Your Assets for Enhanced Security', src: image7 },
-  { title: 'VOIP/PBX/SIP Solutions: Transforming Communication, Empowering Collaboration', src: image8 },
-  { title: 'Maintenance and 24/7 SUPPORT: Trust ETAT for reliable and innovative solutions', src: image9 },
+  { title: ' Consulting: Strategic Guidance for Success', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749344994/sketch1710090663589_ymjfgd.png"  },
+  { title: 'Cybersecurity Unleashed: Expert Services for Digital Fortification', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749345029/cyber_npel41.png" },
+  { title: 'Modern DC and Networking: Experience Next-Level Modern DC Services', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749344996/Slide_01_rz7ytp.jpg" },
+  { title: 'Power Your Online Presence: Elevate with Exceptional Hosting Services', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749344994/sketch1710090663589_ymjfgd.png" },
+  { title: 'Business Automation and Intelligence: treamline Operations, Amplify Insights', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749344997/slide_03_cawuyt.jpg" },
+  { title: 'Software Licensing: Unlock the Full Potential of Your Software', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749345001/software_rsstxn.jpg" },
+  { title: 'Tech Supply: Source Your Tech Needs with Confidence', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749345004/slide_05_rctr2i.jpg" },
+  { title: 'Surveillance: Monitoring Your Assets for Enhanced Security', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749344993/slide_06_gsgkc0.jpg" },
+  { title: 'VOIP/PBX/SIP Solutions: Transforming Communication, Empowering Collaboration', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749345005/Slide_automation_01_hmvxjl.png" },
+  { title: 'Maintenance and 24/7 SUPPORT: Trust ETAT for reliable and innovative solutions', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749344996/Slide_01_rz7ytp.jpg" },
 ];
 
 export default function Hero() {
@@ -44,7 +35,7 @@ export default function Hero() {
         >
           {images.map((image) => (
             <SwiperSlide key={image.title}>
-              <section className="relative bg-blueGray-50">
+              <section className="relative bg-blueGray-10">
                 <div className="relative pt-0 md:pt-16 pb-32 flex content-center items-center justify-center  h-screen">
                   <div
                     className="absolute top-0 w-full h-full bg-center bg-cover"
@@ -54,7 +45,7 @@ export default function Hero() {
                       backgroundPosition: 'center',
                     }}
                   >
-                    <span id="blackOverlay" className="w-full h-full absolute opacity-75 bg-black" />
+                    <span id="blackOverlay" className="w-full h-full absolute opacity-5bg-black" />
                   </div>
                   <div className="container relative  flex items-center h-96 mx-5">
                     <div className=" my-auto flex flex-wrap">

@@ -39,11 +39,11 @@ export default function Footer() {
                 </p>
                 <nav className="flex flex-col font-poppins mt-4 space-y-2 text-sm text-gray-500">
                   <Link className="hover:text-secondColor" to="/aboutUs"> About </Link>
-                  <Link className="hover:text-secondColor" to="/team"> Meet the Team </Link>
+                  {/* <Link className="hover:text-secondColor" to="/team"> Meet the Team </Link> */}
                   <Link className="hover:text-secondColor" to="/services"> Services </Link>
                   <Link className="hover:text-secondColor" to="/trainings"> Trainings </Link>
                   <Link className="hover:text-secondColor" to="/event"> Events </Link>
-                  <Link className="hover:text-secondColor" to="/career"> Career </Link>
+                  {/* <Link className="hover:text-secondColor" to="/career"> Career </Link> */}
                 </nav>
               </div>
               <div>
@@ -56,11 +56,14 @@ export default function Footer() {
                   <Link className="hover:text-secondColor" to="/news"> News </Link>
                   <Link className="hover:text-secondColor" to="/contact"> Contact </Link>
                 </nav>
+                {/* <p className="mt-8 text-xs text-gray-300">
+            Developed by Eyob & Mihret
+          </p> */}
               </div>
             </div>
           </div>
           <p className="mt-8 text-xs text-gray-300">
-            © 2022 EthioTech-Addis Trading PLC
+            © 2025 EthioTech-Addis Trading PLC
           </p>
         </div>
       </footer>
