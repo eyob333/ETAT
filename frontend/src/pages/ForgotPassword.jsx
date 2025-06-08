@@ -8,7 +8,7 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import logo from '../assets/image/ethiotech2.png';
+import logo from '../assets/image/ethiotech2.webp';
 import { useRequestChangeMutation } from '../redux/resetPassword/passwordApiSlice';
 
 const validationSchema = Yup.object().shape({

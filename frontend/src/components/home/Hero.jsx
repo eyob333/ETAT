@@ -8,18 +8,19 @@ import {
 } from 'swiper/modules';
 import { Link } from 'react-router-dom';
 import WhatWeDo from './WhatWeDo';
+import convertToWebP from '../../utils/ToWebp';
 
 const images = [
-  { title: ' Consulting: Strategic Guidance for Success', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749344994/sketch1710090663589_ymjfgd.png"  },
-  { title: 'Cybersecurity Unleashed: Expert Services for Digital Fortification', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749345029/cyber_npel41.png" },
-  { title: 'Modern DC and Networking: Experience Next-Level Modern DC Services', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749344996/Slide_01_rz7ytp.jpg" },
-  { title: 'Power Your Online Presence: Elevate with Exceptional Hosting Services', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749344994/sketch1710090663589_ymjfgd.png" },
-  { title: 'Business Automation and Intelligence: treamline Operations, Amplify Insights', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749344997/slide_03_cawuyt.jpg" },
-  { title: 'Software Licensing: Unlock the Full Potential of Your Software', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749345001/software_rsstxn.jpg" },
-  { title: 'Tech Supply: Source Your Tech Needs with Confidence', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749345004/slide_05_rctr2i.jpg" },
-  { title: 'Surveillance: Monitoring Your Assets for Enhanced Security', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749344993/slide_06_gsgkc0.jpg" },
-  { title: 'VOIP/PBX/SIP Solutions: Transforming Communication, Empowering Collaboration', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749345005/Slide_automation_01_hmvxjl.png" },
-  { title: 'Maintenance and 24/7 SUPPORT: Trust ETAT for reliable and innovative solutions', src: "https://res.cloudinary.com/deqp41wyr/image/upload/v1749344996/Slide_01_rz7ytp.jpg" },
+  { title: ' Consulting: Strategic Guidance for Success', src: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1749344994/sketch1710090663589_ymjfgd.png")  },
+  { title: 'Cybersecurity Unleashed: Expert Services for Digital Fortification', src: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1749345029/cyber_npel41.png") },
+  { title: 'Modern DC and Networking: Experience Next-Level Modern DC Services', src: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1749344996/Slide_01_rz7ytp.jpg") },
+  { title: 'Power Your Online Presence: Elevate with Exceptional Hosting Services', src: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1749344994/sketch1710090663589_ymjfgd.png")},
+  { title: 'Business Automation and Intelligence: treamline Operations, Amplify Insights', src: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1749344997/slide_03_cawuyt.jpg") },
+  { title: 'Software Licensing: Unlock the Full Potential of Your Software', src: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1749345001/software_rsstxn.jpg") },
+  { title: 'Tech Supply: Source Your Tech Needs with Confidence', src: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1749345004/slide_05_rctr2i.jpg") },
+  { title: 'Surveillance: Monitoring Your Assets for Enhanced Security',src: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1749344993/slide_06_gsgkc0.jpg") },
+  { title: 'VOIP/PBX/SIP Solutions: Transforming Communication, Empowering Collaboration', src: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1749345005/Slide_automation_01_hmvxjl.png") },
+  { title: 'Maintenance and 24/7 SUPPORT: Trust ETAT for reliable and innovative solutions', src: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1749344996/Slide_01_rz7ytp.jpg" )},
 ];
 
 export default function Hero() {

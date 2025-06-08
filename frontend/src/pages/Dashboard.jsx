@@ -13,7 +13,7 @@ import { IoLogOut } from 'react-icons/io5';
 import { userSelector } from '../redux/store';
 import { logOut, selectCurrentUser } from '../redux/auth/authSlice';
 import { fetchUser, setAdmin } from '../redux/user/userSlice';
-import logo from '../assets/image/ethiotech2.png';
+import logo from '../assets/image/ethiotech2.webp';
 import { FaProductHunt } from 'react-icons/fa';
 export default function Dashboard() {
   const dispatch = useDispatch();

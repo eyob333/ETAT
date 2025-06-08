@@ -5,9 +5,9 @@ import {
 } from 'react-icons/ai';
 import { BsWhatsapp } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { contactSelector } from '../../redux/store';
-import { fetchContact } from '../../redux/contact/contactSlice';
-import img from '../../assets/image/ethiotech.jpeg';
+// import { contactSelector } from '../../redux/store';
+// import { fetchContact } from '../../redux/contact/contactSlice';
+import img from '../../assets/image/ethiotech.webp';
 
 export default function Header() {
   // const dispatch = useDispatch();

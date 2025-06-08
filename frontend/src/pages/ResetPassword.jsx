@@ -5,7 +5,7 @@ import {
 import * as Yup from 'yup';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import logo from '../assets/image/ethiotech2.png';
+import logo from '../assets/image/ethiotech2.webp';
 import { useResetPasswordMutation } from '../redux/resetPassword/passwordApiSlice';
 
 const validationSchema = Yup.object().shape({

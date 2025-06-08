@@ -1,47 +1,48 @@
 "use client";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import convertToWebP from "../../utils/ToWebp";
 
 const comingSoonTrainingsWithImages = [
   {
     id: "training-1",
     title: "Programming",
-    imageUrl: "https://res.cloudinary.com/deqp41wyr/image/upload/v1747508678/programming_jbs1js.jpg",
+    imageUrl: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1747508678/programming_jbs1js.jpg"),
   },
   {
     id: "training-2",
     title: "Data Science",
-    imageUrl: "https://res.cloudinary.com/deqp41wyr/image/upload/v1747508755/Data_Science_trjhs7.jpg",
+    imageUrl: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1747508755/Data_Science_trjhs7.jpg"),
   },
   {
     id: "training-3",
     title: "AI",
-    imageUrl: "https://res.cloudinary.com/deqp41wyr/image/upload/v1747508665/AI_vqy08i.jpg",
+    imageUrl: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1747508665/AI_vqy08i.jpg"),
   },
   {
     id: "training-4",
     title: "Robotics & Autonomous",
-    imageUrl: "https://res.cloudinary.com/deqp41wyr/image/upload/v1747508987/Robotics_ulj2gk.jpg",
+    imageUrl: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1747508987/Robotics_ulj2gk.jpg"),
   },
   {
     id: "training-5",
     title: "CISSP",
-    imageUrl: "https://res.cloudinary.com/deqp41wyr/image/upload/v1747508755/Data_Science_trjhs7.jpg",
+    imageUrl: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1747508755/Data_Science_trjhs7.jpg"),
   },
   {
     id: "training-6",
     title: "CISA",
-    imageUrl: "https://res.cloudinary.com/deqp41wyr/image/upload/v1745869226/two_ezrhm6.jpg",
+    imageUrl: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1745869226/two_ezrhm6.jpg"),
   },
   {
     id: "training-7",
     title: "CISM",
-    imageUrl: "https://res.cloudinary.com/deqp41wyr/image/upload/v1745869217/three_mh3esy.jpg",
+    imageUrl: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1745869217/three_mh3esy.jpg"),
   },
   {
     id: "training-8",
     title: "PMP",
-    imageUrl: "https://res.cloudinary.com/deqp41wyr/image/upload/v1745869230/four_mgcnah.jpg",
+    imageUrl: convertToWebP("https://res.cloudinary.com/deqp41wyr/image/upload/v1745869230/four_mgcnah.jpg"),
   },
 ];
 
