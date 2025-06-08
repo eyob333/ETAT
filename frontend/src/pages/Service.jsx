@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 // import ServiceCard from '../components/service/ServiceCard';
 // import ServiceMovingCards from '../components/service/ServiceMovingCards';
 import WhatWeDo from '../components/home/WhatWeDo'
-import Partner from './Partner';
 import { serviceSelector } from '../redux/store';
 import LoadingScreen from '../conditions/LoadingScreen';
 import { fetchService } from '../redux/service/serviceSlice';
@@ -87,7 +86,7 @@ export default function Service() {
           What We Do
         </h1>
         <h3 className="">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias voluptates praesentium possimus ex quisquam placeat totam officiis atque facere deserunt sint, debitis, tempore assumenda dignissimos error! Earum veniam error asperiores.
+        ETAT provides various Information Technology Enabled services mainly on Technology Consulting, Cyber security, Modern DC and Networking, Business Automation and Intelligence, Software Licensing, Surveillance, Tech Supply, VOIP /PBX/SIP Solutions and maintenance and support.
         </h3>
       </div>
       <div>
@@ -108,7 +107,7 @@ export default function Service() {
         <div>
           {/* <ServiceMovingCards /> */}
           <  WhatWeDo />
-          < Partner />
+          
         </div>
         <>
           {content}

@@ -109,6 +109,8 @@ export default function About() {
           <InfoCards data={infoData} />
         </div>
       </div>
+
+      
       <ImageSwiper images={images} />
     </div>
   );

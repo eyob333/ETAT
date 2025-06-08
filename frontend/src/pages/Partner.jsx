@@ -22,19 +22,35 @@ export default function Partner() {
 
   return (
     <div>
-      <div
-        className="bg-cover bg-center bg-no-repeat h-80 flex items-center"
-        style={{
-          backgroundImage:
-            'url(https://res.cloudinary.com/deqp41wyr/image/upload/v1747122384/p1_uainmw.jpg)',
-        }}
-      >
-        <div className="container mx-auto py-12  sm:px-6 lg:px-8  w-4/5 flex items-center justify-start">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl bg-raleway-700-6xl text-white text-left">
-            Our Partners
-          </h1>
-        </div>
-      </div>
+     <div className="relative h-80 overflow-hidden">
+  {/* Background Video */}
+  <video
+    className="absolute top-0 left-0 w-full h-full object-cover"
+    autoPlay
+    loop
+    muted
+    playsInline
+  >
+    <source
+      src="https://res.cloudinary.com/deqp41wyr/video/upload/v1749417663/video5922624631189019200_hek5ke.mp4"
+      type="video/mp4"
+    />
+    Your browser does not support the video tag.
+  </video>
+
+  {/* Content over the video */}
+  <div className="relative z-10 h-full flex items-center">
+    <div className="container mx-auto py-12 sm:px-6 lg:px-8 w-4/5 flex items-center justify-start">
+      <h1 className="text-4xl sm:text-5xl md:text-6xl text-white text-left">
+        Our Partners
+      </h1>
+    </div>
+  </div>
+
+  {/* Optional overlay for better text contrast */}
+  <div className="absolute inset-0 bg-black opacity-30 z-0"></div>
+</div>
+
       <div className="w-4/5 items-center object-center mx-auto pt-10 mb-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-y-7 gap-x-4 pb-6">
           {isLoading ? <LoadingScreen />
