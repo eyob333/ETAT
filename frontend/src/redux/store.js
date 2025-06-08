@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { apiSlice } from './app/api/apiSlice';
+import { apiSlice } from './app/api/apiSlice'; // Your RTK Query base API slice
 import authReducer from './auth/authSlice';
 import userReducer from './user/userSlice';
 import serviceReducer from './service/serviceSlice';
@@ -14,11 +14,14 @@ import contactReducer from './contact/contactSlice';
 import eventAttendeeReducer from './eventAttendee/eventAttendeeSlice';
 import traineeReducer from './trainees/traineeSclice';
 import productReducer from './product/productSlice';
-import testimonialReducer from './testimonial/testimonialSlice'; // Import the new testimonial reducer
+import testimonialReducer from './testimonial/testimonialSlice'; // Your traditional testimonial slice
 
 const store = configureStore({
   reducer: {
+    // RTK Query's reducer for all injected endpoints
     [apiSlice.reducerPath]: apiSlice.reducer,
+
+    // Traditional Redux slices
     auth: authReducer,
     user: userReducer,
     service: serviceReducer,
@@ -33,12 +36,15 @@ const store = configureStore({
     news: newsReducer,
     contact: contactReducer,
     product: productReducer,
-    testimonial: testimonialReducer, // Add the testimonial reducer to the store
+    testimonial: testimonialReducer, // The traditional testimonial reducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
+  // Add RTK Query middleware to the store
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
   devTools: true,
 });
 
+// Export selectors for easier access in components
 export const userSelector = (state) => state.user;
 export const authSelector = (state) => state.auth;
 export const serviceSelector = (state) => state.service;
@@ -53,6 +59,6 @@ export const contactSelector = (state) => state.contact;
 export const eventAttendeeSelector = (state) => state.eventAttendee;
 export const traineeSelector = (state) => state.trainee;
 export const productSelector = (state) => state.product;
-export const testimonialSelector = (state) => state.testimonial; // Export the new testimonial selector
+export const testimonialSelector = (state) => state.testimonial; // Selector for your traditional testimonial slice
 
 export default store;

@@ -1,265 +1,299 @@
-"use client"
+"use client"; // This directive is typically for Next.js App Router to mark a component as a Client Component
 
-import { useState, useEffect, useRef } from "react"
-import "react-responsive-modal/styles.css"
-import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md"
-import { useDispatch, useSelector } from "react-redux"
-import ProjectCard from "../components/project/ProjectCard"
-import ProjectDetail from "../components/project/ProjectDetail"
-import { projectSelector } from "../redux/store"
-import { fetchProject } from "../redux/project/projectSlice"
-import LoadingScreen from "../conditions/LoadingScreen"
-import convertToWebP from "../utils/ToWebp"
+import { useState, useEffect, useRef } from "react";
+import "react-responsive-modal/styles.css"; // Assuming this is for a modal component
+import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+
+// Import selectors from your Redux store
+import { projectSelector, testimonialSelector } from "../redux/store";
+
+// Import actions/thunks from your Redux slices
+import { fetchProject } from "../redux/project/projectSlice";
+import { fetchTestimonials } from "../redux/testimonial/testimonialSlice"; // Your traditional testimonial thunk
+
+// Import other components and utilities
+import ProjectCard from "../components/project/ProjectCard";
+import ProjectDetail from "../components/project/ProjectDetail";
+import LoadingScreen from "../conditions/LoadingScreen";
+import convertToWebP from "../utils/ToWebp"; // Assuming this utility is used elsewhere
+
+
+const URL = import.meta.env.VITE_BASE_URL + "/"
 
 export default function Project() {
-  const dispatch = useDispatch()
-  const { projects, isLoading } = useSelector(projectSelector)
+  const dispatch = useDispatch();
 
-  // Canvas reference for code background
-  const canvasRef = useRef(null)
+  // Select project state from Redux store
+  const { projects, isLoading: projectsLoading } = useSelector(projectSelector);
 
+  // Select testimonial state from Redux store
+  const {
+    testimonials,
+    isLoading: testimonialsLoading,
+    errMsg: testimonialsErrorMsg,
+    error: testimonialsHasError,
+  } = useSelector(testimonialSelector);
+
+  // Canvas reference for code background animation
+  const canvasRef = useRef(null);
+
+  // --- Data Fetching Side Effects ---
   useEffect(() => {
+    // Fetch projects if they haven't been loaded yet
     if (projects.length === 0) {
-      dispatch(fetchProject())
+      dispatch(fetchProject());
     }
-  }, [dispatch, projects.length])
 
-  const [selectedCategory, setSelectedCategory] = useState("All")
-  const [selectedStatus, setSelectedStatus] = useState("All")
-  const [shouldAnimate, setShouldAnimate] = useState(false)
-  const [openModalId, setOpenModalId] = useState(null)
+    // Fetch testimonials if they haven't been loaded, aren't currently loading, and there's no previous error
+    if (testimonials.length === 0 && !testimonialsLoading && !testimonialsHasError) {
+      dispatch(fetchTestimonials());
+    }
+    // Dependencies ensure this effect runs when dispatch or relevant state changes
+  }, [dispatch, projects.length, testimonials.length, testimonialsLoading, testimonialsHasError]);
 
-  // Testimonial slider state
-  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(1)
-  const [isAnimating, setIsAnimating] = useState(false)
 
-  // Testimonial data
-  const testimonials = [
-    {
-      id: 1,
-      imageSrc: "https://res.cloudinary.com/deqp41wyr/image/upload/v1745869230/four_mgcnah.jpg?height=500&width=350",
-      title: "Faith Import and Trade",
-    },
-    {
-      id: 2,
-      imageSrc: "https://res.cloudinary.com/deqp41wyr/image/upload/v1745869226/two_ezrhm6.jpg?height=500&width=350",
-      title: "GI",
-    },
-    {
-      id: 3,
-      imageSrc: "https://res.cloudinary.com/deqp41wyr/image/upload/v1745837298/NID_bw1oko.png?height=500&width=350",
-      title: "Faith Import and Trade",
-    },
-    {
-      id: 4,
-      imageSrc: "https://res.cloudinary.com/deqp41wyr/image/upload/v1745837301/PMO_kvzlhs.jpg?height=500&width=350",
-      title: "Company Certificate",
-    },
-    {
-      id: 5,
-      imageSrc: "https://res.cloudinary.com/deqp41wyr/image/upload/v1746007783/Slide_01_dphp7w.jpg?height=500&width=350",
-      title: "Business Award",
-    },
-  ]
+  // --- Project Filtering and Pagination States ---
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedStatus, setSelectedStatus] = useState("All");
+  const [shouldAnimate, setShouldAnimate] = useState(false); // For animation control, likely on project cards
+  const [openModalId, setOpenModalId] = useState(null); // For project detail modal
 
-  // Testimonial slider functions
+  // --- Testimonial Slider States ---
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false); // To prevent rapid transitions during slide changes
+
+  // --- Testimonial Slider Functions ---
   const goToTestimonial = (index) => {
-    if (isAnimating) return
+    // Prevent actions if already animating or no testimonials
+    if (isAnimating || testimonials.length === 0) return;
 
-    setIsAnimating(true)
-    setCurrentTestimonialIndex(index)
+    setIsAnimating(true); // Start animation
+    setCurrentTestimonialIndex(index);
 
-    // Reset animation flag after transition completes
+    // Reset animation flag after a short delay (matches CSS transition duration)
     setTimeout(() => {
-      setIsAnimating(false)
-    }, 500)
-  }
+      setIsAnimating(false);
+    }, 500);
+  };
 
   const goToPreviousTestimonial = () => {
-    const newIndex = currentTestimonialIndex === 0 ? testimonials.length - 1 : currentTestimonialIndex - 1
-    goToTestimonial(newIndex)
-  }
+    if (testimonials.length === 0) return; // Exit if no testimonials
+    const newIndex = currentTestimonialIndex === 0 ? testimonials.length - 1 : currentTestimonialIndex - 1;
+    goToTestimonial(newIndex);
+  };
 
   const goToNextTestimonial = () => {
-    const newIndex = currentTestimonialIndex === testimonials.length - 1 ? 0 : currentTestimonialIndex + 1
-    goToTestimonial(newIndex)
-  }
+    if (testimonials.length === 0) return; // Exit if no testimonials
+    const newIndex = currentTestimonialIndex === testimonials.length - 1 ? 0 : currentTestimonialIndex + 1;
+    goToTestimonial(newIndex);
+  };
 
   // Auto-advance the testimonial slider every 5 seconds
   useEffect(() => {
-    const interval = setInterval(() => {
-      goToNextTestimonial()
-    }, 5000)
+    // Only set up auto-advance if there's more than one testimonial to slide
+    if (testimonials.length > 1) {
+      const interval = setInterval(() => {
+        goToNextTestimonial();
+        console.log(testimonials)
+      }, 5000);
 
-    return () => clearInterval(interval)
-  }, [currentTestimonialIndex])
+      return () => clearInterval(interval); // Clear interval on component unmount or dependencies change
+    }
+  }, [currentTestimonialIndex, testimonials.length]); // Re-run effect if index or testimonial count changes
 
-  // Calculate indices for visible testimonials
+  // Calculate indices for previous, current, and next visible testimonials in the slider
   const getVisibleTestimonialIndices = () => {
-    const prevIndex = currentTestimonialIndex === 0 ? testimonials.length - 1 : currentTestimonialIndex - 1
-    const nextIndex = currentTestimonialIndex === testimonials.length - 1 ? 0 : currentTestimonialIndex + 1
+    // Handle cases where there are 0, 1, or 2 testimonials to prevent index out of bounds errors
+    if (testimonials.length === 0) {
+      return { prevIndex: 0, currentIndex: 0, nextIndex: 0 };
+    }
+    if (testimonials.length === 1) {
+      return { prevIndex: 0, currentIndex: 0, nextIndex: 0 };
+    }
+    if (testimonials.length === 2) {
+      const prev = currentTestimonialIndex === 0 ? 1 : 0;
+      const next = currentTestimonialIndex === 0 ? 1 : 0;
+      return { prevIndex: prev, currentIndex: currentTestimonialIndex, nextIndex: next };
+    }
+
+    // Standard logic for 3 or more testimonials
+    const prevIndex = currentTestimonialIndex === 0 ? testimonials.length - 1 : currentTestimonialIndex - 1;
+    const nextIndex = currentTestimonialIndex === testimonials.length - 1 ? 0 : currentTestimonialIndex + 1;
 
     return {
       prevIndex,
       currentIndex: currentTestimonialIndex,
       nextIndex,
-    }
-  }
+    };
+  };
 
-  // Code background animation
+  // --- Code Background Animation Effect ---
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-    // Set canvas dimensions to match window
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
 
-    resizeCanvas()
-    window.addEventListener("resize", resizeCanvas)
+    resizeCanvas(); // Set initial size
+    window.addEventListener("resize", resizeCanvas); // Resize on window change
 
-    // Code characters to display
+    // Characters for the "Matrix" effect
     const characters =
-      "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン<>{}[]=/\\*+-"
+      "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン<>{}[]=/\\*+-";
 
-    // Create columns for the matrix effect
-    const fontSize = 14
-    const columns = Math.floor(canvas.width / fontSize)
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / fontSize);
 
-    // Array to track the y position of each column
-    const drops = []
+    const drops = []; // Array to track the y-position of each falling character
     for (let i = 0; i < columns; i++) {
-      drops[i] = Math.random() * -100
+      drops[i] = Math.random() * -100; // Start off-screen
     }
 
-    // Draw the matrix effect
     const draw = () => {
-      // Semi-transparent background to create fade effect
-      ctx.fillStyle = "rgba(240, 240, 240, 0.05)"
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      // Semi-transparent rectangle to create the "fade" effect
+      ctx.fillStyle = "rgba(240, 240, 240, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Set text color and font - using sky blue
-      ctx.fillStyle = "rgba(14, 165, 233, 0.15)" // sky-500 with low opacity
-      ctx.font = `${fontSize}px monospace`
+      ctx.fillStyle = "rgba(14, 165, 233, 0.15)"; // Sky-blue color with transparency
+      ctx.font = `${fontSize}px monospace`;
 
-      // Draw each character
+      // Draw each falling character
       for (let i = 0; i < drops.length; i++) {
-        // Random character
-        const text = characters.charAt(Math.floor(Math.random() * characters.length))
+        const text = characters.charAt(Math.floor(Math.random() * characters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        // Draw the character
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize)
+        drops[i]++; // Move character down
 
-        // Move the drop down
-        drops[i]++
-
-        // Reset drop to top with random delay when it reaches bottom
+        // If character falls off screen, reset it to the top randomly
         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0
+          drops[i] = 0;
         }
       }
-    }
+    };
 
-    // Animation loop
-    const interval = setInterval(draw, 50)
+    const interval = setInterval(draw, 50); // Animation speed
 
     return () => {
-      clearInterval(interval)
-      window.removeEventListener("resize", resizeCanvas)
-    }
-  }, [])
+      clearInterval(interval); // Clean up interval on unmount
+      window.removeEventListener("resize", resizeCanvas); // Clean up event listener
+    };
+  }, []); // Empty dependency array means this runs once on mount and cleans up on unmount
 
-  // Original project page functionality
-  const categories = ["All", ...Array.from(new Set(projects.map((item) => item.area)))]
-  const statusArray = ["All", "Completed", "Ongoing"]
+
+  // --- Project Filtering and Pagination Logic ---
+  const categories = ["All", ...Array.from(new Set(projects.map((item) => item.area)))]; // Dynamically get categories
+  const statusArray = ["All", "Completed", "Ongoing"]; // Fixed statuses
 
   const filteredData =
     selectedCategory === "All" && selectedStatus === "All"
-      ? projects
+      ? projects // No filtering if 'All' is selected for both
       : projects.filter(
           (data) =>
             (selectedCategory === "All" || data.area === selectedCategory) &&
-            (selectedStatus === "All" || data.status === (selectedStatus === "Ongoing")),
-        )
+            (selectedStatus === "All" || data.status === (selectedStatus === "Ongoing")), // 'status' is boolean in data?
+        );
 
-  const itemsPerPage = 4
-  const [currentPage, setCurrentPage] = useState(1)
-  const totalPages = Math.ceil(projects.length / itemsPerPage)
+  const itemsPerPage = 4;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage); // totalPages based on filteredData
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1)
-  }
+    setCurrentPage((prevPage) => Math.max(1, prevPage - 1)); // Ensure page doesn't go below 1
+  };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1)
-  }
+    setCurrentPage((prevPage) => Math.min(totalPages, prevPage + 1)); // Ensure page doesn't exceed totalPages
+  };
 
   const handlePageChange = (page) => {
-    setCurrentPage(page)
-    window.scrollTo(10, 0)
-  }
-  const startIndex = (currentPage - 1) * itemsPerPage
-  const endIndex = startIndex + itemsPerPage
-  const paginatedItems = filteredData.slice(startIndex, endIndex)
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top on page change
+  };
 
-  const pageNumbers = []
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedItems = filteredData.slice(startIndex, endIndex);
+
+  // Generate page numbers for pagination controls
+  const pageNumbers = [];
   for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i)
+    pageNumbers.push(i);
   }
 
+  // Handlers for filter changes, reset to first page
   const handleCategoryChange = (category) => {
-    setSelectedCategory(category)
-    handlePageChange(1)
-  }
+    setSelectedCategory(category);
+    handlePageChange(1);
+  };
 
   const handleStatusChange = (status) => {
-    setSelectedStatus(status)
-    handlePageChange(1)
-  }
+    setSelectedStatus(status);
+    handlePageChange(1);
+  };
 
+  // Trigger animation when filtered data changes (e.g., for project cards)
   useEffect(() => {
-    setShouldAnimate(true)
-  }, [filteredData])
+    setShouldAnimate(true);
+  }, [filteredData]);
 
+  // Modal open/close handlers
   const openModal = (id) => {
-    setOpenModalId(id)
-  }
+    setOpenModalId(id);
+  };
 
   const closeModal = () => {
-    setOpenModalId(null)
+    setOpenModalId(null);
+  };
+
+  // --- Loading and Error Handling ---
+  // Display a loading screen if either projects or testimonials are loading
+  if (projectsLoading || testimonialsLoading) {
+    return <LoadingScreen />;
   }
 
-  if (isLoading) {
-    return <LoadingScreen />
+  // Display an error message if testimonials failed to load
+  if (testimonialsHasError) {
+    console.error("Error loading testimonials:", testimonialsErrorMsg); // Log full error for debugging
+    return (
+      <div className="text-center text-red-500 p-8">
+        Failed to load testimonials. Please try again later.
+        {testimonialsErrorMsg && <p className="text-sm">Details: {testimonialsErrorMsg?.message || JSON.stringify(testimonialsErrorMsg)}</p>}
+      </div>
+    );
   }
 
-  const { prevIndex, nextIndex } = getVisibleTestimonialIndices()
+  // --- Destructure indices for testimonial slider after checks ---
+  const { prevIndex, nextIndex } = getVisibleTestimonialIndices();
 
+
+  // --- Component Render ---
   return (
     <div className="relative">
-      {/* Code in motion background - very subtle */}
+      {/* Code in motion background */}
       <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full opacity-20" style={{ zIndex: -10 }} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
         <div className="text-center pb-12">
-          <h1 className="font-bold text-mainColor font-railway-500 text-3xl pb-10 underline-offset-2">Our Projects</h1>
-          {/* <h3 className="">
-            
-          </h3> */}
+          <h1 className="font-bold text-mainColor font-railway-500 text-3xl pb-10 underline-offset-2">
+            Our Projects
+          </h1>
         </div>
 
-       
-        {/* Original Project Filtering */}
+        {/* Project Filtering Controls */}
         <div className="flex flex-wrap justify-center mb-10">
           {categories.map((category) => (
             <button
               key={category}
-              className={`px-3 py-1 rounded-md mb-2 mr-2 ${selectedCategory === category ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"}`}
+              className={`px-3 py-1 rounded-md mb-2 mr-2 ${
+                selectedCategory === category ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"
+              }`}
               onClick={() => handleCategoryChange(category)}
             >
               {category}
@@ -280,15 +314,20 @@ export default function Project() {
             </button>
           ))}
         </div>
+
+        {/* Project Cards Grid */}
         <div className="">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-7 px-5">
             <ProjectCard filteredData={paginatedItems} openModal={openModal} shouldAnimate={shouldAnimate} />
 
+            {/* Project Detail Modal */}
             {openModalId && <ProjectDetail openModalId={openModalId} dataArray={projects} closeModal={closeModal} />}
           </div>
         </div>
 
+        {/* Pagination Controls */}
         <div className="flex justify-center mt-5">
+          {/* Previous Page Button */}
           {currentPage !== 1 && (
             <div className="relative group">
               <button
@@ -303,6 +342,7 @@ export default function Project() {
             </div>
           )}
 
+          {/* Page Number Buttons */}
           {pageNumbers.map((number) => (
             <button
               key={number}
@@ -315,6 +355,7 @@ export default function Project() {
             </button>
           ))}
 
+          {/* Next Page Button */}
           {currentPage !== totalPages && (
             <div className="relative group">
               <button
@@ -328,97 +369,103 @@ export default function Project() {
             </div>
           )}
         </div>
-         {/* Testimonials Section */}
-         <section className="relative w-full py-16 overflow-hidden bg-gray-100 mb-12 rounded-lg">
-          {/* Sky blue gradient elements on sides */}
-          <div className="absolute bottom-0 left-0 w-1/4 h-full bg-gradient-to-r from-sky-300/40 to-transparent" />
-          <div className="absolute bottom-0 right-0 w-1/4 h-full bg-gradient-to-l from-sky-300/40 to-transparent" />
 
-          <div className="container relative z-10 px-4 mx-auto">
-            <h1 className="mb-16 text-4xl font-bold text-center text-gray-700">Our Testimonials</h1>
+        {/* Testimonials Section */}
+        {/* Only render this section if there are testimonials to display */}
+        {testimonials.length > 0 && (
+          <section className="relative w-full py-16 overflow-hidden bg-gray-100 mb-12 rounded-lg mt-12">
+            {/* Sky blue gradient elements on sides for visual flair */}
+            <div className="absolute bottom-0 left-0 w-1/4 h-full bg-gradient-to-r from-sky-300/40 to-transparent" />
+            <div className="absolute bottom-0 right-0 w-1/4 h-full bg-gradient-to-l from-sky-300/40 to-transparent" />
 
-            <div className="relative h-[500px]">
-              {/* Slider container */}
-              <div className="relative flex items-center justify-center w-full h-full">
-                {/* Previous slide (left) */}
-                <div
-                  className="absolute left-0 z-10 transform -translate-x-1/4 md:left-[10%]"
-                  style={{ perspective: "1000px", transform: "rotateY(-25deg)" }}
-                >
-                  <div className="relative transition-all duration-500 bg-white rounded-md shadow-lg opacity-70 hover:opacity-80 w-[280px] h-[400px]">
-                    <img
-                      src={testimonials[prevIndex].imageSrc || "https://res.cloudinary.com/deqp41wyr/image/upload/v1745837303/TECHIN1_qv03we.png"}
-                      alt={testimonials[prevIndex].title}
-                      className="object-cover rounded-md w-full h-full"
-                    />
+            <div className="container relative z-10 px-4 mx-auto">
+              <h1 className="mb-16 text-4xl font-bold text-center text-gray-700">Our Testimonials</h1>
+
+              <div className="relative h-[500px]"> {/* Container for the slider */}
+                <div className="relative flex items-center justify-center w-full h-full">
+                  {/* Previous slide (left) - Rotated and scaled for visual effect */}
+                  <div
+                    className="absolute left-0 z-10 transform -translate-x-1/4 md:left-[10%]"
+                    style={{ perspective: "1000px", transform: "rotateY(-25deg)" }}
+                  >
+                    <div className="relative transition-all duration-500 bg-white rounded-md shadow-lg opacity-70 hover:opacity-80 w-[280px] h-[400px]">
+                      <img
+                        // Use optional chaining for safe access to properties
+                        src={ URL + testimonials[prevIndex]?.image || "https://res.cloudinary.com/deqp41wyr/image/upload/v1745837303/TECHIN1_qv03we.png"}
+                        alt={testimonials[prevIndex]?.name || "Testimonial Image"}
+                        className="object-cover rounded-md w-full h-full"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Current slide (center) - Larger and more prominent */}
+                  <div
+                    className="relative z-20 transition-all duration-500 transform scale-110"
+                    style={{ perspective: "1000px" }}
+                  >
+                    <div className="relative bg-white rounded-md shadow-xl w-[320px] h-[450px]">
+                      <img
+                        // Use optional chaining for safe access to properties
+                        src={ URL + testimonials[currentTestimonialIndex]?.image || "https://res.cloudinary.com/deqp41wyr/image/upload/v1745837254/EIH_jq8vhx.png"}
+                        alt={testimonials[currentTestimonialIndex]?.name || "Testimonial Image"}
+                        className="object-cover rounded-md w-full h-full"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Next slide (right) - Rotated and scaled for visual effect */}
+                  <div
+                    className="absolute right-0 z-10 transform translate-x-1/4 md:right-[10%]"
+                    style={{ perspective: "1000px", transform: "rotateY(25deg)" }}
+                  >
+                    <div className="relative transition-all duration-500 bg-white rounded-md shadow-lg opacity-70 hover:opacity-80 w-[280px] h-[400px]">
+                      <img
+                        // Use optional chaining for safe access to properties
+                        src={testimonials[nextIndex]?.image || "https://res.cloudinary.com/deqp41wyr/image/upload/v1746007783/Slide_01_dphp7w.jpg"}
+                        alt={testimonials[nextIndex]?.title || "Testimonial Image"}
+                        className="object-cover rounded-md w-full h-full"
+                      />
+                    </div>
                   </div>
                 </div>
 
-                {/* Current slide (center) */}
-                <div
-                  className="relative z-20 transition-all duration-500 transform scale-110"
-                  style={{ perspective: "1000px" }}
+                {/* Navigation buttons */}
+                <button
+                  onClick={goToPreviousTestimonial}
+                  className="absolute left-4 z-30 p-2 text-gray-700 transform -translate-y-1/2 bg-white rounded-full shadow-md top-1/2 hover:bg-gray-100"
+                  // Disable if animating or if there's only one testimonial (no need to slide)
+                  disabled={isAnimating || testimonials.length <= 1}
                 >
-                  <div className="relative bg-white rounded-md shadow-xl w-[320px] h-[450px]">
-                    <img
-                      src={testimonials[currentTestimonialIndex].imageSrc || "https://res.cloudinary.com/deqp41wyr/image/upload/v1745837254/EIH_jq8vhx.png"}
-                      alt={testimonials[currentTestimonialIndex].title}
-                      className="object-cover rounded-md w-full h-full"
-                    />
-                  </div>
-                </div>
+                  <MdOutlineKeyboardArrowLeft className="w-6 h-6" />
+                </button>
 
-                {/* Next slide (right) */}
-                <div
-                  className="absolute right-0 z-10 transform translate-x-1/4 md:right-[10%]"
-                  style={{ perspective: "1000px", transform: "rotateY(25deg)" }}
+                <button
+                  onClick={goToNextTestimonial}
+                  className="absolute right-4 z-30 p-2 text-gray-700 transform -translate-y-1/2 bg-white rounded-full shadow-md top-1/2 hover:bg-gray-100"
+                  // Disable if animating or if there's only one testimonial
+                  disabled={isAnimating || testimonials.length <= 1}
                 >
-                  <div className="relative transition-all duration-500 bg-white rounded-md shadow-lg opacity-70 hover:opacity-80 w-[280px] h-[400px]">
-                    <img
-                      src={testimonials[nextIndex].imageSrc || "https://res.cloudinary.com/deqp41wyr/image/upload/v1746007783/Slide_01_dphp7w.jpg"}
-                      alt={testimonials[nextIndex].title}
-                      className="object-cover rounded-md w-full h-full"
+                  <MdOutlineKeyboardArrowRight className="w-6 h-6" />
+                </button>
+
+                {/* Dots indicator for direct navigation */}
+                <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-2 mt-4">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToTestimonial(index)}
+                      className={`w-3 h-3 rounded-full transition-all ${
+                        currentTestimonialIndex === index ? "bg-sky-500" : "bg-gray-300 hover:bg-gray-400"
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
                     />
-                  </div>
+                  ))}
                 </div>
-              </div>
-
-              {/* Navigation buttons */}
-              <button
-                onClick={goToPreviousTestimonial}
-                className="absolute left-4 z-30 p-2 text-gray-700 transform -translate-y-1/2 bg-white rounded-full shadow-md top-1/2 hover:bg-gray-100"
-                disabled={isAnimating}
-              >
-                <MdOutlineKeyboardArrowLeft className="w-6 h-6" />
-              </button>
-
-              <button
-                onClick={goToNextTestimonial}
-                className="absolute right-4 z-30 p-2 text-gray-700 transform -translate-y-1/2 bg-white rounded-full shadow-md top-1/2 hover:bg-gray-100"
-                disabled={isAnimating}
-              >
-                <MdOutlineKeyboardArrowRight className="w-6 h-6" />
-              </button>
-
-              {/* Dots indicator */}
-              <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-2 mt-4">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToTestimonial(index)}
-                    className={`w-3 h-3 rounded-full transition-all ${
-                      currentTestimonialIndex === index ? "bg-sky-500" : "bg-gray-300 hover:bg-gray-400"
-                    }`}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
               </div>
             </div>
-          </div>
-        </section>
-
+          </section>
+        )}
       </div>
     </div>
-  )
+  );
 }
-
