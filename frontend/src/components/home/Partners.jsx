@@ -1,42 +1,43 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import convertToWebP from '../../utils/ToWebp';
 
 const ServicesData = [
     {
-        icon: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1745843488/consulting_zvg1y8.png',
+        icon: convertToWebP('https://res.cloudinary.com/deqp41wyr/image/upload/v1745843488/consulting_zvg1y8.png'),
         label: 'Consulting',
     },
     {
-        icon: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1744872803/2cyber_security_ancre5.png',
+        icon: convertToWebP('https://res.cloudinary.com/deqp41wyr/image/upload/v1744872803/2cyber_security_ancre5.png'),
         label: 'Cyber Security',
     },
     {
-        icon: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1744872803/3Modern_DC_and_Networking_ojujtt.png',
+        icon: convertToWebP('https://res.cloudinary.com/deqp41wyr/image/upload/v1744872803/3Modern_DC_and_Networking_ojujtt.png'),
         label: 'Modern DC and Networking',
     },
     {
-        icon: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1744872805/4Business_Automation_and_Intelligence_tghplb.png',
+        icon: convertToWebP('https://res.cloudinary.com/deqp41wyr/image/upload/v1744872805/4Business_Automation_and_Intelligence_tghplb.png'),
         label: 'Business Automation and Intelligence',
     },
     {
-        icon: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1744872804/5Software_Licensing_wrnpwt.png',
+        icon: convertToWebP('https://res.cloudinary.com/deqp41wyr/image/upload/v1744872804/5Software_Licensing_wrnpwt.png'),
         label: 'Software Licensing',
     },
     {
-        icon: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1744872804/6Tech_Supply_chlmah.png',
+        icon: convertToWebP('https://res.cloudinary.com/deqp41wyr/image/upload/v1744872804/6Tech_Supply_chlmah.png'),
         label: 'Tech Supply',
     },
     {
-        icon: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1744872804/7Surveillance_evctfy.png',
+        icon: convertToWebP('https://res.cloudinary.com/deqp41wyr/image/upload/v1744872804/7Surveillance_evctfy.png'),
         label: 'Surveillance',
     },
     {
-        icon: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1744872803/8VOIP_PBXSIP_Solutions_ljjzgp.png',
+        icon: convertToWebP('https://res.cloudinary.com/deqp41wyr/image/upload/v1744872803/8VOIP_PBXSIP_Solutions_ljjzgp.png'),
         label: 'VOIP/PBX/SIP Solutions',
     },
     {
-        icon: 'https://res.cloudinary.com/deqp41wyr/image/upload/v1744872806/9Maintenance_and_247_Support_o8mqfv.png',
+        icon: convertToWebP('https://res.cloudinary.com/deqp41wyr/image/upload/v1744872806/9Maintenance_and_247_Support_o8mqfv.png'),
         label: 'Maintenance and 24/7 Support',
     },
 ];
@@ -89,7 +90,7 @@ export default function ServicesSection() {
                             >
                                 {typeof service.icon === 'string' ? (
                                     <img
-                                        src={service.icon}
+                                        src={ convertToWebP(service.icon)}
                                         alt={service.label}
                                         className="w-16 h-16 md:w-20 lg:w-24 md:h-20 lg:h-24 object-contain text-mainColor dark:text-secondaryColor"
                                         style={{width: '70px', height: '70px'}}

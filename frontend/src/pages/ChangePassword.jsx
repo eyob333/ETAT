@@ -6,7 +6,7 @@ import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
-import logo from '../assets/image/ethiotech2.png';
+import logo from '../assets/image/ethiotech2.webp';
 
 const validationSchema = Yup.object().shape({
   currentPassword: Yup.string().required('Current Password is required'),

@@ -11,7 +11,7 @@ import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
-import logo from '../assets/image/ethiotech2.png';
+import logo from '../assets/image/ethiotech2.webp';
 import { setCredentials } from '../redux/auth/authSlice';
 import { useLoginMutation } from '../redux/auth/authApiSlice';
 import LoadingScreen from '../conditions/LoadingScreen';

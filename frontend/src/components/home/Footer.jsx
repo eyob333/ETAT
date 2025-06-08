@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AiFillLinkedin } from 'react-icons/ai';
 import { BsWhatsapp } from 'react-icons/bs';
-import img from '../../assets/image/ethiotech2.png';
+import img from '../../assets/image/ethiotech2.webp';
 
 export default function Footer() {
   return (

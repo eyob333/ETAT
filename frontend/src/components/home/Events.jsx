@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import logo from '../../assets/image/ethiotech2.png';
+import logo from '../../assets/image/ethiotech2.webp';
 import { eventSelector } from '../../redux/store';
 import { motion } from 'framer-motion'; // Import motion from framer-motion
 

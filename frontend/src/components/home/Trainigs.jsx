@@ -1,5 +1,6 @@
    
 import React from 'react';
+import convertToWebP from '../../utils/ToWebp';
 
 export default function Trainigs() {
   return (
@@ -54,7 +55,7 @@ export default function Trainigs() {
 
         <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm">
           <a href="#">
-            <img className="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="img" />
+            <img className="rounded-t-lg" src={convertToWebP("https://flowbite.com/docs/images/blog/image-1.jpg")} alt="img" />
           </a>
           <div className="p-5">
             <a href="#">
