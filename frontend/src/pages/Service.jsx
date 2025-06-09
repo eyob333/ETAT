@@ -83,7 +83,36 @@ export default function Service() {
     <div className=" relative w-5/6 items-center object-center mx-auto px-4 pt-10 pb-15">
       <div className="text-start pb-12">
         <h1 className="font-bold pt-10 lg:pt-0 text-mainColor font-railway-500 text-3xl pb-10 underline-offset-2">
-          What We Do
+        <div className="relative h-80 overflow-hidden">
+  {/* Background Video */}
+  <video
+    className="absolute top-0 left-0 w-full h-full object-cover"
+    autoPlay
+    loop
+    muted
+    playsInline
+  >
+    <source
+      src="https://res.cloudinary.com/deqp41wyr/video/upload/v1749427545/video5922624631189019253_qebmtv.mp4"
+      type="video/mp4"
+    />
+    Your browser does not support the video tag.
+  </video>
+
+  {/* Content over the video */}
+  <div className="relative z-10 h-full flex items-center">
+    <div className="container mx-auto py-12 sm:px-6 lg:px-8 w-4/5 flex items-center justify-start">
+      <h1 className="text-4xl sm:text-5xl md:text-6xl text-white text-left">
+      What We Do
+      </h1>
+    </div>
+  </div>
+
+  {/* Optional overlay for better text contrast */}
+  <div className="absolute inset-0 bg-black opacity-30 z-0"></div>
+</div>
+
+         
         </h1>
         <h3 className="">
         ETAT provides various Information Technology Enabled services mainly on Technology Consulting, Cyber security, Modern DC and Networking, Business Automation and Intelligence, Software Licensing, Surveillance, Tech Supply, VOIP /PBX/SIP Solutions and maintenance and support.
