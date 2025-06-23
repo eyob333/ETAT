@@ -53,6 +53,7 @@ module.exports.updateContact_post = async (req, res) => {
 // Update contact
 module.exports.contactUs_post = async (req, res) => {
   const { name, email, phone, subject, message } = req.body
+  console.log(req.body)
   try {
     const transporter = nodemailer.createTransport({
       port: 465,

@@ -1,10 +1,26 @@
-   
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import {
   contactSelector,
 } from '../../redux/store';
 import { fetchContact } from '../../redux/contact/contactSlice';
+
+// Helper to convert Google Maps link to embed link
+function getEmbedMapUrl(url) {
+  if (!url) return '';
+  // If already an embed link, return as is
+  if (url.includes('/embed')) return url;
+  // Try to extract the place or query from the URL
+  const placeMatch = url.match(/\/maps\/place\/([^/]+)/);
+  if (placeMatch) {
+    // This requires a Google Maps Embed API key for full functionality
+    // return `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${placeMatch[1]}`;
+    // Fallback: try to use the original link (may not always work)
+    return url;
+  }
+  // Fallback: just use the original link
+  return url;
+}
 
 export default function ContactInformation() {
   const dispatch = useDispatch();
@@ -15,6 +31,11 @@ export default function ContactInformation() {
       dispatch(fetchContact());
     }
   }, [dispatch, contacts.length]);
+
+  // If contacts is an array, get the first item; if it's an object, use as is
+  const contact = Array.isArray(contacts) ? contacts[0] || {} : contacts;
+  const mapUrl = getEmbedMapUrl(contact.map_location);
+
   return (
     <div className="bg-white  lg:w-3/4 mx-auto">
       <div className="container px-6 py-12 mx-auto">
@@ -37,7 +58,7 @@ export default function ContactInformation() {
 
               <h2 className="mt-4 text-base font-medium text-gray-800 ">Email</h2>
               <p className="mt-2 text-sm text-gray-500 ">Our friendly team is here to help.</p>
-              <p className="mt-2 text-sm text-blue-500 ">{contacts.email}</p>
+              <p className="mt-2 text-sm text-blue-500 ">{contact.email}</p>
             </div>
 
             <div>
@@ -50,7 +71,7 @@ export default function ContactInformation() {
 
               <h2 className="mt-4 text-base font-medium text-gray-800 ">Office</h2>
               <p className="mt-2 text-sm text-gray-500">Come say hello at our office HQ.</p>
-              <p className="mt-2 text-sm text-blue-500 ">{contacts.address}</p>
+              <p className="mt-2 text-sm text-blue-500 ">{contact.address}</p>
             </div>
 
             <div>
@@ -62,12 +83,30 @@ export default function ContactInformation() {
 
               <h2 className="mt-4 text-base font-medium text-gray-800 ">Phone</h2>
               <p className="mt-2 text-sm text-gray-500 ">Mon-Fri from 8am to 5pm.</p>
-              <p className="mt-2 text-sm text-blue-500 ">{contacts.phone}</p>
+              <p className="mt-2 text-sm text-blue-500 ">{contact.phone}</p>
             </div>
           </div>
 
           <div className="overflow-hidden rounded-lg lg:col-span-2 h-96 lg:h-auto">
-            <iframe width="100%" height="100%" frameBorder="0" title="map" marginHeight="0" marginWidth="0" scrolling="no" src={contacts.map_location} />
+            {mapUrl ? (
+              <iframe
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                title="Google Map"
+                marginHeight="0"
+                marginWidth="0"
+                scrolling="no"
+                src={mapUrl}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full text-gray-400">
+                No map location provided.
+              </div>
+            )}
           </div>
         </div>
       </div>
