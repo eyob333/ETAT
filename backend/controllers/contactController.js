@@ -55,15 +55,19 @@ module.exports.contactUs_post = async (req, res) => {
   const { name, email, phone, subject, message } = req.body
   console.log(req.body)
   try {
+    console.log(process.env.EMAIL_ADDRESS)
+    console.log(process.env.PASSWORD)
+
     const transporter = nodemailer.createTransport({
       port: 465,
-      host: "mail.ethiotechaddis.com",
+      host: "smtp.gmail.com",
       secure: true,
       auth: {
         user: process.env.EMAIL_ADDRESS,
         pass: process.env.PASSWORD
       }
     })
+
 
     const mailOptions = {
       from: email,
