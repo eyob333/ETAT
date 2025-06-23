@@ -26,23 +26,20 @@ module.exports.addNews_post = async (req, res) => {
 
 module.exports.newsLike_post = async (req, res) => {
   const { id } = req.params;
-  const { total_likes } = req.body;
-  const { total_dislikes } = req.body;
-  console.log("sldkjflskfjslkf")
-
-  if (!total_likes && total_likes !== 0) {
+  let { total_likes, total_dislikes } = req.body;
+  // Prevent negative values
+  total_likes = typeof total_likes === 'number' ? Math.max(0, total_likes) : 0;
+  total_dislikes = typeof total_dislikes === 'number' ? Math.max(0, total_dislikes) : 0;
+  if (total_likes === undefined) {
     return res.status(400).json({ error: "total_likes is required" });
   }
-
   try {
     const existingLike = await NewsLikes.findOne({ where: { news_id: id } });
-
     if (existingLike) {
-      await existingLike.update({ total_likes });
+      await existingLike.update({ total_likes, total_dislikes });
     } else {
-      await NewsLikes.create({ news_id: id, total_likes });
+      await NewsLikes.create({ news_id: id, total_likes, total_dislikes });
     }
-
     res.status(200).json({ message: 'News like updated successfully' });
   } catch (error) {
     console.log("news likes error::", error);
@@ -73,6 +70,10 @@ module.exports.news_get = async (req, res) => {
           [
             sequelize.literal('COALESCE((SELECT total_likes FROM "newsLikes" WHERE "newsLikes"."news_id" = "News"."id"), 0)'),
             'like_count'
+          ],
+          [
+            sequelize.literal('COALESCE((SELECT total_dislikes FROM "newsLikes" WHERE "newsLikes"."news_id" = "News"."id"), 0)'),
+            'dislike_count'
           ]
         ]
       }
@@ -80,7 +81,7 @@ module.exports.news_get = async (req, res) => {
     if (!news) {
       return res.status(404).json({ error: 'News not found' });
     }
-    res.status(200).json({news});
+    res.status(200).json({ news });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

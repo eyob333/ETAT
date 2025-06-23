@@ -41,12 +41,13 @@ const newsSlice = createSlice({
       state.news = state.news.filter((news) => news.id !== action.payload);
     },
     updateLikes: (state, action) => {
-      const { id, likes } = action.payload;
+      const { id, likes, dislikes } = action.payload;
       const updatedNews = state.news.map((newsItem) => {
         if (newsItem.id === id) {
           return {
             ...newsItem,
             like_count: likes,
+            dislike_count: dislikes,
           };
         }
         return newsItem;
