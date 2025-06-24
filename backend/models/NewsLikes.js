@@ -1,48 +1,33 @@
-const { DataTypes, Sequelize } = require('sequelize')
-const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
-
-const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
-  host: HOST,
-  port: PORT,
-  dialect: 'postgres'
-})
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/sequelize'); // Your centralized sequelize instance
 
 const NewsLikes = sequelize.define('NewsLikes', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
+    allowNull: false,
   },
-  total_likes: {
+  total_likes: { // This might be better as 'is_liked' boolean or similar if tracking per user
     type: DataTypes.INTEGER,
-    allowNull: false
+    defaultValue: 0,
+    allowNull: false,
   },
-    total_likes: {
+  total_dislikes: { // This might be better as 'is_disliked' boolean or similar if tracking per user
     type: DataTypes.INTEGER,
-    allowNull: false
+    defaultValue: 0,
+    allowNull: false,
   },
-    total_dislikes: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  },
-  news_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'News',
-      key: 'id'
-    }
-  }
-}, {
-  tableName: 'newsLikes',
-  timestamps: true
-})
+  // Foreign keys will be added by associations, but sometimes useful to define explicitly
+  // news_id: {
+  //   type: DataTypes.INTEGER,
+  //   allowNull: false,
+  // },
+  // user_id: { // Assuming NewsLikes tracks who liked/disliked
+  //   type: DataTypes.INTEGER,
+  //   allowNull: true, // or false if a like must be tied to a user
+  // }
+  // Add any other attributes your NewsLikes model has
+});
 
-module.exports = NewsLikes
+module.exports = NewsLikes; // Export the model directly

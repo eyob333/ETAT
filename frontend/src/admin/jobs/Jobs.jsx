@@ -7,7 +7,7 @@ import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import 'react-responsive-modal/styles.css';
 import Modal from 'react-responsive-modal';
 import { toast } from 'react-toastify';
-// import { jobApplicationSelector, jobSelector } from '../../redux/store';
+import { jobApplicationSelector, jobSelector } from '../../redux/store';
 import { fetchJob, removeJob } from '../../redux/job/jobSlice';
 import { useDeleteJobMutation } from '../../redux/job/jobApiSlice';
 // import { addJobApplication, fetchJobApp } from '../../redux/jobApplication/JopApplicationSlice';

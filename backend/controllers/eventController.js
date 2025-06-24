@@ -2,17 +2,15 @@
 const Event = require('../models/Event')
 const Enrollment = require('../models/Enrollment')
 const nodemailer = require('nodemailer')
-const Sequelize = require('sequelize');
-const User = require('../models/User')
-const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+const sequelize = require('../config/sequelize'); // <--- IMPORT THE CENTRALIZED SEQUELIZE INSTANCE FOR LITERALS
+const User = require('../models/User') // Ensure User model is also imported
 
-const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
-  host: HOST,
-  port: PORT,
-  dialect: 'postgres'
-})
+// REMOVE THESE LINES:
+// const Sequelize = require('sequelize');
+// const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// const sequelize = new Sequelize(DATABASE, USER, PASSWORD, { ... }) // No longer needed here
 
-// Create a new sevice
+// Create a new event
 module.exports.addEvent_post = async (req, res) => {
   const { title, body, location, max_enrollment, start_date, end_date, status, id } = req.body
   const picture = req.file ? process.env.backend + req.file.path : ''
@@ -32,13 +30,10 @@ module.exports.addEventEnrollment_post = async (req, res) => {
   const enrolledFor = 'event';
 
   try {
-    // Trim the email string to remove any leading/trailing whitespace
-    const trimmedEmail = email.trim();
+    const trimmedEmail = email.trim(); // Trim email string
 
-    // *** ADD THIS DEBUGGING LINE ***
-    console.log("Email string char codes:", [...trimmedEmail].map(char => char.charCodeAt(0)));
-    console.log(`Attempting to save email: '${trimmedEmail}'`);
-    // *******************************
+    // console.log("Email string char codes:", [...trimmedEmail].map(char => char.charCodeAt(0))); // Keep for debugging
+    // console.log(`Attempting to save email: '${trimmedEmail}'`); // Keep for debugging
 
     const event = await Event.findByPk(event_id);
 
@@ -56,6 +51,7 @@ module.exports.addEventEnrollment_post = async (req, res) => {
       where: {
         enrolled_for: enrolledFor,
         enrolled_for_id: event_id,
+        email: trimmedEmail // Ensure email uniqueness is checked against trimmed email
       }
     });
 
@@ -79,18 +75,17 @@ module.exports.addEventEnrollment_post = async (req, res) => {
         text: `Hi ${name},\nYou have successfully registered for ${eventTitle}`
       };
 
+      // Send email asynchronously, but do not block the main response
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-          console.log(error);
-          // Don't block the main response for email sending errors unless critical
-          // return res.status(500).json({ message: 'Failed to send email.' });
+          console.log('Error sending email:', error);
+          // Log the error, but still send success response for enrollment
         } else {
           console.log('Email sent: ' + info.response);
-          // return res.status(200).json({ message: 'Email sent!' }); // Remove this line as it sends a response twice
         }
       });
 
-      return res.status(201).json(count); // This should be the only success response
+      return res.status(201).json(enrollment); // <--- Corrected to send enrollment object
     } else {
       return res.status(400).json({ error: 'Maximum enrollment limit reached.' });
     }
@@ -100,22 +95,22 @@ module.exports.addEventEnrollment_post = async (req, res) => {
   }
 };
 // get all sevices
-module.exports.allEvent_get = async (req, res) => { //possible error sec
+module.exports.allEvent_get = async (req, res) => {
   try {
-const events = await Event.findAll({
-  attributes: {
-    include: [
-      [
-        sequelize.literal('(SELECT COUNT(*) FROM "enrollment" WHERE "enrollment"."enrolled_for_id" = "Event"."id" and "enrollment"."enrolled_for" = \'event\')'),
-        'enrolled_count'
-      ],
-      [
-        sequelize.literal(`CASE WHEN "end_date" > NOW() THEN true ELSE false END`),
-        'status_event'
-      ]
-    ]
-  }
-});
+    const events = await Event.findAll({
+      attributes: {
+        include: [
+          [
+            sequelize.literal('(SELECT COUNT(*) FROM "enrollment" WHERE "enrollment"."enrolled_for_id" = "Event"."id" and "enrollment"."enrolled_for" = \'event\')'),
+            'enrolled_count'
+          ],
+          [
+            sequelize.literal(`CASE WHEN "end_date" > NOW() THEN true ELSE false END`),
+            'status_event'
+          ]
+        ]
+      }
+    });
     res.status(200).json({ events })
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -179,7 +174,7 @@ module.exports.updateEvent_post = async (req, res) => {
       Object.assign(event, updatedEvent)
       event.updatedAt = new Date()
       await event.save()
-      
+
     const events = await Event.findByPk(eventId, {
         attributes: {
     include: [

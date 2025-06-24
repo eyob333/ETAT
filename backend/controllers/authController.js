@@ -66,6 +66,7 @@ module.exports.signup_post = async (req, res) => {
 
 module.exports.login_post = async (req, res) => {
   const { email, password } = req.body
+  console.log(email, password);
 
   try {
     const [refreshToken, accessToken] = await User.login(email, password)
@@ -73,6 +74,7 @@ module.exports.login_post = async (req, res) => {
     res.status(200).json({ accessToken: `${accessToken}` })
   } catch (err) {
     console.log('loginerror')
+    console.log(err);
     const errors = handleErrors(err)
     res.status(401).json({ errors })
   }

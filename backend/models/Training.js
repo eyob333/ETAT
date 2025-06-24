@@ -1,14 +1,18 @@
-const { DataTypes, Sequelize } = require('sequelize')
-const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// models/Training.js
+const { DataTypes, Model } = require('sequelize')
+const sequelize = require('../config/sequelize') // <--- IMPORT THE CENTRALIZED SEQUELIZE INSTANCE
 const slugify = require('slugify')
+const User = require('./User') // Assuming Training has a user_id foreign key to the User model
 
-const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
-  host: HOST,
-  port: PORT,
-  dialect: 'postgres'
-})
+// REMOVE THESE LINES:
+// const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// const sequelize = new Sequelize(DATABASE, USER, PASSWORD, { ... }) // No longer needed here
 
-const Training = sequelize.define('Training', {
+class Training extends Model {
+  // You can add instance or static methods here if needed
+}
+
+Training.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -54,7 +58,7 @@ const Training = sequelize.define('Training', {
     type: DataTypes.DATE
   },
   phases: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING // Assuming phases is a string, e.g., JSON string or comma-separated
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -67,13 +71,15 @@ const Training = sequelize.define('Training', {
   user_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'Users',
+      model: 'users', // Use the actual table name if different from model name 'Users'
       key: 'id'
     }
   }
 }, {
-  tableName: 'trainings',
-  timestamps: true,
+  sequelize, // <--- IMPORTANT: Pass the centralized sequelize instance here
+  modelName: 'Training', // This is the model name for Sequelize
+  tableName: 'trainings', // This is the actual table name in your database
+  timestamps: true, // Sequelize will manage createdAt and updatedAt automatically
   hooks: {
     beforeValidate: (training) => {
       if (training.title) {
@@ -81,6 +87,9 @@ const Training = sequelize.define('Training', {
       }
     }
   }
-})
+});
+
+// Define association here (after both models are defined)
+Training.belongsTo(User, { foreignKey: 'user_id' }); // A Training belongs to a User
 
 module.exports = Training

@@ -1,17 +1,17 @@
-const { DataTypes, Sequelize } = require('sequelize')
-// Assuming db.js contains your database connection details
-const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db') 
-const slugify = require('slugify') // Slugify is not used in this model, but kept for context if needed elsewhere
+// models/Testimonial.js
+const { DataTypes, Model } = require('sequelize')
+const sequelize = require('../config/sequelize') // <--- IMPORT THE CENTRALIZED SEQUELIZE INSTANCE
+// const slugify = require('slugify') // Slugify is not used in this model, no need to require it if not used
 
-// Initialize Sequelize connection using details from db.js
-const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
-  host: HOST,
-  port: PORT,
-  dialect: 'postgres',
-  logging: false // You can set this to console.log to see SQL queries
-})
+// REMOVE THESE LINES:
+// const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// const sequelize = new Sequelize(DATABASE, USER, PASSWORD, { ... }) // No longer needed here
 
-const Testimonial = sequelize.define('Testimonial', {
+class Testimonial extends Model {
+  // You can add instance or static methods here if needed
+}
+
+Testimonial.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -48,10 +48,11 @@ const Testimonial = sequelize.define('Testimonial', {
     defaultValue: DataTypes.NOW
   }
 }, {
+  sequelize, // <--- IMPORTANT: Pass the centralized sequelize instance here
+  modelName: 'Testimonial', // Specifies the model name for Sequelize
   tableName: 'testimonials', // Specifies the table name in your database
-  timestamps: true, // Automatically manages createdAt and updatedAt fields
-  // No hooks needed for slug generation as testimonials typically don't have slugs
+  timestamps: true // Automatically manages createdAt and updatedAt fields
 })
 
-// Export the sequelize instance and the Testimonial model
-module.exports = { sequelize, Testimonial }
+// Export only the Testimonial model, not the sequelize instance from a model file
+module.exports = Testimonial

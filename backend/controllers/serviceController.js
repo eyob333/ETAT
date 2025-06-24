@@ -1,20 +1,24 @@
+// controllers/serviceController.js
 /* eslint-disable camelcase */
-const Service = require('../models/Service')
+const Service = require('../models/Service') // Import the Service model
+// REMOVE THIS: const Sequelize = require('sequelize'); // No longer needed here
+// REMOVE THIS: const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db') // No longer needed
+// REMOVE THIS: const sequelize = new Sequelize(...) // No longer needed
+const SER_URL = process.env.SERVER_URL
 
-// Create a new sevice
+// The controller methods no longer need to accept 'pool'
 module.exports.addService_post = async (req, res) => {
   const { title, body, id } = req.body
-  const picture = req.file ? 'http://localhost:5000/' + req.file.path : ''
+  const picture = req.file ? SER_URL +'/' + req.file.path : ''
   try {
     const user_id = id
-    const service = await Service.create({ title, body, picture, user_id })
+    const service = await Service.create({ title, body, picture, user_id }) // Service model now handles its own connection
     res.status(201).json(service)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
 }
 
-// get all sevices
 module.exports.allService_get = async (req, res) => {
   try {
     const services = await Service.findAll()
@@ -24,7 +28,6 @@ module.exports.allService_get = async (req, res) => {
   }
 }
 
-// Get a specific service by ID
 module.exports.service_get = async (req, res) => {
   const { id } = req.params
   try {
@@ -38,7 +41,6 @@ module.exports.service_get = async (req, res) => {
   }
 }
 
-// Update a specific service
 module.exports.updateService_post = async (req, res) => {
   const serviceId = req.params.id
   const updatedService = req.body
@@ -47,7 +49,7 @@ module.exports.updateService_post = async (req, res) => {
     const service = await Service.findByPk(serviceId)
     if (service) {
       if (req.file) {
-        service.picture = 'http://localhost:5000/' + req.file.path
+        service.picture = SER_URL + '/' + req.file.path
       }
       Object.assign(service, updatedService)
 
@@ -62,7 +64,6 @@ module.exports.updateService_post = async (req, res) => {
   }
 }
 
-// Delete a specific service
 module.exports.deleteService_post = async (req, res) => {
   const serviceId = req.params.id
 

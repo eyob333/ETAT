@@ -1,13 +1,17 @@
-const { DataTypes, Sequelize } = require('sequelize')
-const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// models/Project.js
+const { DataTypes, Model } = require('sequelize')
+const sequelize = require('../config/sequelize') // <--- IMPORT THE CENTRALIZED SEQUELIZE INSTANCE
+const User = require('./User') // <--- Import the User model for association
 
-const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
-  host: HOST,
-  port: PORT,
-  dialect: 'postgres'
-})
+// REMOVE THESE LINES:
+// const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// const sequelize = new Sequelize(DATABASE, USER, PASSWORD, { ... }) // No longer needed here
 
-const Project = sequelize.define('Project', {
+class Project extends Model {
+  // You can add instance or static methods here if needed
+}
+
+Project.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -52,10 +56,10 @@ const Project = sequelize.define('Project', {
   status: {
     type: DataTypes.BOOLEAN
   },
-  user_id: {
+  user_id: { // This column is correctly defined for the foreign key
     type: DataTypes.INTEGER,
     references: {
-      model: 'Users',
+      model: 'users', // Use the actual table name if different from model name 'Users'
       key: 'id'
     }
   },
@@ -68,7 +72,13 @@ const Project = sequelize.define('Project', {
     defaultValue: DataTypes.NOW
   }
 }, {
-  tableName: 'projects',
-  timestamps: true
+  sequelize, // <--- IMPORTANT: Pass the centralized sequelize instance here
+  modelName: 'Project', // This is the model name for Sequelize
+  tableName: 'projects', // This is the actual table name in your database
+  timestamps: true // Sequelize will manage createdAt and updatedAt automatically
 })
+
+// Define association here (after both models are defined)
+Project.belongsTo(User, { foreignKey: 'user_id' }); // A Project belongs to a User
+
 module.exports = Project

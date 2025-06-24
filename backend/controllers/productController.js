@@ -1,10 +1,11 @@
 /* eslint-disable camelcase */
 const Product = require('../models/Product')
 
+const SER_URL = process.env.SERVER_URL
 // Create a new product
 module.exports.addProduct_post = async (req, res) => {
   const { name, description, category, price, id } = req.body
-  const picture = req.file ? 'http://localhost:5000/' + req.file.path : ''
+  const picture = req.file ? SER_URL + '/' + req.file.path : ''
   try {
     const user_id = id
     const product = await Product.create({ name, description, category, price, picture, user_id })
@@ -72,7 +73,7 @@ module.exports.updateProduct_post = async (req, res) => {
 
     // Update the picture if a file was uploaded
     if (req.file) {
-      product.picture = 'http://localhost:5000/' + req.file.path;
+      product.picture =  SER_URL + '/' + req.file.path;
     }
     
     // Handle form data fields
