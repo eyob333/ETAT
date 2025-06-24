@@ -73,7 +73,7 @@ export default function About() {
                 <h1 className="font-bold text-mainColor font-railway-500 mb-5  lg:text-4xl text-2xl underline-offset-2 mx-5">
               Our Story
             </h1>
-                <p className="text-lg mb-4">
+                <p className="text-lg mb-4 font-railway-500">
                   EthioTech-Addis Trading (ETAT) is a technology company that was founded on September 2013,
                   in Addis Ababa, Ethiopia. Initially, ETAT provided consultancy services and supplied various
                   IT equipment through imports. 
@@ -85,7 +85,7 @@ export default function About() {
                   ETAT has become one of the most valuable technology companies in Ethiopia and beyond.
                 </p>
 
-                <p className="text-lg">
+                <p className="text-lg font-railway-500">
                   ETAT provides various Information Technology Enabled services mainly
                   on Technology Consulting, Cyber security, Modern DC and Networking,
                   Business Automation and Intelligence, Software Licensing, Surveillance,

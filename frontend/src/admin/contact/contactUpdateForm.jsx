@@ -138,12 +138,16 @@ export default function ContactUpdateForm() {
               <Field
                 type="text"
                 id="contactMapLocation"
-                name="contactMapLocation"cd
-                placeholder="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3042.494693389089!2d38.75698735062929!3d9.030509805504913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b85897c20787d%3A0x23b9485715a298d9!2z4Yqg4Yid4Ymj4Yiz4Yuw4YitIOGInuGIjQ!5e1!3m2!1sam!2set!4v1749423621801!5m2!1sam!2set"
+                name="contactMapLocation"
+                placeholder="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3042..."
                 className="block w-full px-5 py-2.5 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
               />
               <ErrorMessage name="contactMapLocation" component="div" className="text-red-500  flex items-start" />
-
+              <div className="text-xs text-gray-500 mt-1">
+                For best results, use the <b>Embed a map</b> link from Google Maps.<br />
+                Go to Google Maps → Share → Embed a map → Copy HTML, then paste only the <b>src</b> URL here.<br />
+                Example: <span className="break-all">https://www.google.com/maps/embed?pb=...</span>
+              </div>
             </div>
 
             <button type="submit" className="w-full px-6 flex gap-2 justify-center items-center py-3 mt-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">

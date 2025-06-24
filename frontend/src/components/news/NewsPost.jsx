@@ -19,7 +19,9 @@ export default function NewsPost() {
   const dispatch = useDispatch();
   const { news, isLoading } = useSelector(newsSelector);
   const { slug } = useParams();
+  
   const [likes, setLikes] = useState(0);
+  const [dislikesCount, setDislikesCount] = useState(0);
   const [dislikes, setDislikes] = useState(
     localStorage.getItem(`${slug}no`) || false,
   );
@@ -29,28 +31,28 @@ export default function NewsPost() {
   const [updateNewsLike] = useUpdateNewsLikeMutation();
   const clientUrl = 'http://localhost:3000';
 
-  const handleLike = async (id, like) => {
+  const handleLike = async (id, like, dislike) => {
     const currentLikes = typeof like === 'number' ? like : 0;
-
+    const currentDislikes = typeof dislike === 'number' ? dislike : 0;
     if (likeClicked) {
       try {
-        const updated = Math.max(currentLikes - 1, 0);
-        dispatch(updateLikes({ id, likes: updated }));
-        setLikes(updated);
-        setDislikes(false);
-        const res = await updateNewsLike({ id, total_likes: updated }).unwrap();
+        const updatedLikes = Math.max(currentLikes - 1, 0);
+        dispatch(updateLikes({ id, likes: updatedLikes, dislikes: currentDislikes }));
+        setLikes(updatedLikes);
+        setLikeClicked(false);
+        const res = await updateNewsLike({ id, total_likes: updatedLikes, total_dislikes: currentDislikes }).unwrap();
         localStorage.removeItem(slug);
       } catch (error) {
         console.log(error);
       }
     } else {
       try {
-        const updated = currentLikes + 1;
-        dispatch(updateLikes({ id, likes: updated }));
-        setLikes(updated);
-        setDislikes(false);
+        const updatedLikes = currentLikes + 1;
+        dispatch(updateLikes({ id, likes: updatedLikes, dislikes: currentDislikes }));
+        setLikes(updatedLikes);
         setLikeClicked(true);
-        const res = await updateNewsLike({ id, total_likes: updated }).unwrap();
+        setDislikes(false);
+        const res = await updateNewsLike({ id, total_likes: updatedLikes, total_dislikes: currentDislikes }).unwrap();
         localStorage.setItem(slug, true);
         localStorage.removeItem(`${slug}no`);
       } catch (error) {
@@ -59,24 +61,33 @@ export default function NewsPost() {
     }
   };
 
-
-
-  const handleDisLike = async (id, like) => {
-    if (likeClicked) {
+  const handleDisLike = async (id, like, dislike) => {
+    const currentLikes = typeof like === 'number' ? like : 0;
+    const currentDislikes = typeof dislike === 'number' ? dislike : 0;
+    if (dislikes) {
       try {
-        dispatch(updateLikes({ id, likes: like - 1 }));
-        setLikeClicked(false);
-        setDislikes(!dislikes);
-        await updateNewsLike({ id, total_likes: like - 1, }).unwrap(); // ✅ FIXED
-        setLikes(likes - 1);
-        localStorage.removeItem(slug);
-        localStorage.setItem(`${slug}no`, true);
+        const updatedDislikes = Math.max(currentDislikes - 1, 0);
+        dispatch(updateLikes({ id, likes: currentLikes, dislikes: updatedDislikes }));
+        setDislikesCount(updatedDislikes);
+        setDislikes(false);
+        const res = await updateNewsLike({ id, total_likes: currentLikes, total_dislikes: updatedDislikes }).unwrap();
+        localStorage.removeItem(`${slug}no`);
       } catch (error) {
-        toast.error('could not update');
+        console.log(error);
       }
     } else {
-      setDislikes(!dislikes);
-      localStorage.setItem(`${slug}no`, true);
+      try {
+        const updatedDislikes = currentDislikes + 1;
+        dispatch(updateLikes({ id, likes: currentLikes, dislikes: updatedDislikes }));
+        setDislikesCount(updatedDislikes);
+        setDislikes(true);
+        setLikeClicked(false);
+        const res = await updateNewsLike({ id, total_likes: currentLikes, total_dislikes: updatedDislikes }).unwrap();
+        localStorage.setItem(`${slug}no`, true);
+        localStorage.removeItem(slug);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -102,8 +113,14 @@ export default function NewsPost() {
   useEffect(() => {
     if (news.length === 0) {
       dispatch(fetchNews());
+    } else {
+      const filtered = news.filter((item) => item.slug === slug);
+      if (filtered.length > 0) {
+        setLikes(Math.max(filtered[0].like_count || 0, 0));
+        setDislikesCount(Math.max(filtered[0].dislike_count || 0, 0));
+      }
     }
-  }, [dispatch, news.length]);
+  }, [dispatch, news.length, slug, news]);
 
   let filteredNews;
 
@@ -143,12 +160,15 @@ export default function NewsPost() {
               <div className="flex justify-center items-center gap-3 pr-6">
                 <div className="flex justify-center text-2xl items-center gap-2">
                   <span className="text-gray-600 text-sm">
-                    {filteredNews[0].like_count > 0 ? filteredNews[0].like_count : likes}
+                    Likes: {Math.max(filteredNews[0].like_count, likes)}
                   </span>
-                  <button type="button" onClick={() => handleLike(filteredNews[0].id, filteredNews[0].like_count)}>
+                  <button type="button" onClick={() => handleLike(filteredNews[0].id, filteredNews[0].like_count, filteredNews[0].dislike_count)}>
                     {!likeClicked ? <AiOutlineLike /> : <AiFillLike />}
                   </button>
-                  <button type="button" onClick={() => handleDisLike(filteredNews[0].id, filteredNews[0].like_count)}>
+                  <span className="text-gray-600 text-sm">
+                    Dislikes: {Math.max(filteredNews[0].dislike_count, dislikesCount)}
+                  </span>
+                  <button type="button" onClick={() => handleDisLike(filteredNews[0].id, filteredNews[0].like_count, filteredNews[0].dislike_count)}>
                     {!dislikes ? <AiOutlineDislike /> : <AiFillDislike />}
                   </button>
                 </div>
