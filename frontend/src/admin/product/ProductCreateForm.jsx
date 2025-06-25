@@ -23,7 +23,7 @@ const validationSchema = Yup.object().shape({
     .required('Description is required'),
   productCategory: Yup.string()
     .required('Category is required')
-    .oneOf(['Laptop computers', 'Monitors & Displays', 'Networking Devices', 'Office Equipments', 'Software licenses', 'Others'], 'Invalid category'),
+    .oneOf(['Laptop computers', 'Monitors & Displays', 'Networking Devices', 'Office Equipments', 'Software licenses', 'Printing devices', 'Others'], 'Invalid category'),
   productPrice: Yup.number()
     .typeError('Price must be a number')
     .min(0, 'Price cannot be negative')
@@ -40,6 +40,7 @@ export default function ProductCreateForm() {
     setFile(e.target.files[0]);
     console.log(file);
   };
+  console.log("hello")
 
   const onSubmit = async (values, { setSubmitting, setErrors }) => {
     const formData = new FormData();
@@ -131,6 +132,7 @@ export default function ProductCreateForm() {
                   <option value="Laptop computers">Laptop computers</option>
                   <option value="Printing devices">Printing devices</option>
                   <option value="Software licenses">Software licenses</option>
+
                 </Field>
                 <ErrorMessage name="productCategory" component="div" className="text-red-500 flex items-start" />
               </div>

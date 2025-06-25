@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AiFillLinkedin, AiOutlineWechat } from 'react-icons/ai';
+import { AiFillLinkedin, AiOutlineWechat, AiOutlineTwitter } from 'react-icons/ai';
 import { BsWhatsapp } from 'react-icons/bs';
 import img from '../../assets/image/ethiotech2.webp';
 
@@ -22,13 +22,15 @@ export default function Footer() {
                 </Link>
                 <Link to="https://whatsapp.com/channel/" className="hover:text-secondColor" target="_blank">
                   <span className="sr-only"> Instagram </span>
-                  <BsWhatsapp className="text-2xl" />
+                  <BsWhatsapp className="text-2xl" />         
                 </Link>
-                <Link to=" https://www.wechat.com/`" className="hover:text-secondColor" target="_blank">
+                <Link to=" https://twitter.com/EtatTech" className="hover:text-secondColor" target="_blank">
+                <span className="sr-only"> Twitter </span>
+                <AiOutlineTwitter className="text-2xl" />
+                </Link> 
+                <Link to=" https://www.wechat.com/" className="hover:text-secondColor" target="_blank">
                 <span className="sr-only"> Wechat </span>
                 <AiOutlineWechat className="text-2xl" />
-            
-                
                 </Link> 
               </div>
             </div>
