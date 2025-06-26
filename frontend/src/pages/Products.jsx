@@ -4,7 +4,7 @@ import { Card, CardContent } from "../components/ui/card"
 import { Badge } from "../components/ui/badge"
 import { Button } from "../components/ui/button"
 import { Separator } from "../components/ui/separator"
-import { Laptop, Printer, FileText, Package, Calendar } from 'lucide-react'
+import { Laptop, Printer, FileText, Package, Calendar, Monitor } from 'lucide-react'
 import { fetchProducts } from "../redux/product/productSlice"
 import { productSelector } from "../redux/store"
 import LoadingScreen from "../conditions/LoadingScreen"
@@ -46,6 +46,7 @@ const Products = () => {
     switch(category) {
       case "Laptop computers": return Laptop
       case "Printing devices": return Printer
+      case "Monitors & Displays": return Monitor
       case "Software licenses": return FileText
       default: return Package
     }

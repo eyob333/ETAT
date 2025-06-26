@@ -450,14 +450,12 @@ export default function Project() {
 
                 {/* Dots indicator for direct navigation */}
                 <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-2 mt-4">
-                  {testimonials.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => goToTestimonial(index)}
-                      className={`w-3 h-3 rounded-full transition-all ${
-                        currentTestimonialIndex === index ? "bg-sky-500" : "bg-gray-300 hover:bg-gray-400"
-                      }`}
-                      aria-label={`Go to slide ${index + 1}`}
+                  {testimonials.map((item) => (
+                    <img
+                      key={item.id}
+                      src={item.image || 'https://placehold.co/150x150/000000/FFFFFF?text=No+Image'}
+                      alt={item.name}
+                      className="w-16 h-16 object-cover rounded-full mx-auto mb-2"
                     />
                   ))}
                 </div>
