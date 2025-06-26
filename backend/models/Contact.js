@@ -1,13 +1,16 @@
-const { Sequelize, DataTypes } = require('sequelize')
-const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// models/Contact.js
+const { DataTypes, Model } = require('sequelize')
+const sequelize = require('../config/sequelize') // <--- IMPORT THE CENTRALIZED SEQUELIZE INSTANCE
 
-const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
-  host: HOST,
-  port: PORT,
-  dialect: 'postgres'
-})
+// REMOVE THESE LINES:
+// const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// const sequelize = new Sequelize(DATABASE, USER, PASSWORD, { ... }) // No longer needed here
 
-const Contact = sequelize.define('Contact', {
+class Contact extends Model {
+  // You can add instance or static methods here if needed
+}
+
+Contact.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -55,7 +58,10 @@ const Contact = sequelize.define('Contact', {
     defaultValue: DataTypes.NOW
   }
 }, {
-  tableName: 'contacts'
-})
+  sequelize, // <--- IMPORTANT: Pass the centralized sequelize instance here
+  modelName: 'Contact', // This is the model name for Sequelize
+  tableName: 'contacts', // This is the actual table name in your database
+  timestamps: true // Sequelize will manage createdAt and updatedAt automatically
+});
 
 module.exports = Contact

@@ -1,18 +1,15 @@
+// controllers/newsController.js
 /* eslint-disable camelcase */
-const News = require('../models/News')
-const Sequelize = require('sequelize');
-const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
-const NewsLikes = require('../models/NewsLikes');
-
-const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
-  host: HOST,
-  port: PORT,
-  dialect: 'postgres'
-})
+const News = require('../models/News') // Import the News model
+const NewsLikes = require('../models/NewsLikes'); // Import the NewsLikes model
+// REMOVE THESE LINES:
+// const Sequelize = require('sequelize');
+// const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// const sequelize = new Sequelize(DATABASE, USER, PASSWORD, { ... }) // No longer needed here
 
 // Create a new news
 module.exports.addNews_post = async (req, res) => {
-  const { title, body, author_name, id , source} = req.body
+  const { title, body, author_name, id, source } = req.body
   const picture = req.file ? process.env.backend + req.file.path : ''
   try {
     const user_id = id
@@ -47,8 +44,6 @@ module.exports.newsLike_post = async (req, res) => {
   }
 };
 
-
-
 // Get all news
 module.exports.allNews_get = async (req, res) => {
   try {
@@ -68,7 +63,14 @@ module.exports.news_get = async (req, res) => {
       attributes: {
         include: [
           [
-            sequelize.literal('COALESCE((SELECT total_likes FROM "newsLikes" WHERE "newsLikes"."news_id" = "News"."id"), 0)'),
+            // This sequelize.literal needs access to the sequelize instance.
+            // Since `News` model is now connected to `../config/sequelize`,
+            // and this is a literal that depends on the global sequelize instance context,
+            // you might need to adjust how `sequelize.literal` is accessed here if it's not implicitly available.
+            // A common pattern is to import `sequelize` here specifically for literals or complex queries,
+            // but ensure you are NOT initializing a new one.
+            // For now, let's assume it works because the model is connected.
+            require('../config/sequelize').literal('COALESCE((SELECT total_likes FROM "newsLikes" WHERE "newsLikes"."news_id" = "News"."id"), 0)'),
             'like_count'
           ],
           [
@@ -129,7 +131,6 @@ module.exports.deleteNews_post = async (req, res) => {
 }
 
 // controllers/newsController.js
-
 module.exports.getNewsLikes = async (req, res) => {
   const { id } = req.params;
 

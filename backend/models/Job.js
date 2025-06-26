@@ -1,14 +1,18 @@
-const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
-const { DataTypes, Sequelize } = require('sequelize')
+// models/Job.js
+const { DataTypes, Model } = require('sequelize')
+const sequelize = require('../config/sequelize') // <--- IMPORT THE CENTRALIZED SEQUELIZE INSTANCE
 const slugify = require('slugify')
+const User = require('./User') // <--- Import the User model for association
 
-const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
-  host: HOST,
-  port: PORT,
-  dialect: 'postgres'
-})
+// REMOVE THESE LINES:
+// const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// const sequelize = new Sequelize(DATABASE, USER, PASSWORD, { ... }) // No longer needed here
 
-const Job = sequelize.define('Job', {
+class Job extends Model {
+  // You can add instance or static methods here if needed
+}
+
+Job.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -56,7 +60,7 @@ const Job = sequelize.define('Job', {
     type: DataTypes.STRING
   },
   salary: {
-    type: DataTypes.DECIMAL
+    type: DataTypes.DECIMAL // Use DECIMAL for currency to avoid floating point issues
   },
   start_date: {
     type: DataTypes.DATE
@@ -75,20 +79,25 @@ const Job = sequelize.define('Job', {
   user_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'Users',
+      model: 'users', // Use the actual table name if different from model name 'Users'
       key: 'id'
     }
   }
 }, {
-  tableName: 'jobs',
-  timestamps: true,
+  sequelize, // <--- IMPORTANT: Pass the centralized sequelize instance here
+  modelName: 'Job', // This is the model name for Sequelize
+  tableName: 'jobs', // This is the actual table name in your database
+  timestamps: true, // Sequelize will manage createdAt and updatedAt automatically
   hooks: {
-    beforeValidate: (training) => {
-      if (training.title) {
-        training.slug = slugify(training.title, { lower: true })
+    beforeValidate: (job) => { // Changed 'training' to 'job' for consistency
+      if (job.title) {
+        job.slug = slugify(job.title, { lower: true })
       }
     }
   }
 })
+
+// Define association here (after both models are defined)
+Job.belongsTo(User, { foreignKey: 'user_id' }); // A Job belongs to a User
 
 module.exports = Job

@@ -1,4 +1,4 @@
-const { Testimonial } = require('../models/Testimonial'); // Adjust path if necessary
+const Testimonial = require('../models/Testimonial'); // <--- CORRECTED (WITHOUT CURLY BRACES)
 const { apicache } = require('apicache'); // For clearing cache after CUD operations
 
 // @desc    Get all testimonials

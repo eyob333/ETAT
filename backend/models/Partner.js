@@ -1,13 +1,17 @@
-const { DataTypes, Sequelize } = require('sequelize')
-const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// models/Partner.js
+const { DataTypes, Model } = require('sequelize')
+const sequelize = require('../config/sequelize') // <--- IMPORT THE CENTRALIZED SEQUELIZE INSTANCE
+const User = require('./User') // <--- Import the User model for association
 
-const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
-  host: HOST,
-  port: PORT,
-  dialect: 'postgres'
-})
+// REMOVE THESE LINES:
+// const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// const sequelize = new Sequelize(DATABASE, USER, PASSWORD, { ... }) // No longer needed here
 
-const Partner = sequelize.define('Partner', {
+class Partner extends Model {
+  // You can add instance or static methods here if needed
+}
+
+Partner.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -54,13 +58,18 @@ const Partner = sequelize.define('Partner', {
   user_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'Users',
+      model: 'users', // Use the actual table name if different from model name 'Users'
       key: 'id'
     }
   }
 }, {
-  tableName: 'partners',
-  timestamps: true
+  sequelize, // <--- IMPORTANT: Pass the centralized sequelize instance here
+  modelName: 'Partner', // This is the model name for Sequelize
+  tableName: 'partners', // This is the actual table name in your database
+  timestamps: true // Sequelize will manage createdAt and updatedAt automatically
 })
+
+// Define association here (after both models are defined)
+Partner.belongsTo(User, { foreignKey: 'user_id' }); // A Partner belongs to a User
 
 module.exports = Partner

@@ -1,13 +1,17 @@
-const { DataTypes, Sequelize } = require('sequelize')
-const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// models/JobApplication.js
+const { DataTypes, Model } = require('sequelize')
+const sequelize = require('../config/sequelize') // <--- IMPORT THE CENTRALIZED SEQUELIZE INSTANCE
+const Job = require('./Job') // <--- Import the Job model for association
 
-const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
-  host: HOST,
-  port: PORT,
-  dialect: 'postgres'
-})
+// REMOVE THESE LINES:
+// const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// const sequelize = new Sequelize(DATABASE, USER, PASSWORD, { ... }) // No longer needed here
 
-const JobApplication = sequelize.define('JobApplication', {
+class JobApplication extends Model {
+  // You can add instance or static methods here if needed
+}
+
+JobApplication.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -67,7 +71,7 @@ const JobApplication = sequelize.define('JobApplication', {
   job_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'jobs',
+      model: 'jobs', // Use the actual table name if different from model name 'Job'
       key: 'id'
     }
   },
@@ -76,9 +80,15 @@ const JobApplication = sequelize.define('JobApplication', {
     defaultValue: DataTypes.NOW
   }
 }, {
-  tableName: 'jobApplications',
-  timestamps: true,
-  updatedAt: false
+  sequelize, // <--- IMPORTANT: Pass the centralized sequelize instance here
+  modelName: 'JobApplication', // This is the model name for Sequelize
+  tableName: 'jobApplications', // This is the actual table name in your database
+  timestamps: true, // Keep timestamps true if you want `createdAt`
+  updatedAt: false // <--- This explicitly turns off the `updatedAt` column management.
+                    // If you only want `createdAt` and no `updatedAt`, this is correct.
 })
+
+// Define association here (after both models are defined)
+JobApplication.belongsTo(Job, { foreignKey: 'job_id' }); // A JobApplication belongs to a Job
 
 module.exports = JobApplication

@@ -1,17 +1,16 @@
+// controllers/trainingController.js
 /* eslint-disable camelcase */
 const Training = require('../models/Training')
-const Enrollment = require('../models/Enrollment')
+const Enrollment = require('../models/Enrollment') // Assuming you have an Enrollment model
 const nodemailer = require('nodemailer')
-const Sequelize = require('sequelize');
-const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+const sequelize = require('../config/sequelize'); // <--- IMPORT THE CENTRALIZED SEQUELIZE INSTANCE FOR LITERALS
 
-const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
-  host: HOST,
-  port: PORT,
-  dialect: 'postgres'
-})
+// REMOVE THESE LINES:
+// const Sequelize = require('sequelize');
+// const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
+// const sequelize = new Sequelize(DATABASE, USER, PASSWORD, { ... }) // No longer needed here
 
-// Create a new 
+// Create a new training
 module.exports.addTraining_post = async (req, res) => {
   const { title, body, location, max_enrollment, start_date, end_date, status, phases, id } = req.body
   const picture = req.file ? process.env.backend + req.file.path : ''
@@ -87,8 +86,8 @@ module.exports.addTrainingEnrollment_post = async (req, res) => {
   }
 };
 
-// get all sevices
-module.exports.allTraining_get = async (req, res) => { //error 
+// get all trainings
+module.exports.allTraining_get = async (req, res) => {
   try {
     const trainings = await Training.findAll({
       attributes: {
@@ -170,7 +169,7 @@ module.exports.updateTraining_post = async (req, res) => {
 
       training.updatedAt = new Date()
       await training.save()
-      
+
           const trainings = await Training.findByPk(trainingId, {
         attributes: {
     include: [

@@ -1,102 +1,95 @@
-const { Sequelize, DataTypes } = require('sequelize')
-const { HOST, USER, PORT, PASSWORD, DATABASE } = require('../db')
-const bcrypt = require('bcrypt')
-require('dotenv').config()
-const jwt = require('jsonwebtoken')
+// models/User.js
+const { DataTypes, Model } = require('sequelize');
+const sequelize = require('../config/sequelize');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken'); // <--- ADD THIS LINE
 
-const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
-  host: HOST,
-  port: PORT,
-  dialect: 'postgres'
-})
+class User extends Model {
+    static async login(email, password) {
+        const user = await User.findOne({ where: { email } });
+        console.log("some shit")
+        if (!user) {
+            console.log("some shit")
+            throw new Error('Incorrect email');
+        }
+        
+        const auth = await bcrypt.compare(password, user.password);
+        if (!auth) {
+            console.log("encorrect password")
+            throw new Error('Incorrect password');
+        }
 
-const User = sequelize.define('user', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  first_name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    require: [true, 'Please enter an name']
-  },
-  last_name: {
-    type: DataTypes.STRING
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      notEmpty: {
-        msg: 'Please enter an email'
-      },
-      isEmail: true
+        // --- GENERATE TOKENS HERE ---
+        // Ensure you have JWT_SECRET and JWT_REFRESH_SECRET in your .env file
+        const accessToken = jwt.sign(
+            { id: user.id, email: user.email, role: user.role }, // Payload
+            process.env.ACCESS_TOKEN_SECRET, // <--- Use your ACCESS_TOKEN_SECRET
+            { expiresIn: '15m' } // Short expiry for access token
+        );
+
+        const refreshToken = jwt.sign(
+            { id: user.id, email: user.email, role: user.role }, // Payload
+            process.env.REFRESH_TOKEN_SECRET, // <--- Use your REFRESH_TOKEN_SECRET
+            { expiresIn: '7d' } // Longer expiry for refresh token
+        );
+
+        // Update user's refreshToken in the database (if you have the column)
+        // Make sure you uncomment the refreshToken field in the User.init method below
+        // and ensure your database table has a 'refresh_token' column
+        user.refreshToken = refreshToken;
+        await user.save(); // Save the updated user with the new refresh token
+
+        return [refreshToken, accessToken]; // <--- RETURN AN ARRAY
     }
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      len: {
-        args: [6, 255],
-        msg: 'Password must be above 6 characters'
-      }
-    }
-  },
-  role: {
-    type: DataTypes.STRING
-  },
-  picture: {
-    type: DataTypes.STRING
-  },
-  department: {
-    type: DataTypes.STRING
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  }
-}, {
-  tableName: 'users'
-})
-
-// Before saving the user to the database we hash the password
-User.beforeCreate(async (user, options) => {
-  const salt = await bcrypt.genSalt()
-  user.password = await bcrypt.hash(user.password, salt)
-})
-
-// Static method to login user
-User.login = async function (email, password) {
-  const user = await this.findOne({ where: { email } })
-  if (user) {
-    const auth = await bcrypt.compare(password, user.password)
-    if (auth) {
-      const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
-      const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET
-      const accessToken = jwt.sign(
-        { email },
-        accessTokenSecret,
-        { expiresIn: '1m' }
-      )
-
-      const refreshToken = jwt.sign(
-        { email },
-        refreshTokenSecret,
-        { expiresIn: '1d' }
-      )
-
-      return [refreshToken, accessToken, user]
-    }
-    throw new Error('Incorrect password')
-  }
-  throw new Error('Incorrect email')
 }
 
-module.exports = User
+User.init({
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    first_name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    last_name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+            isEmail: true
+        }
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        set(value) { // Example: Hash password before saving
+            const salt = bcrypt.genSaltSync(10);
+            this.setDataValue('password', bcrypt.hashSync(value, salt));
+        }
+    },
+    role: {
+        type: DataTypes.STRING,
+        defaultValue: 'user'
+    },
+    // Uncomment this if you want to store refresh tokens in the database
+    // refreshToken: {
+    //     type: DataTypes.STRING,
+    //     allowNull: true // Can be null if user logs out or session expires
+    // }
+}, {
+    sequelize,
+    modelName: 'User',
+    tableName: 'users',
+    timestamps: true,
+    // If your database columns for createdAt/updatedAt are `created_at`/`updated_at`,
+    // you might need `underscored: true` here too.
+    // underscored: true
+});
+
+module.exports = User;
