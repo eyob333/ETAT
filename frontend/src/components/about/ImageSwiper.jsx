@@ -39,7 +39,7 @@ const ImageSwiper = ({ images }) => (
                   backgroundPosition: 'center',
                 }}
               >
-                <span id="blackOverlay" className="w-full h-full absolute opacity-75 bg-black" />
+                <span id="blackOverlay" className="w-full h-full absolute opacity-5 bg-black" />
               </div>
             </div>
           </section>
