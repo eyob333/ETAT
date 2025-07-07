@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoCloseSharp } from 'react-icons/io5';
 import { RiArrowDropDownLine } from 'react-icons/ri';
+import img from '../../assets/image/log1.jpg';
 // import { MdArrowDropDown } from 'react-icons/md';
 
 
@@ -48,7 +48,13 @@ export default function Navbar() {
 
   return (
     <div className="sticky top-0 z-30">
-      <nav className="flex ">
+      <nav className="flex relative items-center">
+        {/* Logo always on the left for mobile */}
+        <div className="h-16 w-30 flex-shrink-0 flex  justify-center md:hidden pl-0 py-0">
+          <a href="/" className="h-full w-full flex items-center justify-center">
+            <img src={img} alt="logo" className="h-full w-auto object-contain" />
+          </a>
+        </div>
         <div className="md:flex md-flex-col w-full relative h-16 gap-8 text-sm items-center px-8 py-4 font-poppins font-medium text-white shadow-xl bg-mainColor">
           <div className={`md:flex md-flex-col relative gap-8 mt-28 md:mt-0 ${showContent ? 'bg-black md:bg-transparent mt-[70px] md:mt-0 py-14 md:py-0' : ''}`}>
             {links.map((link) => (
@@ -79,8 +85,8 @@ export default function Navbar() {
             ))}
           </div>
         </div>
-        <div className="flex md:hidden absolute text-lg text-white right-6 top-4 space-arround">
-          <img style={{width: '55px', height: '15px', position: 'relative', right: '70vw', paddingRight: '1vw', filter: 'invert(1)'}} className='right-6 top-4 space-arround"' src="/square_logo_adjusted.png" alt="" />
+        {/* Hamburger/close icon always on the right for mobile */}
+        <div className="flex items-center gap-4 md:hidden absolute text-lg text-white right-6 top-2 justify-end">
           <button type="button" className="text-lg" onClick={handleButtonClick}>
             { !showContent ? <GiHamburgerMenu /> : <IoCloseSharp />}
             

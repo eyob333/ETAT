@@ -110,7 +110,7 @@ export default function ContactForm() {
                 type="email"
                 id="contactEmail"
                 name="contactEmail"
-                placeholder="johndoe@example.com"
+                placeholder="info@ethiotechaddis.com"
                 className="block w-full px-5 py-2.5 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
               />
               <ErrorMessage name="contactEmail" component="div" className="text-red-500  flex items-start" />

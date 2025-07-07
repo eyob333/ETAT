@@ -1,4 +1,3 @@
- 
 import React, { useEffect } from 'react';
 import { useLocation, Outlet } from 'react-router-dom';
 // import Home from '../components/home/Home';
