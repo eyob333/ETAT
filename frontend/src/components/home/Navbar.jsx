@@ -79,9 +79,11 @@ export default function Navbar() {
             ))}
           </div>
         </div>
-        <div className="flex md:hidden absolute text-lg text-white right-6 top-4 justify-end">
+        <div className="flex md:hidden absolute text-lg text-white right-6 top-4 space-arround">
+          <img style={{width: '55px', height: '15px', position: 'relative', right: '70vw', paddingRight: '1vw', filter: 'invert(1)'}} className='right-6 top-4 space-arround"' src="/square_logo_adjusted.png" alt="" />
           <button type="button" className="text-lg" onClick={handleButtonClick}>
             { !showContent ? <GiHamburgerMenu /> : <IoCloseSharp />}
+            
           </button>
         </div>
       </nav>

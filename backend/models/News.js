@@ -24,6 +24,10 @@ const News = sequelize.define('News', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  slug: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   source: {
     type: DataTypes.STRING,
     allowNull: true,

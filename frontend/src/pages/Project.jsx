@@ -421,7 +421,7 @@ export default function Project() {
                     <div className="relative transition-all duration-500 bg-white rounded-md shadow-lg opacity-70 hover:opacity-80 w-[280px] h-[400px]">
                       <img
                         // Use optional chaining for safe access to properties
-                        src={testimonials[nextIndex]?.image || "https://res.cloudinary.com/deqp41wyr/image/upload/v1746007783/Slide_01_dphp7w.jpg"}
+                        src={URL + testimonials[nextIndex]?.image || "https://res.cloudinary.com/deqp41wyr/image/upload/v1746007783/Slide_01_dphp7w.jpg"}
                         alt={testimonials[nextIndex]?.title || "Testimonial Image"}
                         className="object-cover rounded-md w-full h-full"
                       />

@@ -92,8 +92,9 @@ export default function ProjectCreateForm() {
     if (formattedEndDate !== '') {
       formData.append('end_date', formattedEndDate);
     }
+    console.log("FOO ADMIN", admin)
     formData.append('id', admin[0].id);
-
+    console.log("FOO ADMIN", admin)
     if (file === '') {
       toast.error('Please select an image');
     } else {

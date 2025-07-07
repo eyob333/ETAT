@@ -19,6 +19,7 @@ export default function NewsPost() {
   const dispatch = useDispatch();
   const { news, isLoading } = useSelector(newsSelector);
   const { slug } = useParams();
+  console.log("Slug from URL:", slug); // Add this
   
   const [likes, setLikes] = useState(0);
   const [dislikesCount, setDislikesCount] = useState(0);
@@ -29,7 +30,7 @@ export default function NewsPost() {
     localStorage.getItem(slug) || false,
   );
   const [updateNewsLike] = useUpdateNewsLikeMutation();
-  const clientUrl = 'http://localhost:3000';
+  const clientUrl = import.meta.env.VITE_FRONT_URL;
 
   const handleLike = async (id, like, dislike) => {
     const currentLikes = typeof like === 'number' ? like : 0;
@@ -130,6 +131,8 @@ export default function NewsPost() {
 
   if (!isLoading && news.length > 0) {
     filteredNews = news.filter((item) => item.slug === slug);
+    console.log("foo news", news);
+    console.log("foo filtered", filteredNews)
     const targetDateTime = new Date(filteredNews[0].createdAt);
     const timeIn12HourFormat = targetDateTime.toLocaleString('en-US', {
       weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true,
@@ -187,8 +190,8 @@ export default function NewsPost() {
 
             <div className="px-5 w-full mx-auto py-5" dangerouslySetInnerHTML={{ __html: html(`${filteredNews[0].body}`) }} />
             <h1 className='px-5 w-full mx-auto py-5 text-sky-500'>
-  <Link to={filteredNews[0].source}>source: {filteredNews[0].source}</Link>
-</h1>
+              <Link to={filteredNews[0].source}>source: {filteredNews[0].source}</Link>
+            </h1>
             <div className="flex mb-4 px-4 lg:px-0 items-center justify-between mx-5">
               <h2 className="font-semibold text-3xl font-railway">Latest news</h2>
               <Link

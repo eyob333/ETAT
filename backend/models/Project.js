@@ -54,7 +54,7 @@ Project.init({
     type: DataTypes.DATE
   },
   status: {
-    type: DataTypes.BOOLEAN
+    type: DataTypes.STRING
   },
   user_id: { // This column is correctly defined for the foreign key
     type: DataTypes.INTEGER,
